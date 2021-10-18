@@ -9,9 +9,19 @@ class Lesson extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'file',
+        'video',
+    ];
 
     public function course(){
         $this->belongsTo('App\Models\Course','lesson_id','course_id');
+    }
+
+    public function question(){
+        $this->hasOne('App\Models\LessonQuestion','lesson_id','question_id');
     }
 
 }

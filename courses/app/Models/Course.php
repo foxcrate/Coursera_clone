@@ -21,6 +21,12 @@ class Course extends Model
         $this->belongsTo('App\Models\Teacher','course_id','teaher_id');
     }
 
+    public function semester(){
+        $this->belongsTo('App\Models\Semester','course_id','semester_id');
+    }
 
+    public function course_question(){
+        $this->hasMany('App\Models\CourseQuestion','course_id','question_id');
+    }
 
 }

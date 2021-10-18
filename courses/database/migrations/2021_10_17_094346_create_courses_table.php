@@ -19,6 +19,8 @@ class CreateCoursesTable extends Migration
 
             $table->bigInteger('teacher_id');
             $table->bigInteger('lesson_id');
+            $table->bigInteger('question_id');
+            $table->bigInteger('semester_id');
 
             $table->timestamps();
         });

@@ -15,8 +15,14 @@ class CreateLessonsTable extends Migration
     {
         Schema::create('lessons', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->mediumText('description');
+            $table->string('file');
+            $table->string('video');
+            
 
             $table->bigInteger('course_id');
+            $table->bigInteger('question_id');
 
             $table->timestamps();
         });

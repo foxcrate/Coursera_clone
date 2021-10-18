@@ -15,6 +15,16 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+
+            $table->string('name');
+            $table->string('image');
+            $table->enum('type', array('php', 'master', 'diploma', 'fellowship')); 
+            $table->string('video');
+            $table->integer('price');
+            $table->mediumText('summery');
+
+            $table->bigInteger('semester_id');
+
             $table->timestamps();
         });
     }
