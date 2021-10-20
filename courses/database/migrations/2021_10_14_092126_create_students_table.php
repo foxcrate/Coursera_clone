@@ -19,7 +19,7 @@ class CreateStudentsTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
 
-            $table->bigInteger('calender_id');
+            $table->bigInteger('calender_id')->default(0);
 
             $table->rememberToken();
             $table->timestamps();

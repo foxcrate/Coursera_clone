@@ -11,8 +11,8 @@ class LessonQuestion extends Model
 
     protected $fillable = [
         'question',
-        'first_choice',
-        'second_choice',
+        'first_answer',
+        'second_answer',
         'correct_answer',
     ];
 

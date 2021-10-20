@@ -21,5 +21,13 @@ class Semester extends Model
     public function project(){
         $this->belongsTo('App\Models\Project','semester_id','project_id');
     }
+
+    public function research(){
+        $this->hasOne('App\Models\Research','semester_id','research_id');
+    }
+
+    public function uploaded_research(){
+        return $this->hasMany( 'UploadedResearch::class','semester_id','uploaded_research_id');
+    }
     
 }

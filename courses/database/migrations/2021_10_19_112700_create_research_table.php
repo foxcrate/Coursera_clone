@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCalenderIdToStudentsTable extends Migration
+class CreateResearchTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,15 @@ class AddCalenderIdToStudentsTable extends Migration
      */
     public function up()
     {
-        Schema::table('students', function (Blueprint $table) {
-            $table->bigInteger('calender_id');
+        Schema::create('research', function (Blueprint $table) {
+            $table->id();
+
+            $table->string('name');
+            $table->mediumText('description');
+            
+            $table->bigInteger('semester_id')->default(0);
+
+            $table->timestamps();
         });
     }
 
@@ -25,8 +32,6 @@ class AddCalenderIdToStudentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('students', function (Blueprint $table) {
-            $table->dropColumn('calender_id');
-        });
+        Schema::dropIfExists('research');
     }
 }

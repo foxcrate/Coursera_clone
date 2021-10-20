@@ -19,11 +19,11 @@ class CreateCourseQuestionsTable extends Migration
             $table->mediumText('question');
             $table->mediumText('first_answer');
             $table->mediumText('second_answer');
-            $table->mediumText('third_answer');
-            $table->mediumText('fourth_answer');
+            $table->mediumText('third_answer')->default('0');
+            $table->mediumText('fourth_answer')->default('0');
             $table->integer('correct_answer');
 
-            $table->bigInteger('course_id');
+            $table->bigInteger('course_id')->default(0) ;
 
             $table->timestamps();
         });

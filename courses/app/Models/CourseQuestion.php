@@ -11,10 +11,10 @@ class CourseQuestion extends Model
 
     protected $fillable = [
         'question',
-        'first_choice',
-        'second_choice',
-        'third_choice',
-        'fourth_choice',
+        'first_answer',
+        'second_answer',
+        'third_answer',
+        'fourth_answer',
         'correct_answer',
     ];
 

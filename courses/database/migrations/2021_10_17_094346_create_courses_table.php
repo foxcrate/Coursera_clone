@@ -17,10 +17,10 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->string('name');
 
-            $table->bigInteger('teacher_id');
-            $table->bigInteger('lesson_id');
-            $table->bigInteger('question_id');
-            $table->bigInteger('semester_id');
+            $table->bigInteger('teacher_id')->default(0);
+            $table->bigInteger('lesson_id')->default(0);
+            $table->bigInteger('question_id')->default(0);
+            $table->bigInteger('semester_id')->default(0);
 
             $table->timestamps();
         });

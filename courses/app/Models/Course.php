@@ -14,7 +14,7 @@ class Course extends Model
     ];
 
     public function lesson(){
-        $this->hasMany('App\Models\Lesson','course_id','lesson_id');
+        $this->hasMany('App\Models\Lesson','course_id','id');
     }
 
     public function teacher(){
@@ -25,7 +25,7 @@ class Course extends Model
         $this->belongsTo('App\Models\Semester','course_id','semester_id');
     }
 
-    public function course_question(){
+    public function question(){
         $this->hasMany('App\Models\CourseQuestion','course_id','question_id');
     }
 

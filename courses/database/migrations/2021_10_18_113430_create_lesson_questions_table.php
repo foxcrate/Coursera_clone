@@ -21,7 +21,7 @@ class CreateLessonQuestionsTable extends Migration
             $table->mediumText('second_answer');
             $table->integer('correct_answer');
 
-            $table->bigInteger('lesson_id');
+            $table->bigInteger('lesson_id')->default(0);
 
             $table->timestamps();
         });

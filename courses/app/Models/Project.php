@@ -22,4 +22,12 @@ class Project extends Model
         $this->hasMany('App\Models\Semester','project_id','semester_id');
     }
 
+    public function cycle(){
+        $this->belongsTo('App\Models\Cycle','project_id','cycle_id');
+    }
+
+    // public function students(){
+    //     return $this->belongsToMany( 'Student::class','project_student','project_id','student_id');
+    // }
+
 }

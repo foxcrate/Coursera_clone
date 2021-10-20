@@ -19,7 +19,7 @@ class CreateTeachersTable extends Migration
             $table->string('image');
             $table->mediumText('bio');
 
-            $table->bigInteger('course_id');
+            $table->bigInteger('course_id')->default(0);
 
             $table->timestamps();
         });

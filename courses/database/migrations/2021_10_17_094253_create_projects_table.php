@@ -23,7 +23,8 @@ class CreateProjectsTable extends Migration
             $table->integer('price');
             $table->mediumText('summery');
 
-            $table->bigInteger('semester_id');
+            $table->bigInteger('semester_id')->default(0);
+            $table->bigInteger('cycle_id')->default(0);
 
             $table->timestamps();
         });
