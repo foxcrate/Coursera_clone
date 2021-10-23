@@ -4,18 +4,18 @@
 
 @include('admin.templates.navbar')
 
-
+<!-- <h1>{{ $cycles}}</h1> -->
 <div class="container-xl">
 	<div class="table-responsive">
 		<div class="table-wrapper">
 			<div class="table-title">
 				<div class="row">
-					<div class="col-sm-6">
-						<h2>Manage <b>Employees</b></h2>
+					<div class=" col-sm-6 ">
+						<h2>Manage <b>Cycles</b></h2>
 					</div>
-					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Employee</span></a>
-						<a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+					<div class=" col-sm-6 ">
+						<a href="#addCycleModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Cycle</span></a>
+						<!-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						 -->
 					</div>
 				</div>
 			</div>
@@ -28,14 +28,18 @@
 								<label for="selectAll"></label>
 							</span>
 						</th>
+						<th>ID</th>
 						<th>Name</th>
-						<th>Email</th>
+						<th>Start Date</th>
+						<!-- <th>Email</th>
 						<th>Address</th>
-						<th>Phone</th>
-						<th>Actions</th>
+						<th>Phone</th>-->
+						<th>Actions</th> 
 					</tr>
 				</thead>
 				<tbody>
+				@foreach ($cycles as $cycle)
+     
 					<tr>
 						<td>
 							<span class="custom-checkbox">
@@ -43,79 +47,17 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-						<td>Thomas Hardy</td>
-						<td>thomashardy@mail.com</td>
-						<td>89 Chiaroscuro Rd, Portland, USA</td>
-						<td>(171) 555-2222</td>
+						<td> {{$cycle->id}} </td>
+						<td> {{$cycle->name}} </td>
+						<td> {{$cycle->start_date}} </td>
 						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a onClick="edit_function({{$cycle->id}})" href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+							<a onClick="delete_function({{$cycle->id}})" href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 						</td>
 					</tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox2" name="options[]" value="1">
-								<label for="checkbox2"></label>
-							</span>
-						</td>
-						<td>Dominique Perrier</td>
-						<td>dominiqueperrier@mail.com</td>
-						<td>Obere Str. 57, Berlin, Germany</td>
-						<td>(313) 555-5735</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox3" name="options[]" value="1">
-								<label for="checkbox3"></label>
-							</span>
-						</td>
-						<td>Maria Anders</td>
-						<td>mariaanders@mail.com</td>
-						<td>25, rue Lauriston, Paris, France</td>
-						<td>(503) 555-9931</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox4" name="options[]" value="1">
-								<label for="checkbox4"></label>
-							</span>
-						</td>
-						<td>Fran Wilson</td>
-						<td>franwilson@mail.com</td>
-						<td>C/ Araquil, 67, Madrid, Spain</td>
-						<td>(204) 619-5731</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr>					
-					<tr>
-						<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox5" name="options[]" value="1">
-								<label for="checkbox5"></label>
-							</span>
-						</td>
-						<td>Martin Blank</td>
-						<td>martinblank@mail.com</td>
-						<td>Via Monte Bianco 34, Turin, Italy</td>
-						<td>(480) 631-2097</td>
-						<td>
-							<a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-						</td>
-					</tr> 
+
+				@endforeach
+
 				</tbody>
 			</table>
 			<div class="clearfix">
@@ -133,31 +75,24 @@
 		</div>
 	</div>        
 </div>
-<!-- Edit Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
+<!-- Add Modal HTML -->
+<div id="addCycleModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form>
+			<form method="post" action="{{route('cycles.add')}}">
+				@csrf
 				<div class="modal-header">						
-					<h4 class="modal-title">Add Employee</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Add Cycle</h4>
+					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input type="text" class="form-control" required>
+						<input type="text" name="name" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Address</label>
-						<textarea class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" required>
+						<label>Start Date</label>
+						<input type="date" name="start_date" class="form-control" required>
 					</div>					
 				</div>
 				<div class="modal-footer">
@@ -172,27 +107,20 @@
 <div id="editEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form>
+			<form id="edit_form" name="alo" method="post" action="{{route('cycles.edit')}}">
+				@csrf
 				<div class="modal-header">						
-					<h4 class="modal-title">Edit Employee</h4>
+					<h4 class="modal-title">Edit Cycle {{$cycle->id}}</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input type="text" class="form-control" required>
+						<input id="edit_modal_name" name="name" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Email</label>
-						<input type="email" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Address</label>
-						<textarea class="form-control" required></textarea>
-					</div>
-					<div class="form-group">
-						<label>Phone</label>
-						<input type="text" class="form-control" required>
+						<label>Start Date</label>
+						<input type="date" id="edit_modal_start_date" name="start_date" class="form-control" required>
 					</div>					
 				</div>
 				<div class="modal-footer">
@@ -207,9 +135,10 @@
 <div id="deleteEmployeeModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form>
+			<form id="delete_form" method="post" action="{{route('cycles.delete')}}">
+				@csrf
 				<div class="modal-header">						
-					<h4 class="modal-title">Delete Employee</h4>
+					<h4 class="modal-title">Delete Cycle</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
@@ -224,5 +153,80 @@
 		</div>
 	</div>
 </div>
+
+<script> 
+
+	// $(document).ready(function(){
+	// 	// $("#edit_button").click(function(){
+	// 	// 	alert("Alo");
+	// 	// });
+	// });
+	var edit_id = 0;
+	var delete_id = 0;
+
+	function edit_function(id){
+		edit_id = id;
+		//alert(edit_id);
+	}
+
+	function delete_function(id){
+		
+		delete_id = id;
+		// alert(delete_id);
+	}
+
+	$("#edit_form").submit(function(e) {
+
+		e.preventDefault(); // avoid to execute the actual submit of the form.
+
+		var formData = {
+			id:edit_id,
+			name: $("#edit_modal_name").val(),
+			start_date: $("#edit_modal_start_date").val(),
+		};
+
+		$.ajax({
+			headers: {
+     			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   			},
+			type: "POST",
+			url: e.target.action,
+			data: formData,
+			dataType: "json",
+			encode: true,
+			}).done(function (data) {
+			// console.log(data);
+			window.location.reload();
+		});
+
+	});
+
+	$("#delete_form").submit(function(e) {
+
+		//alert(delete_id);
+
+		e.preventDefault(); // avoid to execute the actual submit of the form.
+
+		var formData = {
+			id: delete_id,
+		};
+
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			type: "POST",
+			url: e.target.action,
+			data: formData,
+			dataType: "json",
+			encode: true,
+			}).done(function (data) {
+			//console.log(data);
+			window.location.reload();
+		});
+
+	});
+
+</script>
 
 

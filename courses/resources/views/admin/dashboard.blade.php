@@ -169,4 +169,4 @@
 
 
 
-@include('admin.templates.footer')
+

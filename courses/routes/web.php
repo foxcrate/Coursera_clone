@@ -20,6 +20,7 @@ use App\Http\Controllers\CycleController;
 */
 
 Route::get('/', function () {
+    //return "Alo";
     return view('welcome');
 });
 
@@ -48,7 +49,9 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     Route::group(['prefix'=>'cycles','as'=>'cycles.'], function(){
         Route::get('/', [CycleController::class,'index'])->name('index');
-        Route::get('connect', 'AccountController@connect')->name('connect');
+        Route::post('/add', [CycleController::class,'add'])->name('add');
+        Route::post('/edit', [CycleController::class,'edit'])->name('edit');
+        Route::post('/delete', [CycleController::class,'delete'])->name('delete');
     });
 
 });
