@@ -19,11 +19,11 @@ class CyclePayment extends Model
     ];
 
     public function student(){
-        $this->belongsTo('App\Models\Student','cycle_payment_id','student_id');
+        return $this->belongsTo('App\Models\Student');
     }
 
     public function cycle(){
-        $this->belongsTo('App\Models\Cycle','cycle_payment_id','cycle_id');
+        return $this->belongsTo('App\Models\Cycle');
     }
 
 }

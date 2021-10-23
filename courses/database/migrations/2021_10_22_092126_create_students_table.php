@@ -18,8 +18,17 @@ class CreateStudentsTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-
-            $table->bigInteger('calender_id')->default(0);
+            $table->enum('case', array('normal', 'special'))->nullable();
+            $table->string('phone1')->nullable();
+            $table->string('phone2')->nullable();
+            $table->string('passport')->nullable();
+            $table->string('job')->nullable();
+            $table->integer('country')->nullable();
+            $table->mediumText('general_note')->nullable();
+            $table->mediumText('payment_note')->nullable();
+            $table->date('due_date')->nullable();
+            $table->integer('money_paid')->nullable();
+            $table->integer('money_to_pay')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

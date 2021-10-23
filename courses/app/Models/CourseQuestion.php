@@ -19,7 +19,7 @@ class CourseQuestion extends Model
     ];
 
     public function course(){
-        $this->belongsTo('App\Models\Course','question_id','course_id');
+        return $this->belongsTo('App\Models\Course');
     }
 
 

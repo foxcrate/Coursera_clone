@@ -18,13 +18,15 @@ class CreateProjectsTable extends Migration
 
             $table->string('name');
             $table->string('image');
-            $table->enum('type', array('php', 'master', 'diploma', 'fellowship')); 
+            $table->enum('type', array('phd', 'master', 'diploma', 'fellowship')); 
             $table->string('video');
             $table->integer('price');
             $table->mediumText('summery');
 
-            $table->bigInteger('semester_id')->default(0);
-            $table->bigInteger('cycle_id')->default(0);
+            // $table->bigInteger('semester_id')->default(0);
+            
+            $table->unsignedBigInteger('cycle_id');
+            $table->foreign('cycle_id')->references('id')->on('cycles')->onDelete('cascade');
 
             $table->timestamps();
         });

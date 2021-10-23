@@ -17,11 +17,11 @@ class Lesson extends Model
     ];
 
     public function course(){
-        $this->belongsTo('App\Models\Course','lesson_id','id');
+        return $this->belongsTo('App\Models\Course');
     }
 
     public function question(){
-        $this->hasOne('App\Models\LessonQuestion','lesson_id','question_id');
+        return $this->hasOne('App\Models\LessonQuestion');
     }
 
 }

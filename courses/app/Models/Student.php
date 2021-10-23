@@ -16,35 +16,48 @@ class Student extends Authenticatable
     protected $guard = 'student';
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'case',
+        'phone1',
+        'phone2',
+        'passport',
+        'job',
+        'country',
+        'general_note',
+        'payment_note',
+        'due_date',
+        'money_paid',
+        'money_to_pay',
     ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
 
-    public function calender(){
-        return $this->hasOne( 'App\Models\Calender','student_id','calender_id');
+    public function calenders(){
+        return $this->hasMany( 'App\Models\Calender');
     }
-
-    // public function projects(){
-    //     return $this->belongsToMany( 'Project::class','project_student','student_id','project_id');
-    // }
 
     public function cycle(){
-        return $this->belongsTo( 'Cycle::class','student_id','cycle_id');
+        return $this->belongsTo( Cycle::class);
     }
 
-    public function uploaded_research(){
-        return $this->hasMany( 'UploadedResearch::class','student_id','uploaded_research_id');
+    public function uploaded_researches(){
+        return $this->hasMany( 'UploadedResearch::class');
     }
 
-    public function cycle_payment(){
-        return $this->hasMany( 'CyclePayment::class','student_id','cycle_payment_id');
+    public function cycles_payment(){
+        return $this->hasMany( 'CyclePayment::class');
     }
 
-    public function service_payment(){
-        return $this->hasMany( 'ServicePayment::class','student_id','cycle_payment_id');
+    public function services_payment(){
+        return $this->hasMany( 'ServicePayment::class');
+    }
+
+    public function requests_to_projects(){
+        return $this->hasMany( 'RequestToProject::class');
     }
 
 }

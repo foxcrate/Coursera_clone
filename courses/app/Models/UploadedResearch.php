@@ -16,11 +16,11 @@ class UploadedResearch extends Model
     ];
 
     public function student(){
-        $this->belongsTo('App\Models\Student','uploaded_research_id','student_id');
+        return $this->belongsTo('App\Models\Student');
     }
 
     public function semester(){
-        $this->belongsTo('App\Models\Semester','uploaded_research_id','semester_id');
+        return $this->belongsTo('App\Models\Semester');
     }
 
 }

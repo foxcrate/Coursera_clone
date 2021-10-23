@@ -15,7 +15,7 @@ class Service extends Model
     ];
 
     public function service_payment(){
-        return $this->hasMany( 'ServicePayment::class','service_id','service_payment_id');
+        return $this->hasMany( 'ServicePayment::class');
     }
 
 }

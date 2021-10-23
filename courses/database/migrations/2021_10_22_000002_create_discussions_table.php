@@ -19,9 +19,15 @@ class CreateDiscussionsTable extends Migration
             $table->string('title');
             $table->text('question');
             $table->text('answer');
+            $table->boolean('status')->default(0);
 
-            $table->bigInteger('lesson_id')->default(0);
-            $table->bigInteger('student_id')->default(0);
+            // $table->bigInteger('lesson_id')->default(0);
+            $table->unsignedBigInteger('lesson_id')->nullable();
+            $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
+
+            // $table->bigInteger('student_id')->default(0);
+            $table->unsignedBigInteger('student_id')->nullable();
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
 
             $table->timestamps();
         });

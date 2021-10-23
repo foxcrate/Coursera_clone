@@ -8,6 +8,11 @@
                 <!-- <div class="card-header">{{ __('Login') }}</div> -->
                 <div class="card-header"> {{ isset($url) ? ucwords($url) : ""}} {{ __('Login') }}</div>
 
+                @if(session()->has('error'))
+                    <div class="alert alert-danger">
+                        {{ session()->get('error') }}
+                    </div>
+                @endif
 
                 <div class="card-body">
                     <!-- <form method="POST" action="{{ route('login') }}">

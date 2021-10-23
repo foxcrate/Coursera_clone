@@ -17,11 +17,11 @@ class ServicePayment extends Model
     ];
 
     public function student(){
-        $this->belongsTo('App\Models\Student','service_payment_id','student_id');
+        return $this->belongsTo('App\Models\Student');
     }
 
     public function service(){
-        $this->belongsTo('App\Models\Service','service_payment_id','service_id');
+        return this->belongsTo('App\Models\Service');
     }
 
 }

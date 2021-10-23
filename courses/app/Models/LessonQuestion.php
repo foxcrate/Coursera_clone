@@ -17,7 +17,7 @@ class LessonQuestion extends Model
     ];
 
     public function lesson(){
-        $this->belongsTo('App\Models\Lesson','question_id','lesson_id');
+        return $this->belongsTo('App\Models\Lesson');
     }
 
 }

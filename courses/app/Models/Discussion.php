@@ -13,14 +13,15 @@ class Discussion extends Model
         'title',
         'question',
         'answer',
+        'status',
     ];
 
     public function lesson(){
-        $this->belongsTo('App\Models\Lesson','discussion_id','lesson_id');
+        return $this->belongsTo('App\Models\Lesson');
     }
 
     public function student(){
-        $this->belongsTo('App\Models\Student','discussion_id','student_id');
+        return $this->belongsTo('App\Models\Student');
     }
 
 }

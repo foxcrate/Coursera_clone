@@ -23,8 +23,12 @@ class CreateCyclePaymentsTable extends Migration
             $table->enum('status', array('accepted', 'refused','pending')); 
             $table->string('file');
 
-            $table->bigInteger('student_id')->default(0);
-            $table->bigInteger('cycle_id')->default(0);
+            
+            $table->unsignedBigInteger('student_id')->nullable();
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+
+            $table->unsignedBigInteger('cycle_id')->nullable();
+            $table->foreign('cycle_id')->references('id')->on('cycles')->onDelete('cascade');
 
             $table->timestamps();
         });

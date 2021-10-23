@@ -13,7 +13,7 @@ class AdminController extends Controller
     {
 
         if(Auth::user()->level == 0){
-            return "0";
+            return view('admin/dashboard');
         }
     }    
 

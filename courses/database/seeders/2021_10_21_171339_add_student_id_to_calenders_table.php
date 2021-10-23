@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddUploadedResearchIdToStudents extends Migration
+class AddStudentIdToCalendersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddUploadedResearchIdToStudents extends Migration
      */
     public function up()
     {
-        Schema::table('students', function (Blueprint $table) {
-            $table->bigInteger('uploaded_research_id')->default(0);
+        Schema::table('calenders', function (Blueprint $table) {
+            $table->unsignedBigInteger('student_id');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
         });
     }
 
@@ -25,7 +26,7 @@ class AddUploadedResearchIdToStudents extends Migration
      */
     public function down()
     {
-        Schema::table('students', function (Blueprint $table) {
+        Schema::table('calender', function (Blueprint $table) {
             //
         });
     }

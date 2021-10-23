@@ -21,8 +21,13 @@ class CreateServicePaymentsTable extends Migration
             $table->enum('status', array('accepted', 'refused','pending')); 
             $table->string('file');
 
-            $table->bigInteger('student_id')->default(0);
-            $table->bigInteger('service_id')->default(0);
+            //$table->bigInteger('student_id')->default(0);
+            $table->unsignedBigInteger('student_id');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+
+            //$table->bigInteger('service_id')->default(0);
+            $table->unsignedBigInteger('service_id');
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
 
             $table->timestamps();
         });

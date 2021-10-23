@@ -13,17 +13,19 @@ class Cycle extends Model
         'name', 'start_date',
     ];
 
+    protected $table = "cycles";
+
 
     public function project(){
-        return $this->hasOne('App\Models\Project','cycle_id','project_id');
+        return $this->hasOne(Project::class);
     }
 
     public function students(){
-        return $this->hasMany('App\Models\Student','cycle_id','student_id');
+        return $this->hasMany(Student::class);
     }
 
-    public function cycle_payment(){
-        return $this->hasMany('App\Models\CyclePayment','cycle_id','cycle_payment_id');
+    public function cycle_payments(){
+        return $this->hasMany(CyclePayment::class);
     }
 
 }

@@ -14,20 +14,20 @@ class Semester extends Model
         'duration',
     ];
 
-    public function course(){
-        $this->hasMany('App\Models\Course','semester_id','course_id');
+    public function courses(){
+        return $this->hasMany('App\Models\Course');
     }
 
     public function project(){
-        $this->belongsTo('App\Models\Project','semester_id','project_id');
+        return $this->belongsTo('App\Models\Project');
     }
 
     public function research(){
-        $this->hasOne('App\Models\Research','semester_id','research_id');
+        return $this->hasOne('App\Models\Research');
     }
 
-    public function uploaded_research(){
-        return $this->hasMany( 'UploadedResearch::class','semester_id','uploaded_research_id');
+    public function uploaded_researches(){
+        return $this->hasMany( 'UploadedResearch::class');
     }
     
 }

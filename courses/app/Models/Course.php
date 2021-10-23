@@ -13,20 +13,22 @@ class Course extends Model
         'name',
     ];
 
-    public function lesson(){
-        $this->hasMany('App\Models\Lesson','course_id','id');
+    protected $table = 'courses';
+
+    public function lessons(){
+        $this->hasMany('App\Models\Lesson');
     }
 
-    public function teacher(){
-        $this->belongsTo('App\Models\Teacher','course_id','teaher_id');
+    public function teachers(){
+        return $this->belongsToMany(Teacher::class,'course_teachers');
     }
 
     public function semester(){
-        $this->belongsTo('App\Models\Semester','course_id','semester_id');
+        return $this->belongsTo('App\Models\Semester');
     }
 
-    public function question(){
-        $this->hasMany('App\Models\CourseQuestion','course_id','question_id');
+    public function questions(){
+        return $this->hasMany('App\Models\CourseQuestion');
     }
 
 }

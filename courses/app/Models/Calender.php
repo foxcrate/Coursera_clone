@@ -15,7 +15,7 @@ class Calender extends Model
 
 
     public function student(){
-        return $this->belongsTo( 'App\Models\Student','calender_id','student_id');
+        return $this->belongsTo( 'App\Models\Student');
     }
 
 }

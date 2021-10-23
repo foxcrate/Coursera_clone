@@ -13,8 +13,10 @@ class Teacher extends Model
         'name','image','bio',
     ];
 
-    public function course(){
-        $this->hasMany('App\Models\Course','teacher_id','course_id');
+    protected $table = "teachers";
+
+    public function courses(){
+        return $this->belongsToMany(Course::class,'course_teachers');
     }
 
 }

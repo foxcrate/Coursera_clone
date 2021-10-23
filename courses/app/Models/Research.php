@@ -15,7 +15,7 @@ class Research extends Model
     ];
 
     public function semester(){
-        $this->belongsTo('App\Models\Semester','research_id','semester_id');
+        return $this->belongsTo('App\Models\Semester');
     }
 
 }

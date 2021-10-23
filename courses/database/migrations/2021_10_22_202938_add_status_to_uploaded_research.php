@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCycleIdToProjects extends Migration
+class AddStatusToUploadedResearch extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddCycleIdToProjects extends Migration
      */
     public function up()
     {
-        Schema::table('projects', function (Blueprint $table) {
-            $table->bigInteger('cycle_id')->default(0);
+        Schema::table('uploaded_research', function (Blueprint $table) {
+            $table->enum('status', array('accepted', 'refused','pending')); 
         });
     }
 
@@ -25,8 +25,8 @@ class AddCycleIdToProjects extends Migration
      */
     public function down()
     {
-        Schema::table('projects', function (Blueprint $table) {
-            $table->dropColumn('cycle_id');
+        Schema::table('uploaded_research', function (Blueprint $table) {
+            //
         });
     }
 }

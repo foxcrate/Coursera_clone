@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\CycleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,11 @@ Route::group(['middleware' => 'auth:admin'], function () {
     
     //Route::view('/admin', 'admin');
     Route::get('/admin', [AdminController::class,'divideAdmins']);
+
+    Route::group(['prefix'=>'cycles','as'=>'cycles.'], function(){
+        Route::get('/', [CycleController::class,'index'])->name('index');
+        Route::get('connect', 'AccountController@connect')->name('connect');
+    });
 
 });
 

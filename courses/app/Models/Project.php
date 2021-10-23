@@ -17,17 +17,18 @@ class Project extends Model
         'price',
         'summery',
     ];
+    protected $table = "projects";
 
-    public function semester(){
-        $this->hasMany('App\Models\Semester','project_id','semester_id');
+    public function semesters(){
+        return $this->hasMany(Semester::class);
     }
 
     public function cycle(){
-        $this->belongsTo('App\Models\Cycle','project_id','cycle_id');
+        return $this->belongsTo(Cycle::class);
     }
 
-    // public function students(){
-    //     return $this->belongsToMany( 'Student::class','project_student','project_id','student_id');
-    // }
+    public function request_to_project(){
+        return $this->hasMany( 'RequestToProject::class');
+    }
 
 }

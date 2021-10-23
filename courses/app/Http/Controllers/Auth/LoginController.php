@@ -69,10 +69,10 @@ class LoginController extends Controller
             // elseif($request->level == 2){
             //     return redirect()->intended('/admin2');
             // }
-
+            //return "right";
             return redirect()->intended('/admin');
         }
-        return back()->withInput($request->only('email', 'remember'));
+        return back()->withInput($request->only('email', 'remember'))->with('error', 'You are not registered!');
     }
 
     public function showStudentLoginForm()
