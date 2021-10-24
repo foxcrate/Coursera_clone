@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\CycleController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +53,13 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/add', [CycleController::class,'add'])->name('add');
         Route::post('/edit', [CycleController::class,'edit'])->name('edit');
         Route::post('/delete', [CycleController::class,'delete'])->name('delete');
+    });
+
+    Route::group(['prefix'=>'projects','as'=>'projects.'], function(){
+        Route::get('/', [ProjectController::class,'index'])->name('index');
+        Route::post('/add', [ProjectController::class,'add'])->name('add');
+        Route::post('/edit', [ProjectController::class,'edit'])->name('edit');
+        Route::post('/delete', [ProjectController::class,'delete'])->name('delete');
     });
 
 });

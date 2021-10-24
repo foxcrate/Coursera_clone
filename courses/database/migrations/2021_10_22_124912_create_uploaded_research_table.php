@@ -16,6 +16,7 @@ class CreateUploadedResearchTable extends Migration
         Schema::create('uploaded_research', function (Blueprint $table) {
             $table->id();
             $table->string('file');
+            $table->enum('status', array('accepted', 'refused','pending')); 
 
             // $table->bigInteger('student_id')->default(0);
             $table->unsignedBigInteger('student_id')->nullable();
