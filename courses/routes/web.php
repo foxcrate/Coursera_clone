@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\CycleController;
 use App\Http\Controllers\ProjectController;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,17 @@ use App\Http\Controllers\ProjectController;
 Route::get('/', function () {
     //return "Alo";
     return view('welcome');
+});
+
+Route::get('/refresh_routes', function () {
+
+    Artisan::call('route:clear');
+    Artisan::call('optimize');
+
+    //dd("Routes had refreshed ..");
+    //return redirect()->back();
+
+
 });
 
 Auth::routes();
@@ -60,9 +72,13 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/add', [ProjectController::class,'add'])->name('add');
         Route::post('/edit', [ProjectController::class,'edit'])->name('edit');
         Route::post('/delete', [ProjectController::class,'delete'])->name('delete');
+        Route::get('/details/{id}', [ProjectController::class,'details'])->name('details');
+        Route::get('/data_to_edit', [ProjectController::class,'data_to_edit'])->name('data_to_edit');
     });
 
 });
+
+//Route::get('/details', [ProjectController::class,'details'])->name('details');
 
 Route::get('logout', [LoginController::class,'logout']);
 

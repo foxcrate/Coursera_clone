@@ -38,7 +38,7 @@
                         <th>Image</th>
                         <th>Type</th>
                         <th>Price</th>
-                        <th>Summery</th>
+                        <!-- <th>Summery</th> -->
 						<th>Actions</th> 
 					</tr>
 				</thead>
@@ -65,10 +65,13 @@
                         <td> {{$project->type}} </td>
                         <!-- <td> {{$project->video}} </td> -->
                         <td> {{$project->price}} </td>
-                        <td> {{$project->summery}} </td>
-						<td>
-							<a onClick="edit_function({{$project->id}})" href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a onClick="delete_function({{$project->id}})" href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                        <!-- <td> {{$project->summery}} </td> -->
+						<td >
+							<!-- <a onClick="edit_function({{$project->id}})" href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> -->
+							<a onClick="edit_function({{$project->id}})" href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
+							<!-- <a onClick="delete_function({{$project->id}})" href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> -->
+							<a onClick="delete_function({{$project->id}})" href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
+							<!-- <a href="{{ route('projects.details',['id'=>$project->id]) }}" class="details"><i class="bi bi-eye-fill"></i></a> -->
 						</td>
 					</tr>
 
@@ -76,10 +79,6 @@
 
 				</tbody>
 			</table>
-            <!-- <video width="400" controls>
-                <source src="{{$projects[1]->video}}" type="video/mp4">
-                Your browser does not support HTML video.
-            </video> -->
 			<div class="clearfix">
 				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
 				<ul class="pagination">
@@ -95,9 +94,15 @@
 		</div>
 	</div>        
 </div>
+
+ <!-- <video width="400" controls>
+                <source src="http://localhost:8000/{{ $project->video }}" type="video/mp4">
+                Your browser does not support HTML video.
+            </video> -->
+
 <!-- Add Modal HTML -->
 <div id="addCycleModal" class="modal fade">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<form method="post" action="{{route('projects.add')}}" enctype="multipart/form-data" >
 				@csrf
@@ -108,7 +113,7 @@
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input type="text" name="name" class="form-control" >
+						<input type="text" name="name" class="form-control" required >
 					</div>
                     <div class="form-group">
 						<label>Image</label>
@@ -125,16 +130,22 @@
 					</div>
                     <div class="form-group">
 						<label>Video</label>
-						<input type="file" name="video" class="form-control" >
+						<input type="file" name="video" class="form-control"  required>
 					</div>
                     <div class="form-group">
 						<label>Price</label>
-						<input type="number" name="price" class="form-control" >
+						<input type="number" name="price" class="form-control" required >
 					</div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
 						<label>Summery</label>
 						<input type="text" name="summery" class="form-control" >
-					</div>					
+					</div>		 -->
+					
+					<div class="form-group">
+						<label for="exampleFormControlTextarea1">Summery</label>
+						<textarea class="form-control" name="summery" id="summery" rows="3"  required></textarea>
+					</div>
+
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -146,27 +157,54 @@
 </div>
 <!-- Edit Modal HTML -->
 <div id="editEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form id="edit_form" name="alo" method="post" action="{{route('projects.edit')}}">
+			<form method="post" action="{{route('projects.add')}}" enctype="multipart/form-data" >
 				@csrf
 				<div class="modal-header">						
-					<h4 class="modal-title">Edit Project</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Add Project</h4>
+					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input id="edit_modal_name" name="name" type="text" class="form-control" required>
+						<input type="text" id="edit_name" name="name" class="form-control" required >
 					</div>
+                    <div class="form-group">
+						<label>Image</label>
+						<input type="file" id="edit_image" name="image" class="form-control" required>
+					</div>
+                    <div class="form-group">
+						<label>Type</label>
+						<select name="type" class="form-select" aria-label="Default select example">
+                            <option selected value="php">PHD</option>
+                            <option value="master">Master</option>
+                            <option value="diploma">Diploma</option>
+                            <option value="fellowship">Fellowship</option>
+                        </select>
+					</div>
+                    <div class="form-group">
+						<label>Video</label>
+						<input type="file" id="edit_video" name="video" class="form-control"  required>
+					</div>
+                    <div class="form-group">
+						<label>Price</label>
+						<input type="number" id="edit_price" name="price" class="form-control" required >
+					</div>
+                    <!-- <div class="form-group">
+						<label>Summery</label>
+						<input type="text" name="summery" class="form-control" >
+					</div>		 -->
+					
 					<div class="form-group">
-						<label>Start Date</label>
-						<input type="date" id="edit_modal_start_date" name="start_date" class="form-control" required>
-					</div>					
+						<label for="exampleFormControlTextarea1">Summery</label>
+						<textarea class="form-control" name="summery" id="edit_summery" rows="3"  required></textarea>
+					</div>
+
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-info" value="Save">
+					<input type="submit" class="btn btn-success" value="Add">
 				</div>
 			</form>
 		</div>
@@ -180,7 +218,7 @@
 				@csrf
 				<div class="modal-header">						
 					<h4 class="modal-title">Delete Project</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<button type="button" class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<p>Are you sure you want to delete these Records?</p>
@@ -208,6 +246,25 @@
 	function edit_function(id){
 		edit_id = id;
 		//alert(edit_id);
+		
+		var formData = {
+			id:edit_id,
+		};
+
+		$.ajax({
+			headers: {
+     			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   			},
+			type: "GET",
+			url: "{{ route('projects.data_to_edit') }}" ,
+			data: formData,
+			dataType: "json",
+			encode: true,
+			}).done(function (data) {
+			console.log(data);
+			$("#edit_name").attr("placeholder", data.name);
+		});
+
 	}
 
 	function delete_function(id){

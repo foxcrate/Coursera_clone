@@ -48,7 +48,7 @@ class ProjectController extends Controller
             //$destinationPath = 'path/th/save/file/';
             $video = $request->video;
             $code = rand(1111111, 9999999);
-            $video_new_name=time().$code ."pp";
+            $video_new_name=time().$code ."pv";
             $video->move('uploads/projects/', $video_new_name);
             $new_project->video ='uploads/projects/' . $video_new_name;
         }
@@ -106,4 +106,21 @@ class ProjectController extends Controller
 
         return response(200);;
     }
+
+    public function details($id){
+
+        // return $id;
+
+        $project = Project::find($id);
+
+        return view('admin.projects.details')->with('project',$project) ;
+
+    }
+
+    public function data_to_edit(Request $req){
+        $project = Project::find($req->id);
+
+        return $project;
+    }
+
 }
