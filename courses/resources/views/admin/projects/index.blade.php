@@ -71,7 +71,7 @@
 							<a onClick="edit_function({{$project->id}})" href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
 							<!-- <a onClick="delete_function({{$project->id}})" href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> -->
 							<a onClick="delete_function({{$project->id}})" href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
-							<!-- <a href="{{ route('projects.details',['id'=>$project->id]) }}" class="details"><i class="bi bi-eye-fill"></i></a> -->
+							<a href="{{ route('projects.details',['id'=>$project->id]) }}" class="details"><i class="bi bi-eye-fill"></i></a>
 						</td>
 					</tr>
 
@@ -326,5 +326,3 @@
 	});
 
 </script>
-
-

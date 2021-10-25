@@ -23,8 +23,8 @@ class CreateSemestersTable extends Migration
             // $table->bigInteger('project_id')->default(0);
             // $table->bigInteger('research_id')->default(0);
 
-            $table->unsignedBigInteger('project_id');
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            // $table->unsignedBigInteger('project_id');
+            // $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
 
             $table->timestamps();
         });

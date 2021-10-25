@@ -1,6 +1,6 @@
 <div class=" container parent_to_video_and_tabs">
     <div class="row video_container "> 
-        <video class="project_video" controls>
+        <video class="project_video_in_details" controls>
             <source src="http://localhost:8000/{{ $project->video }}" type="video/mp4">
             Your browser does not support HTML video.
         </video>

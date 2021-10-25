@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\CourseSemester;
+use App\Models\ProjectSemester;
 
 class Project extends Model
 {
@@ -20,7 +22,7 @@ class Project extends Model
     protected $table = "projects";
 
     public function semesters(){
-        return $this->hasMany(Semester::class);
+        return $this->belongsToMany(Semester::class,'project_semesters');
     }
 
     public function cycle(){

@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\CourseSemester;
+use App\Models\ProjectSemester;
 
 class Semester extends Model
 {
     use HasFactory;
+
+    protected $table = "semesters";
 
     protected $fillable = [
         'name',
@@ -15,11 +19,11 @@ class Semester extends Model
     ];
 
     public function courses(){
-        return $this->hasMany('App\Models\Course');
+        return $this->belongsToMany(Course::class,'course_semesters');
     }
 
-    public function project(){
-        return $this->belongsTo('App\Models\Project');
+    public function projects(){
+        return $this->belongsToMany(Project::class,'project_semesters');
     }
 
     public function research(){

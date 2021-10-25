@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Semester;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class ProjectController extends Controller
 {
@@ -71,7 +73,14 @@ class ProjectController extends Controller
     }
 
     public function edit(Request $request){
-        //echo $request;
+        //return "Alo";
+        if($request->has('semesters_array')){
+            return "TRUE";
+        }elseif( ! $request->has('semesters_array')){
+            return "false";
+        }
+        return "ALO";
+
         $my_project = Project::find($request->id);
         //return $request->name;
         $my_project->name = $request->name;
@@ -109,16 +118,25 @@ class ProjectController extends Controller
 
     public function details($id){
 
-        // return $id;
-
         $project = Project::find($id);
+        $project_semesters = $project->semesters ;
+        $all_semesters = Semester::all();
 
-        return view('admin.projects.details')->with('project',$project) ;
+        $array_of_semesters = array();
+        $x=count($project_semesters);
+        for($i = 0;$i<=$x-1;$i++){
+            array_push($array_of_semesters ,$project_semesters[$i]->id );
+        }
+        
+        //return $array_of_semesters;
+        return view('admin.projects.details')->with(['semesters'=>$all_semesters , 'project'=>$project , 'array_of_semesters'=>$array_of_semesters ]) ;
 
     }
 
     public function data_to_edit(Request $req){
         $project = Project::find($req->id);
+
+       
 
         return $project;
     }

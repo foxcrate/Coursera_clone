@@ -118,18 +118,19 @@ a:focus {
 
 
 #sidebar {
-    min-width: 250px;
-    max-width: 250px;
+    min-width: 300px;
+    max-width: 300px;
     /* max-height: 695px; */
     height: 100vh;
     background: #000000;
     color: #fff;
     /* overflow-y: scroll; */
     overflow-y: scroll;
+    /* position: fixed; */
     transition: all 0.3s;
 }
 #sidebar.active {
-    margin-left: -250px;
+    margin-left: -300px;
 }
 
 #sidebar .sidebar-header {
@@ -528,8 +529,11 @@ table.table .avatar {
 
  */
 
- .project_video{
+ .project_video_in_details{
     max-height: 500px;
+}
+.project_video_in_edit{
+    max-height: 300px;
 }
 
 

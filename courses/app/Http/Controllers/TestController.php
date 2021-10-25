@@ -21,44 +21,24 @@ class TestController extends Controller
     public function test(){
      
         {
-            // $c = Cycle::create([
-            //     'name'=> 'first',
-            //     'start_date'=> '2021-10-21',
-            // ]);
+            $s1 = Semester::find(1);
+            $s2 = Semester::find(2);
+            $s3 = Semester::find(3);
+            $s4 = Semester::find(4);
+            $s5 = Semester::find(5);
 
-            // $p = new Project();
-            // $p->name = 'first';
-            // $p->image = 'first';
-            // $p->type = 'php';
-            // $p->video = 'first';
-            // $p->price = 23;
-            // $p->summery = 'first';
-            // //$p->cycle_id = $c->id ;
-            // $p->save();
+            $p1 = Project::find(2);
+            $p2 = Project::find(3);
 
-            // $c = Cycle::find(1);
-            // $p = Project::find(9);
+            $p1->semesters()->attach($s3);
+            $p1->semesters()->attach($s4);
 
-            // dd($c->projects);
+            //dd($p1, $s1, $s2);
+            return $p1->semesters;
 
-            // $c1 = Course::find(1);
-            // $c2 = Course::find(2);
-            // $c3 = Course::find(3);
-
-            // $t1 = Teacher::find(1);
-            // $t2 = Teacher::find(2);
-            // $t3 = Teacher::find(3);
-
-            // $c1->teachers()->attach($t2);
-            // $c1->teachers()->attach($t2);
-            // $t1->courses()->attach($c1);
-            // $t1->courses()->attach($c2);
-
-            // return($t1->courses);
+            
         }
-
-    $all_cycles = Cycle::all();
-    return $all_cycles;        
+       
 
     }
 }

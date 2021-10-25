@@ -21,8 +21,8 @@ class CreateCoursesTable extends Migration
             // $table->bigInteger('lesson_id')->default(0);
             // $table->bigInteger('question_id')->default(0);
             // $table->bigInteger('semester_id')->default(0);
-            $table->unsignedBigInteger('semester_id')->nullable();
-            $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
+            // $table->unsignedBigInteger('semester_id')->nullable();
+            // $table->foreign('semester_id')->references('id')->on('semesters')->onDelete('cascade');
 
             $table->timestamps();
         });
