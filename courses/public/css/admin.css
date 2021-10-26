@@ -7,6 +7,10 @@
     }
   }
 
+.my_p{
+    /* max-width: 100px; */
+}
+
 .footer-ul{
 width: 50%;
 /* background-color: black !important; */

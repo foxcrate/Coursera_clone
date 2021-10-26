@@ -71,6 +71,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::get('/', [ProjectController::class,'index'])->name('index');
         Route::post('/add', [ProjectController::class,'add'])->name('add');
         Route::post('/edit', [ProjectController::class,'edit'])->name('edit');
+        Route::post('/mass_edit', [ProjectController::class,'mass_edit'])->name('mass_edit');
         Route::post('/delete', [ProjectController::class,'delete'])->name('delete');
         Route::get('/details/{id}', [ProjectController::class,'details'])->name('details');
         Route::get('/data_to_edit', [ProjectController::class,'data_to_edit'])->name('data_to_edit');

@@ -24,7 +24,7 @@
 					</div>
 				</div>
 			</div>
-			<table class="table table-striped table-hover">
+			<table style="table-layout:fixed; width: 100%;" class="table table-striped table-hover">
 				<thead>
 					<tr>
 						<th>
@@ -53,7 +53,7 @@
 							</span>
 						</td>
 						<td> {{$project->id}} </td>
-                        <td> {{$project->name}} </td>
+                        <td style="word-wrap: break-word"> <p class="my_p">{{$project->name}}</p> </td>
 						<!-- <td> {{$project->image}} </td> -->
                         @if(isset($project->image))
                             <td>
@@ -71,7 +71,7 @@
 							<a onClick="edit_function({{$project->id}})" href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
 							<!-- <a onClick="delete_function({{$project->id}})" href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> -->
 							<a onClick="delete_function({{$project->id}})" href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
-							<a href="{{ route('projects.details',['id'=>$project->id]) }}" class="details"><i class="bi bi-eye-fill"></i></a>
+							<a href="{{ route('projects.details',['id'=>$project->id]) }}" title="Semesters" class="details"><i class="bi bi-eye-fill"></i></a>
 						</td>
 					</tr>
 
@@ -165,6 +165,7 @@
 					<h4 class="modal-title">Add Project</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
+				
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
@@ -177,7 +178,7 @@
                     <div class="form-group">
 						<label>Type</label>
 						<select name="type" class="form-select" aria-label="Default select example">
-                            <option selected value="php">PHD</option>
+                            <option selected value="phd">PHD</option>
                             <option value="master">Master</option>
                             <option value="diploma">Diploma</option>
                             <option value="fellowship">Fellowship</option>
@@ -191,10 +192,6 @@
 						<label>Price</label>
 						<input type="number" id="edit_price" name="price" class="form-control" required >
 					</div>
-                    <!-- <div class="form-group">
-						<label>Summery</label>
-						<input type="text" name="summery" class="form-control" >
-					</div>		 -->
 					
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Summery</label>
@@ -206,6 +203,7 @@
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 					<input type="submit" class="btn btn-success" value="Add">
 				</div>
+
 			</form>
 		</div>
 	</div>

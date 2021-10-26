@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Semester;
 use phpDocumentor\Reflection\PseudoTypes\True_;
+use App\Services\PayUService\Exception;
+use SebastianBergmann\Environment\Console;
 
 class ProjectController extends Controller
 {
@@ -73,40 +75,162 @@ class ProjectController extends Controller
     }
 
     public function edit(Request $request){
-        $array = array("image" => $_FILES['image'], "video" => $_FILES['video'],'name'=>$request->name);
-        return $array;
-        return $_FILES['image'];
-        return $request;
-        if($request->has('semesters_array')){
-            return "TRUE";
-        }elseif( ! $request->has('semesters_array')){
-            return "false";
-        }
-        return "ALO";
-
+        //return $request;
+        // try{
+        // $array = array("image" => $_FILES['image'], "video" => $_FILES['video']);
+        // }catch (\Exception $e) {
+                //echo $e;
+        // }
         $my_project = Project::find($request->id);
-        //return $request->name;
+
+       
+
+        // $my_project = Project::find($request->id);
+        // return $request->name;
+
+        
+
         $my_project->name = $request->name;
+        $my_project->price = $request->price;
+        $my_project->summery = $request->summery;
         //$new_project->image = $request->image;
-        $image = $request->image;
-        $code = rand(1111111, 9999999);
-        $image_new_name=time().$code ."pp";
-        $image->store('uploads/projects/', $image_new_name);
-        $my_project->image ='uploads/provider/' . $image_new_name;
+
+        // $my_project->save();
+
+        // return response(200);
 
         $my_project->type = $request->type;
         //$new_project->video = $request->video;
-        $video = $request->video;
-        $code = rand(1111111, 9999999);
-        $video_new_name=time().$code ."pv";
-        $video->store('uploads/projects/', $video_new_name);
-        $my_project->video ='uploads/provider/' . $video_new_name;
 
-        $my_project->price = $request->price;
-        $my_project->summery = $request->summery;
+        if($request->has('ajax')){
+            //return "Alo";
+            try{
+                $code = rand(1111111, 9999999);
+                $file = time().$code ."pp" ;
+                $file_loc = $_FILES['image']['tmp_name'];
+                $folder="uploads/projects/";
+                move_uploaded_file($file_loc,$folder.$file);
+                $my_project->image ='uploads/projects/' . $file;
+    
+            }catch (\Exception $e) {
+                //echo $e;
+            }
+    
+            try{
+                $code = rand(1111111, 9999999);
+                $file = time().$code ."pv" ;
+                $file_loc = $_FILES['video']['tmp_name'];
+                $folder="uploads/projects/";
+                move_uploaded_file($file_loc,$folder.$file);
+                $my_project->video ='uploads/projects/' . $file;
+    
+            }catch (\Exception $e) {
+                //echo $e;
+            }
+
+            if($request->has('semesters_array')){
+                // if($request->semesters_array == null){
+                //     $request->semesters_array ='';
+                // }
+                //return "bst";
+                $current_semester_array = [];
+                // return $my_project->semesters[0]->id;
+    
+                if( count($my_project->semesters)  > 0){
+                    foreach( $my_project->semesters as $semester ){
+                        array_push( $current_semester_array , $semester->id );
+                    }
+                    
+                    $my_project->semesters()->detach($current_semester_array);
+                }
+
+                if($request->semesters_array != null){
+                    $x= explode(",",$request->semesters_array);
+                    //return $x;
+                    if( count( $x ) >0){
+                        //return $x;
+                        for( $i=0 ; $i<count($x) ; $i++ ){
+                            $x[$i] = (int)$x[$i] ;
+                        }
+                        $my_project->semesters()->attach($x);
+                    }
+                }
+        
+            }
+
+        }else{
+            if($request->has('video') && $request->video != 'undefined'){
+                $video = $request->video;
+                $code = rand(1111111, 9999999);
+                $video_new_name=time().$code ."pv";
+                $video->move('uploads/projects/', $video_new_name);
+                $my_project->video ='uploads/projects/' . $video_new_name;
+            }
+
+            if($request->has('image') && $request->image != 'undefined'){
+                $image = $request->image;
+                $code = rand(1111111, 9999999);
+                $image_new_name=time().$code ."pp";
+                $image->move('uploads/projects/', $image_new_name);
+                $my_project->image ='uploads/projects/' . $image_new_name;
+            }
+
+            if($request->has('semesters_array')){
+                //return $request->semesters_array;
+                $current_semester_array = [];
+                // return $my_project->semesters[0]->id;
+    
+                if( count($my_project->semesters) > 0){
+                    foreach( $my_project->semesters as $semester ){
+                        array_push( $current_semester_array , $semester->id );
+                    }
+                    
+                    $my_project->semesters()->detach($current_semester_array);
+                }
+                //return $request->semesters_array;
+                // $x= explode(",",$request->semesters_array);
+                $x = $request->semesters_array;
+                for( $i=0 ; $i<count($x) ; $i++ ){
+                    $x[$i] = (int)$x[$i] ;
+                }
+                $my_project->semesters()->attach($x);
+    
+            }
+
+        }
+        
         $my_project->save();
 
-        return response(200);;
+        return back();
+    }
+
+    public function mass_edit(Request $request){
+        //return $request;
+        $my_project = Project::find($request->id);
+
+        if($request->has('semesters_array')){
+            //return $request->semesters_array;
+            $current_semester_array = [];
+            // return $my_project->semesters[0]->id;
+
+            if( count($my_project->semesters) > 0){
+                foreach( $my_project->semesters as $semester ){
+                    array_push( $current_semester_array , $semester->id );
+                }
+                
+                $my_project->semesters()->detach($current_semester_array);
+            }
+            //return $request->semesters_array;
+            // $x= explode(",",$request->semesters_array);
+            $x = $request->semesters_array;
+            for( $i=0 ; $i<count($x) ; $i++ ){
+                $x[$i] = (int)$x[$i] ;
+            }
+            $my_project->semesters()->attach($x);
+
+        }
+        return back();
+
     }
 
     public function delete(Request $request){
