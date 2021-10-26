@@ -12,7 +12,7 @@
                 <div class="card p-3">
                     <h5 class="card-title">Edit Project</h5>
                     <!-- action="{{ route('projects.edit') }}" -->
-                    <form name="edit_form2"  method="post" action="{{ route('projects.edit') }}">
+                    <form name="edit_form2"  method="post" action="{{ route('projects.edit') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group my-4">
                             <label>Name</label>
@@ -26,7 +26,7 @@
                             
                             <img style="height: 80px; width: 200px; margin-bottom: 15px; border-radius:2em;" src="{{asset($project->image)}}">
                             <label>Image</label>
-                            <input name="image" id="project_image" type="text" class="form-control"  value=" {{$project->image}} " >
+                            <input name="image" id="project_image" type="file" class="form-control"  value=" {{$project->image}} " >
                             @error('image')
                             <div class="alert-warning">{{$errors->first('image')}}</div>
                             @enderror
@@ -46,7 +46,7 @@
                                 Your browser does not support HTML video.
                             </video>
                             <label>Video</label>
-                            <input name="price" id="project_video" type="text" class="form-control"  value=" {{$project->video}} " >
+                            <input name="price" id="project_video" type="file" class="form-control"  value=" {{$project->video}} " >
                             @error('video')
                             <div class="alert-warning">{{$errors->first('video')}}</div>
                             @enderror
@@ -69,18 +69,18 @@
                         </div>
 
                         <div class="form-group my-4">
-                            @foreach ( $semesters as $semester )
-                                <div class=" m-2 form-check form-switch form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="{{$semester->id}}" name="{{$semester->id}}"  {{ in_array($semester->id, $array_of_semesters) ? 'checked' : '' }} >
-                                    <label class="form-check-label" for="{{$semester->id}}">{{$semester->name}}</label>
-                                </div>
-                            @endforeach
+                            <label>Semesters</label>
+                            <div class="form-control">
+                                @foreach ( $semesters as $semester )
+                                    <div class=" m-2 form-check form-switch form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="{{$semester->id}}" name="{{$semester->id}}"  {{ in_array($semester->id, $array_of_semesters) ? 'checked' : '' }} >
+                                        <label class="form-check-label" for="{{$semester->id}}">{{$semester->name}}</label>
+                                    </div>
+                                @endforeach 
+                            </div>
                         </div>
 
-                        
-
-                        <input type="reset" class="btn btn-warning mx-2" value="مسح المعلومات">
-                        <input onclick="submit_edit_form()" class="btn btn-info mx-2" value="حفظ">
+                        <input onclick="submit_edit_form()" class="btn btn-info mx-2" value="Save">
                     </form>
                 </div>
             </section>
@@ -93,6 +93,33 @@
     <script>
 
         function submit_edit_form(){
+            var myimage = $('#project_image').prop('files')[0];
+            var myvideo = $('#project_video').prop('files')[0];
+            //console.log(myimage);
+
+            var data = new FormData();
+            data.append('image',myimage);
+            data.append('video',myvideo);
+            data.append('name','ahmed');
+
+            $.ajax({
+			headers: {
+     			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   			},
+			type: "POST",
+			url: "{{ route('projects.edit') }}" ,
+			data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+			}).done(function (data) {
+			console.log('server: ',data);
+			//window.location.reload();
+		    });
+
+        }
+
+        function submit_edit_form1(){
             var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
             var checkboxes_array = [];
 

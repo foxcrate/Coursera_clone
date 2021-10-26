@@ -73,7 +73,10 @@ class ProjectController extends Controller
     }
 
     public function edit(Request $request){
-        //return "Alo";
+        $array = array("image" => $_FILES['image'], "video" => $_FILES['video'],'name'=>$request->name);
+        return $array;
+        return $_FILES['image'];
+        return $request;
         if($request->has('semesters_array')){
             return "TRUE";
         }elseif( ! $request->has('semesters_array')){
