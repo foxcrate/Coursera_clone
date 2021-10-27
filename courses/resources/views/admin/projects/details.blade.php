@@ -10,13 +10,13 @@
         <div class="row mt-3">
             <section class="col">
                 <div class="card p-3">
-                    <h3 class="card-title" style="color:blue;">Edit Project Semesters </h3>
+                    <h3 class="card-title" >Edit <span style="color:blue;"> {{$project->name}}   </span>Semesters </h3>
                     <!-- action="{{ route('projects.edit') }}" -->
                     
                     <form name="edit_form2"  method="post" action="{{ route('projects.mass_edit') }}" enctype="multipart/form-data">
                         @csrf
 
-                        <p style="font-size: 1.5rem;">Project Name: <span style="font-weight: bold;">{{$project->name}}</span> </p>
+                        <!-- <p style="font-size: 1.5rem;">Project Name: <span style="font-weight: bold;">{{$project->name}}</span> </p> -->
                         
 
                         <input type="hidden" name="id" value=" {{$project->id}} ">

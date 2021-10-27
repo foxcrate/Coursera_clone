@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\CycleController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SemesterController;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -75,6 +76,15 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/delete', [ProjectController::class,'delete'])->name('delete');
         Route::get('/details/{id}', [ProjectController::class,'details'])->name('details');
         Route::get('/data_to_edit', [ProjectController::class,'data_to_edit'])->name('data_to_edit');
+    });
+
+    Route::group(['prefix'=>'semesters','as'=>'semesters.'], function(){
+        Route::get('/', [SemesterController::class,'index'])->name('index');
+        Route::post('/add', [SemesterController::class,'add'])->name('add');
+        Route::post('/edit', [SemesterController::class,'edit'])->name('edit');
+        Route::post('/delete', [SemesterController::class,'delete'])->name('delete');
+        Route::post('/mass_edit', [SemesterController::class,'mass_edit'])->name('mass_edit');
+        Route::get('/details/{id}', [SemesterController::class,'details'])->name('details');
     });
 
 });

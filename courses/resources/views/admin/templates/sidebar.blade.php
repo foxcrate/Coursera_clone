@@ -46,6 +46,9 @@
                     <a href="{{ route('projects.index') }}">Projects</a>
                 </li>
                 <li>
+                    <a href="{{ route('semesters.index') }}">Semesters</a>
+                </li>
+                <li>
                     <a href="#">Courses</a>
                 </li>
                 <li>

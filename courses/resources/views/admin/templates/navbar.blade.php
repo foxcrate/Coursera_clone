@@ -5,7 +5,7 @@
 
     <div class="container-fluid">
 
-        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+        <button type="button" id="sidebarCollapse" class="btn nav_left_btn">
             <span class="navbar-toggler-icon"></span>
         </button>
 

@@ -262,9 +262,6 @@ class ProjectController extends Controller
 
     public function data_to_edit(Request $req){
         $project = Project::find($req->id);
-
-       
-
         return $project;
     }
 

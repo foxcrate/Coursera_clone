@@ -155,8 +155,13 @@ a:focus {
 }
 
 #sidebar ul li a:hover {
-    color: #2249e6;
-    background: #fff;
+    /* color: #2249e6;
+    background: #fff; */
+    background: #2249e6;
+}
+
+.nav_left_btn{
+    background: #2249e6;
 }
 
 #sidebar a[data-toggle="collapse"] {
