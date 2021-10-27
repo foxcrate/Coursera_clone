@@ -17,7 +17,7 @@ class Course extends Model
     protected $table = 'courses';
 
     public function lessons(){
-        $this->hasMany('App\Models\Lesson');
+        return $this->hasMany('App\Models\Lesson');
     }
 
     public function teachers(){

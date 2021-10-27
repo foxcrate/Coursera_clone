@@ -52,7 +52,7 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-						<td> {{$project->id}} </td>
+						<td style="word-wrap: break-word"> {{$project->id}} </td>
                         <td style="word-wrap: break-word"> <p class="my_p">{{$project->name}}</p> </td>
 						<!-- <td> {{$project->image}} </td> -->
                         @if(isset($project->image))
@@ -62,11 +62,11 @@
                         @else
                         <td>No Image</td>
                         @endif
-                        <td> {{$project->type}} </td>
+                        <td style="word-wrap: break-word"> {{$project->type}} </td>
                         <!-- <td> {{$project->video}} </td> -->
-                        <td> {{$project->price}} </td>
+                        <td style="word-wrap: break-word"> {{$project->price}} </td>
                         <!-- <td> {{$project->summery}} </td> -->
-						<td >
+						<td style="word-wrap: break-word" >
 							<!-- <a onClick="edit_function({{$project->id}})" href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> -->
 							<a onClick="edit_function({{$project->id}})" href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
 							<!-- <a onClick="delete_function({{$project->id}})" href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> -->

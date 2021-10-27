@@ -19,7 +19,7 @@
 					</div>
 				</div>
 			</div>
-			<table class="table table-striped table-hover">
+			<table style="table-layout:fixed; width: 100%;" class="table table-striped table-hover">
 				<thead>
 					<tr>
 						<th>
@@ -38,16 +38,16 @@
 				@foreach ($semesters as $semester)
      
 					<tr>
-						<td>
+						<td style="word-wrap: break-word">
 							<span class="custom-checkbox">
 								<input type="checkbox" id="checkbox1" name="options[]" value="1">
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-						<td> {{$semester->id}} </td>
-						<td> {{$semester->name}} </td>
-						<td> {{$semester->duration}} </td>
-						<td>
+						<td style="word-wrap: break-word"> {{$semester->id}} </td>
+						<td style="word-wrap: break-word"> {{$semester->name}} </td>
+						<td style="word-wrap: break-word"> {{$semester->duration}} </td>
+						<td style="word-wrap: break-word">
 							<a onClick="edit_function({{$semester->id}})" href="#editSemesterModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
 							<a onClick="delete_function({{$semester->id}})" href="#deleteSemesterModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
                             <a href="{{ route('semesters.details',['id'=>$semester->id]) }}" title="Semesters" class="details"><i class="bi bi-eye-fill"></i></a>

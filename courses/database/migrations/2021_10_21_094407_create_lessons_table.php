@@ -17,7 +17,8 @@ class CreateLessonsTable extends Migration
             $table->id();
             $table->string('name');
             $table->mediumText('description');
-            $table->string('file');
+            $table->string('file')->nullable();
+            $table->integer('order')->default(0);
             $table->string('video');
             
 

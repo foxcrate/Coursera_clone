@@ -19,26 +19,31 @@ use App\Models\UploadedResearch;
 class TestController extends Controller
 {
     public function test(){
-     
-        {
-            $s1 = Semester::find(1);
-            $s2 = Semester::find(2);
-            $s3 = Semester::find(3);
-            $s4 = Semester::find(4);
-            $s5 = Semester::find(5);
 
-            $p1 = Project::find(2);
-            $p2 = Project::find(3);
-
-            $p1->semesters()->attach($s3);
-            $p1->semesters()->attach($s4);
-
-            //dd($p1, $s1, $s2);
-            return $p1->semesters;
-
-            
-        }
-       
+        // $t1 = Teacher::create([
+        //     'name'=>'one',
+        //     'image'=>'one',
+        //     'bio'=>'one',
+        // ]);
+        // $t2 = Teacher::create([
+        //     'name'=>'one',
+        //     'image'=>'one',
+        //     'bio'=>'one',
+        // ]);
+        // $t3 = Teacher::create([
+        //     'name'=>'one',
+        //     'image'=>'one',
+        //     'bio'=>'one',
+        // ]);
+        // $t4 = Teacher::create([
+        //     'name'=>'one',
+        //     'image'=>'one',
+        //     'bio'=>'one',
+        // ]);
+    
+        $c1 = Course::find(1);
+        // $c1->teachers()->attach([$t1->id,$t2->id]);
+        return $c1->teachers;
 
     }
 }

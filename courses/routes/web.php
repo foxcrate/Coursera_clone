@@ -9,6 +9,8 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\CycleController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SemesterController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LessonController;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -85,6 +87,25 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/delete', [SemesterController::class,'delete'])->name('delete');
         Route::post('/mass_edit', [SemesterController::class,'mass_edit'])->name('mass_edit');
         Route::get('/details/{id}', [SemesterController::class,'details'])->name('details');
+    });
+
+    Route::group(['prefix'=>'courses','as'=>'courses.'], function(){
+        Route::get('/', [CourseController::class,'index'])->name('index');
+        Route::post('/add', [CourseController::class,'add'])->name('add');
+        Route::post('/edit', [CourseController::class,'edit'])->name('edit');
+        Route::post('/delete', [CourseController::class,'delete'])->name('delete');
+        Route::post('/mass_edit', [CourseController::class,'mass_edit'])->name('mass_edit');
+        Route::get('/details/{id}', [CourseController::class,'details'])->name('details');
+    });
+
+    Route::group(['prefix'=>'lessons','as'=>'lessons.'], function(){
+        Route::get('/', [LessonController::class,'index'])->name('index');
+        Route::post('/add', [LessonController::class,'add'])->name('add');
+        Route::post('/edit', [LessonController::class,'edit'])->name('edit');
+        Route::post('/delete', [LessonController::class,'delete'])->name('delete');
+        Route::post('/mass_edit', [LessonController::class,'mass_edit'])->name('mass_edit');
+        Route::get('/details/{id}', [LessonController::class,'details'])->name('details');
+        Route::get('/data_to_edit', [LessonController::class,'data_to_edit'])->name('data_to_edit');
     });
 
 });

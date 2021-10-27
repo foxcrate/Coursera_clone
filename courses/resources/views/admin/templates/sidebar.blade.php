@@ -49,7 +49,7 @@
                     <a href="{{ route('semesters.index') }}">Semesters</a>
                 </li>
                 <li>
-                    <a href="#">Courses</a>
+                    <a href="{{ route('courses.index') }}" >Courses</a>
                 </li>
                 <li>
                     <a href="#">Requests To Projects</a>

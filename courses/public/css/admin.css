@@ -7,6 +7,14 @@
     }
   }
 
+.modal:nth-of-type(odd) {
+    z-index: 1052 !important;
+}
+
+.modal-backdrop.show:nth-of-type(odd) {
+    z-index: 1051 !important;
+}
+
 .my_p{
     /* max-width: 100px; */
 }
@@ -122,8 +130,8 @@ a:focus {
 
 
 #sidebar {
-    min-width: 300px;
-    max-width: 300px;
+    min-width: 245px;
+    max-width: 245px;
     /* max-height: 695px; */
     height: 100vh;
     background: #000000;
@@ -134,7 +142,7 @@ a:focus {
     transition: all 0.3s;
 }
 #sidebar.active {
-    margin-left: -300px;
+    margin-left: -245px;
 }
 
 #sidebar .sidebar-header {
