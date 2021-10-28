@@ -131,19 +131,19 @@
                     <div class="form-group mt-2">
 						<label>Lesson Question</label>
 						<!-- <input type="text" id="lesson_question" name="lesson_question" class="form-control" required> -->
-                        <textarea class="form-control" name="lesson_question" id="lesson_question" rows="3"  required></textarea>
+                        <textarea class="form-control" name="question" id="lesson_question" rows="3"  required></textarea>
 					</div>
                     <div class="form-group mt-2">
 						<label>First Choice</label>
-						<input type="text-area" id="lesson_question_first_choice" name="lesson_question_first_choice" class="form-control" required>
+						<input type="text" id="lesson_question_first_choice" name="first_answer" class="form-control" required>
 					</div>
                     <div class="form-group mt-2">
 						<label>Second Choice</label>
-						<input type="text-area" id="lesson_question_second_choice" name="lesson_question_second_choice" class="form-control" required>
+						<input type="text" id="lesson_question_second_choice" name="second_answer" class="form-control" required>
 					</div>
                     <div class="form-group mt-2">
 						<label>Correct Answer</label>
-						<input type="text-area" id="lesson_question_correct_answer" name="lesson_question_correct_answer" class="form-control" required>
+						<input type="number" id="lesson_question_correct_answer" name="correct_answer" class="form-control" required>
 					</div>					
 				</div>
 				<div class="modal-footer">
@@ -187,7 +187,23 @@
                         <button onclick="video_tab()" class="btn btn-primary mb-2">View Video</button>
 						<label>Video</label>
 						<input type="file" id="edit_modal_video69" name="video" class="form-control" placeholder="Please upload the video again" required>
-					</div>					
+					</div>
+                    <div class="form-group">
+						<label>Lesson Question</label>
+						<textarea class="form-control" name="question" id="edit_modal_lesson_question" rows="3"  required></textarea>
+					</div>
+                    <div class="form-group">
+						<label>First Choice</label>
+						<input type="text" id="edit_modal_first_choice" name="first_answer" class="form-control" required>
+					</div>
+                    <div class="form-group">
+						<label>Second Choice</label>
+						<input type="text" id="edit_modal_second_choice" name="second_answer" class="form-control" required>
+					</div>
+                    <div class="form-group">
+						<label>Correct Answer</label>
+						<input type="number" id="edit_modal_correct_answer" name="correct_answer" class="form-control" required>
+					</div>				
 				</div>
 
 				<div class="modal-footer">
@@ -268,12 +284,18 @@
                 dataType: "json",
                 encode: true,
                 }).done(function (data) {
-                    //console.log(data.name);
-                    $("#edit_modal_name").attr("value", data.name);
-                    $("#edit_modal_order").attr("value", data.order);
-                    $("#edit_modal_description").attr("value", data.description);
-                    $("#edit_modal_video").attr("src", 'http://localhost:8000/' + data.video );
-                    video_url = 'http://localhost:8000/' + data.video  ;
+                    console.log(data);
+                    $("#edit_modal_name").attr("value", data.lesson.name);
+                    $("#edit_modal_order").attr("value", data.lesson.order);
+                    $("#edit_modal_description").attr("value", data.lesson.description);
+                    $("#edit_modal_video").attr("src", 'http://localhost:8000/' + data.lesson.video );
+                    video_url = 'http://localhost:8000/' + data.lesson.video  ;
+                    //$("#edit_modal_lesson_question").attr("value", data.lesson_question.question);
+                    $("#edit_modal_lesson_question").val( data.lesson_question.question );
+                    $("#edit_modal_first_choice").attr("value", data.lesson_question.first_answer);
+                    $("#edit_modal_second_choice").attr("value", data.lesson_question.second_answer);
+                    $("#edit_modal_correct_answer").attr("value", data.lesson_question.correct_answer);
+
                     //alert("Alo");
                     // $('#editSemesterModal').modal('toggle');
             });

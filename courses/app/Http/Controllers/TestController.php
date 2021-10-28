@@ -26,24 +26,23 @@ class TestController extends Controller
         //     'bio'=>'one',
         // ]);
         // $t2 = Teacher::create([
-        //     'name'=>'one',
+        //     'name'=>'two',
         //     'image'=>'one',
         //     'bio'=>'one',
         // ]);
         // $t3 = Teacher::create([
-        //     'name'=>'one',
+        //     'name'=>'three',
         //     'image'=>'one',
         //     'bio'=>'one',
         // ]);
         // $t4 = Teacher::create([
-        //     'name'=>'one',
+        //     'name'=>'four',
         //     'image'=>'one',
         //     'bio'=>'one',
         // ]);
     
-        $c1 = Course::find(1);
-        // $c1->teachers()->attach([$t1->id,$t2->id]);
-        return $c1->teachers;
+        // $c1 = Course::find(1);
+        // $c1->teachers()->attach([$t1->id,$t3->id]);
 
     }
 }

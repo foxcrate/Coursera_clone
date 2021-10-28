@@ -25,8 +25,16 @@ use Illuminate\Support\Facades\Artisan;
 */
 
 Route::get('/', function () {
-    //return "Alo";
+    
+    //return Auth::check() ;
+    if (Auth::check()) {
+        if(Auth::user()->level == 0){
+            return view('welcome');
+        }
+    }else{
+
     return view('welcome');
+    }
 });
 
 Route::get('/refresh_routes', function () {
@@ -63,11 +71,14 @@ Route::group(['middleware' => 'auth:admin'], function () {
     //Route::view('/admin', 'admin');
     Route::get('/admin', [AdminController::class,'divideAdmins']);
 
+    
     Route::group(['prefix'=>'cycles','as'=>'cycles.'], function(){
+
         Route::get('/', [CycleController::class,'index'])->name('index');
         Route::post('/add', [CycleController::class,'add'])->name('add');
         Route::post('/edit', [CycleController::class,'edit'])->name('edit');
         Route::post('/delete', [CycleController::class,'delete'])->name('delete');
+
     });
 
     Route::group(['prefix'=>'projects','as'=>'projects.'], function(){

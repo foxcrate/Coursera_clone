@@ -30,12 +30,20 @@ class LessonController extends Controller
             //$new_project->video ='uploads/lessons/' . $video_new_name;
         }
 
-        $new_course = Lesson::create([
+        $new_lesson = Lesson::create([
             'name'=>$request->name,
             'order'=>$request->order,
             'description'=>$request->description,
             'video'=> 'uploads/lessons/' . $video_new_name,
             'course_id'=>$request->id,
+        ]);
+
+        $new_lesson_question = LessonQuestion::create([
+            'lesson_id'=> $new_lesson->id,
+            'question' => $request->question ,
+            'first_answer' => $request->first_answer ,
+            'second_answer' => $request->second_answer ,
+            'correct_answer' => $request->correct_answer ,
         ]);
         
         return redirect()->back();
@@ -86,7 +94,14 @@ class LessonController extends Controller
 
         $the_lesson = Lesson::find($request->id);
 
-        return $the_lesson;
+        $the_lesson_question = $the_lesson->question;
+
+        $data = [
+            'lesson'=>$the_lesson,
+            'lesson_question'=>$the_lesson_question,
+        ];
+
+        return $data;
 
     }
 
@@ -97,7 +112,7 @@ class LessonController extends Controller
         $c = $my_lesson->delete();
         //return $c;
 
-        return response(200);;
+        return redirect()->back();
     }
 
 }
