@@ -11,6 +11,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -25,27 +27,14 @@ use Illuminate\Support\Facades\Artisan;
 */
 
 Route::get('/', function () {
-    
-    //return Auth::check() ;
-    if (Auth::check()) {
-        if(Auth::user()->level == 0){
-            return view('welcome');
-        }
-    }else{
 
     return view('welcome');
-    }
 });
 
 Route::get('/refresh_routes', function () {
 
     Artisan::call('route:clear');
     Artisan::call('optimize');
-
-    //dd("Routes had refreshed ..");
-    //return redirect()->back();
-
-
 });
 
 Auth::routes();
@@ -63,13 +52,15 @@ Route::post('/register/admin', [RegisterController::class,'createAdmin']);
 Route::post('/register/student', [RegisterController::class,'createStudent']);
 
 Route::group(['middleware' => 'auth:student'], function () {
+
     Route::view('/student', 'student');
+
 });
 
 Route::group(['middleware' => 'auth:admin'], function () {
     
     //Route::view('/admin', 'admin');
-    Route::get('/admin', [AdminController::class,'divideAdmins']);
+    // Route::get('/admin', [AdminController::class,'divideAdmins']);
 
     
     Route::group(['prefix'=>'cycles','as'=>'cycles.'], function(){
@@ -117,6 +108,25 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/mass_edit', [LessonController::class,'mass_edit'])->name('mass_edit');
         Route::get('/details/{id}', [LessonController::class,'details'])->name('details');
         Route::get('/data_to_edit', [LessonController::class,'data_to_edit'])->name('data_to_edit');
+    });
+
+    Route::group(['prefix'=>'teachers','as'=>'teachers.'], function(){
+
+        Route::get('/', [TeacherController::class,'index'])->name('index');
+        Route::post('/add', [TeacherController::class,'add'])->name('add');
+        Route::post('/edit', [TeacherController::class,'edit'])->name('edit');
+        Route::post('/delete', [TeacherController::class,'delete'])->name('delete');
+        Route::get('/data_to_edit', [TeacherController::class,'data_to_edit'])->name('data_to_edit');
+    });
+
+    Route::group(['prefix'=>'students','as'=>'students.'], function(){
+
+        Route::get('/', [StudentController::class,'index'])->name('index');
+        Route::post('/add', [StudentController::class,'add'])->name('add');
+        Route::post('/edit', [StudentController::class,'edit'])->name('edit');
+        Route::post('/delete', [StudentController::class,'delete'])->name('delete');
+        Route::get('/data_to_edit', [StudentController::class,'data_to_edit'])->name('data_to_edit');
+        
     });
 
 });

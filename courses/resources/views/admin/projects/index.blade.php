@@ -1,9 +1,12 @@
-@include('admin.templates.header')
+@extends('admin.templates.header')
 
 @include('admin.templates.sidebar')
 
 @include('admin.templates.navbar')
 
+@section('title')
+<title>My Projects</title>
+@endsection
 
 <div class="container-xl">
 	<div class="table-responsive">

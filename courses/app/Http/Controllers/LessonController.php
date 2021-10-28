@@ -72,24 +72,6 @@ class LessonController extends Controller
         return redirect()->back();
     }
 
-    // public function details($id){
-
-    //     $course = Course::find($id);
-    //     $course_lessons = $course->lessons ;
-    //     $all_lessons = Lesson::all();
-
-    //     $array_of_lessons = array();
-    //     $x=count($course_lessons);
-    //     for($i = 0;$i<=$x-1;$i++){
-    //         array_push($array_of_lessons ,$course_lessons[$i]->id );
-    //     }
-    //     $elequent_lessons = Lesson::whereIn('id', $array_of_lessons)->orderBy('order','ASC')->get();
-        
-    //     //return $elequent_lessons;
-    //     return view('admin.courses.details')->with(['lessons'=>$all_lessons , 'course'=>$course , 'array_of_lessons'=>$array_of_lessons, 'elequent_lessons'=>$elequent_lessons ]) ;
-
-    // }
-
     public function data_to_edit(Request $request){
 
         $the_lesson = Lesson::find($request->id);

@@ -21,6 +21,7 @@ class CreateStudentsTable extends Migration
             $table->enum('case', array('normal', 'special'))->nullable();
             $table->string('phone1')->nullable();
             $table->string('phone2')->nullable();
+            $table->boolean('status')->default(1);
             $table->string('passport')->nullable();
             $table->string('job')->nullable();
             $table->integer('country')->nullable();

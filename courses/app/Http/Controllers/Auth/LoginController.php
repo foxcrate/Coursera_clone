@@ -70,7 +70,7 @@ class LoginController extends Controller
             //     return redirect()->intended('/admin2');
             // }
             //return "right";
-            return redirect()->intended('/admin');
+            return redirect()->intended('/cycles');
         }
         return back()->withInput($request->only('email', 'remember'))->with('error', 'You are not registered!');
     }
@@ -92,6 +92,15 @@ class LoginController extends Controller
             return redirect()->intended('/student');
         }
         return back()->withInput($request->only('email', 'remember'));
+    }
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return $this->loggedOut($request) ?: redirect('/');
     }
 
 }

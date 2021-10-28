@@ -14,7 +14,7 @@
                     <a href="{{ route('cycles.index') }}">Cycles</a>
                 </li>
                 <li>
-                    <a href="#">Teachers</a>
+                    <a href="{{ route('teachers.index') }}">Teachers</a>
                 </li>
                 <!-- <li>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Library</a>
@@ -28,7 +28,7 @@
                     </ul>
                 </li> -->
                 <li>
-                    <a href="#">Students</a>
+                    <a href="{{ route('students.index') }}">Students</a>
                 </li>
                 <li>
                     <a href="#">Cycles Payements</a>
