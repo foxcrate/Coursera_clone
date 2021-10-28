@@ -29,7 +29,7 @@
                             </div>
                         </div>
 
-                        <input onclick="new_class()" class="btn btn-info mx-2" value="Save">
+                        <input onclick="new_class()" type="submit" class="btn btn-info mx-2" value="Save">
                     </form>
                 </div>
             </section>

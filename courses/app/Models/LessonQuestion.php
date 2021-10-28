@@ -14,6 +14,7 @@ class LessonQuestion extends Model
         'first_answer',
         'second_answer',
         'correct_answer',
+        'lesson_id',
     ];
 
     public function lesson(){
