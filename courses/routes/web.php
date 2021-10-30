@@ -13,6 +13,9 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\ServicePaymentController;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -126,6 +129,36 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/edit', [StudentController::class,'edit'])->name('edit');
         Route::post('/delete', [StudentController::class,'delete'])->name('delete');
         Route::get('/data_to_edit', [StudentController::class,'data_to_edit'])->name('data_to_edit');
+        
+    });
+
+    Route::group(['prefix'=>'services','as'=>'services.'], function(){
+
+        Route::get('/', [ServiceController::class,'index'])->name('index');
+        Route::post('/add', [ServiceController::class,'add'])->name('add');
+        Route::post('/edit', [ServiceController::class,'edit'])->name('edit');
+        Route::post('/delete', [ServiceController::class,'delete'])->name('delete');
+        Route::get('/data_to_edit', [ServiceController::class,'data_to_edit'])->name('data_to_edit');
+        
+    });
+
+    Route::group(['prefix'=>'books','as'=>'books.'], function(){
+
+        Route::get('/', [BookController::class,'index'])->name('index');
+        Route::post('/add', [BookController::class,'add'])->name('add');
+        Route::post('/edit', [BookController::class,'edit'])->name('edit');
+        Route::post('/delete', [BookController::class,'delete'])->name('delete');
+        Route::get('/data_to_edit', [BookController::class,'data_to_edit'])->name('data_to_edit');
+        
+    });
+
+    Route::group(['prefix'=>'service_payments','as'=>'service_payments.'], function(){
+
+        Route::get('/', [ServicePaymentController::class,'index'])->name('index');
+        Route::post('/add', [ServicePaymentController::class,'add'])->name('add');
+        Route::post('/edit', [ServicePaymentController::class,'edit'])->name('edit');
+        Route::post('/delete', [ServicePaymentController::class,'delete'])->name('delete');
+        Route::get('/data_to_edit', [ServicePaymentController::class,'data_to_edit'])->name('data_to_edit');
         
     });
 

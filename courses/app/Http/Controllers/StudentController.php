@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use App\Models\Student;
 use App\Models\Cycle;
 use App\Models\Project;
@@ -28,7 +29,7 @@ class StudentController extends Controller
         $new_student = Student::create([
             'name'=>$request->name,
             'email'=>$request->email,
-            'password'=>$request->password,
+            'password'=>json_encode($request->password),
             'phone1'=>$request->phone1,
             'phone2'=>$request->phone2,
             'case'=>$request->case,
@@ -54,7 +55,7 @@ class StudentController extends Controller
         //return $request->name;
         $my_student->name = $request->name;
         $my_student->email = $request->email;
-        $my_student->password = $request->password;
+        $my_student->password = json_encode($request->password);
         $my_student->case = $request->case;
         $my_student->phone1 = $request->phone1;
         $my_student->phone2 = $request->phone2;
@@ -76,7 +77,26 @@ class StudentController extends Controller
 
         $the_student = Student::find($request->id);
 
-        return $the_student;
+
+
+        $array[] = [
+            'name' => $the_student->name ,
+            'email' =>$the_student->email  ,
+            'password' =>json_decode($the_student->password) ,
+            'case' =>$the_student->case ,
+            'phone1' =>$the_student->phone1 ,
+            'phone2' =>$the_student->phone2 ,
+            'status' =>$the_student->status ,
+            'passport' =>$the_student->passport ,
+            'job' =>$the_student->job ,
+            'country' =>$the_student->country ,
+            'general_note' =>$the_student->general_note ,
+            'payment_note' =>$the_student->payment_note ,
+            'money_paid' =>$the_student->money_paid ,
+            'money_to_pay' =>$the_student->money_to_pay ,
+        ];
+
+        return $array[0];
 
     }
 

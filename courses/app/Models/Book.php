@@ -13,5 +13,6 @@ class Book extends Model
         'abstract_file',
         'full_file',
         'cover',
+        'cost',
     ];
 }

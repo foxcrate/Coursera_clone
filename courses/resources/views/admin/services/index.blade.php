@@ -11,10 +11,10 @@
 			<div class="table-title">
 				<div class="row">
 					<div class=" col-sm-6 ">
-						<h2>Manage <b>Teachers</b></h2>
+						<h2>Manage <b>Services</b></h2>
 					</div>
 					<div class=" col-sm-6 ">
-						<a href="#addTeacherModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Teacher</span></a>
+						<a href="#addServiceModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Service</span></a>
 						<!-- <a href="#deleteSemesterModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						 -->
 					</div>
 				</div>
@@ -30,13 +30,12 @@
 						</th>
 						<th>ID</th>
 						<th>Name</th>
-						<th>image</th>
-                        <!-- <th>bio</th> -->
+						<th>Cost</th>
 						<th>Actions</th> 
 					</tr>
 				</thead>
 				<tbody>
-				@foreach ($teachers as $teacher)
+				@foreach ($services as $service)
      
 					<tr>
 						<td style="word-wrap: break-word">
@@ -45,12 +44,12 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-						<td style="word-wrap: break-word"> {{$teacher->id}} </td>
-						<td style="word-wrap: break-word"> {{$teacher->name}} </td>
-                        <td> <img style="height: 60px; width: 60px; margin-bottom: 15px; border-radius:2em;" src="{{asset($teacher->image)}}"> </td>
+						<td style="word-wrap: break-word"> {{$service->id}} </td>
+						<td style="word-wrap: break-word"> {{$service->name}} </td>
+                        <td style="word-wrap: break-word"> {{$service->cost}} </td>
 						<td style="word-wrap: break-word">
-							<a onClick="edit_function({{$teacher->id}})" href="#editTeacherModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
-							<a onClick="delete_function({{$teacher->id}})" href="#deleteTeacherModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
+							<a onClick="edit_function({{$service->id}})" href="#editServiceModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
+							<a onClick="delete_function({{$service->id}})" href="#deleteServiceModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
 						</td>
 					</tr>
 
@@ -74,27 +73,35 @@
 	</div>        
 </div>
 <!-- Add Modal HTML -->
-<div id="addTeacherModal" class="modal fade">
+<div id="addServiceModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form method="post" action="{{route('teachers.add')}}" enctype="multipart/form-data">
+			<form method="post" action="{{route('services.add')}}" enctype="multipart/form-data">
 				@csrf
 				<div class="modal-header">						
-					<h4 class="modal-title">Add Teacher</h4>
+					<h4 class="modal-title">Add Service</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
+                    <div class="form-group">		
+                        <label>Photo</label>
+						<input type="file" name="photo" class="form-control" name="photo" required>
+                        </div>		
 					<div class="form-group">
 						<label>Name</label>
 						<input type="text" name="name" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>image</label>
-						<input type="file" name="image" class="form-control" name="image" required>
+						<label>Cost</label>
+						<input type="number" name="cost" class="form-control"required>
 					</div>
                     <div class="form-group">
-						<label>Bio</label>
-						<textarea class="form-control" name="bio" rows="3"  required></textarea>
+						<label>Summery</label>
+						<textarea class="form-control" name="summery" rows="3"  required></textarea>
+					</div>
+                    <div class="form-group">
+						<label>Details</label>
+						<textarea class="form-control" name="details" rows="3"  required></textarea>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -106,29 +113,37 @@
 	</div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="editTeacherModal" class="modal fade">
-	<div class="modal-dialog">
+<div id="editServiceModal" class="modal fade">
+	<div class="modal-dialog ">
 		<div class="modal-content">
-            <form method="post" action="{{route('teachers.edit')}}" enctype="multipart/form-data">
+            <form method="post" action="{{route('services.edit')}}" enctype="multipart/form-data">
 				@csrf
                 <input type="hidden" id="edit_hidden_id" name="id" >
 				<div class="modal-header">						
-					<h4 class="modal-title">Edit Teacher</h4>
+					<h4 class="modal-title">Edit Service</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">	
+                <div class="form-group">
+                        <img style="height: 150px; width: 300px; margin-bottom: 15px; border-radius:2em;" id="edit_photo">
+						<label>Photo</label>
+						<input type="file" name="photo" class="form-control" required>
+					</div>				
 					<div class="form-group">
 						<label>Name</label>
 						<input type="text" name="name" id="edit_name" class="form-control" required>
 					</div>
 					<div class="form-group">
-                        <img style="height: 40px; width: 40px; margin-bottom: 15px; border-radius:2em;" src="{{asset($teacher->image)}}">
-						<label>image</label>
-						<input type="file" name="image" id="edit_image" class="form-control" name="image" required>
+						<label>Cost</label>
+						<input type="number" name="cost" id="edit_cost" class="form-control" required>
 					</div>
                     <div class="form-group">
-						<label>Bio</label>
-						<textarea class="form-control" name="bio" id="edit_bio" rows="3"  required></textarea>
+						<label>Summery</label>
+						<textarea class="form-control" name="summery" id="edit_summery" rows="3"  required></textarea>
+					</div>
+                    <div class="form-group">
+						<label>Details</label>
+						<textarea class="form-control" name="details" id="edit_details" rows="3"  required></textarea>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -140,14 +155,14 @@
 	</div>
 </div>
 <!-- Delete Modal HTML -->
-<div id="deleteTeacherModal" class="modal fade">
+<div id="deleteServiceModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form id="delete_form" method="post" action="{{route('teachers.delete')}}">
+			<form id="delete_form" method="post" action="{{route('services.delete')}}">
 				@csrf
                 <input type="hidden" id="delete_hidden_id" name="id" >
 				<div class="modal-header">						
-					<h4 class="modal-title">Delete Teacher</h4>
+					<h4 class="modal-title">Delete Service</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
@@ -189,15 +204,17 @@
      			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
    			},
 			type: "GET",
-			url: "{{ route('teachers.data_to_edit') }}" ,
+			url: "{{ route('services.data_to_edit') }}" ,
 			data: formData,
 			dataType: "json",
 			encode: true,
 			}).done(function (data) {
 			console.log(data);
 			$("#edit_name").attr("value", data.name);
-            //$("#edit_image").attr("value", data.image);
-            $("#edit_bio").val( data.bio );
+            $("#edit_cost").attr("value", data.cost);
+            $("#edit_photo").attr("src", data.photo);
+            $("#edit_summery").val( data.summery );
+            $("#edit_details").val( data.details );
 		});
 
 	}

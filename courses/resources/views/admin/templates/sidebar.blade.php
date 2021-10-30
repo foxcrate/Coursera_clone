@@ -34,13 +34,13 @@
                     <a href="#">Cycles Payements</a>
                 </li>
                 <li>
-                    <a href="#">Services</a>
+                    <a href="{{ route('services.index') }}">Services</a>
                 </li>
                 <li>
-                    <a href="#">Services Payments</a>
+                    <a href="{{ route('service_payments.index') }}">Services Payments</a>
                 </li>
                 <li>
-                    <a href="#">Books</a>
+                    <a href="{{ route('books.index') }}">Books</a>
                 </li>
                 <li>
                     <a href="{{ route('projects.index') }}">Projects</a>

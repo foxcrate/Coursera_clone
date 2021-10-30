@@ -19,10 +19,15 @@ class TeacherController extends Controller
 
     public function add(Request $request){
         //return $request;
-
+        if($request->has('image')){
+            $image = $request->image;
+            $code = rand(1111111, 9999999);
+            $image_new_name=time().$code ."tp";
+            $image->move('uploads/teachers/', $image_new_name);
+        }
         $new_teacher = Teacher::create([
             'name'=>$request->name,
-            'image'=>$request->image,
+            'image'=>'uploads/teachers/' . $image_new_name,
             'bio'=>$request->bio,
         ]);
         
