@@ -103,8 +103,7 @@ class RegisterController extends Controller
         $calender = Calender::create([
             'student_id' => $student->id,
         ]);
-
-        $student->calender_id = $calender->id;
+        
         $student->save();
 
         return redirect()->intended('login/student');

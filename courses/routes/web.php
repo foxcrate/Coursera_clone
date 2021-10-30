@@ -44,19 +44,34 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/login/admin', [LoginController::class, 'showAdminLoginForm']);
-Route::get('/login/student', [LoginController::class,'showStudentLoginForm']);
-Route::get('/register/admin', [RegisterController::class,'showAdminRegisterForm']);
-Route::get('/register/student', [RegisterController::class,'showStudentRegisterForm']);
+Route::get('/login/admin', [LoginController::class, 'showAdminLoginForm'])->name('admin_login');
+Route::get('/login/student', [LoginController::class,'showStudentLoginForm'])->name('student_login');
+Route::get('/register/admin', [RegisterController::class,'showAdminRegisterForm'])->name('admin_register');
+Route::get('/register/student', [RegisterController::class,'showStudentRegisterForm'])->name('student_register');
 
 Route::post('/login/admin', [LoginController::class,'adminLogin']);
 Route::post('/login/student', [LoginController::class,'studentLogin']);
 Route::post('/register/admin', [RegisterController::class,'createAdmin']);
 Route::post('/register/student', [RegisterController::class,'createStudent']);
 
+Route::view('/index', 'student.index')->name('index');
+Route::view('/all_projects', 'student.all_projects')->name('all_projects');
+Route::view('/about', 'student.about')->name('about');
+Route::view('/contact', 'student.contact')->name('contact');
+
+Route::get('/all_projects', [StudentController::class,'all_projects'])->name('all_projects');
+Route::get('/phd_projects', [StudentController::class,'phd_projects'])->name('phd_projects');
+Route::get('/master_projects', [StudentController::class,'master_projects'])->name('master_projects');
+Route::get('/diploma_projects', [StudentController::class,'diploma_projects'])->name('diploma_projects');
+Route::get('/fellowship_projects', [StudentController::class,'fellowship_projects'])->name('fellowship_projects');
+Route::get('/project_details/{id}', [StudentController::class,'project_details'])->name('project_details');
+
+
 Route::group(['middleware' => 'auth:student'], function () {
 
     Route::view('/student', 'student');
+    
+    
 
 });
 
@@ -64,6 +79,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
     
     //Route::view('/admin', 'admin');
     // Route::get('/admin', [AdminController::class,'divideAdmins']);
+    Route::get('/dashboard', [AdminController::class,'dashboard'])->name('dashboard');
 
     
     Route::group(['prefix'=>'cycles','as'=>'cycles.'], function(){

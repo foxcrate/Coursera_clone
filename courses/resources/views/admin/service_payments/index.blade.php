@@ -11,10 +11,7 @@
 			<div class="table-title">
 				<div class="row">
 					<div class=" col-sm-6 ">
-						<h2>Manage <b>Books</b></h2>
-					</div>
-					<div class=" col-sm-6 ">
-						<a href="#addBookModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Service Payment</span></a>					 -->
+						<h2>Manage <b>Service Payments</b></h2>
 					</div>
 				</div>
 			</div>
@@ -30,7 +27,6 @@
 						<th>ID</th>
 						<th>Student Name</th>
 						<th>Service Cost</th>
-						<th>Cost</th>
 						<th>Payment File</th>
 						<th>Status</th>
 						<th>Note</th>
@@ -50,15 +46,16 @@
 						</td>
 						<td style="word-wrap: break-word"> {{$service_payment->id}} </td>
 						<td style="word-wrap: break-word"> {{$service_payment->student->name}} </td>
-						<td style="word-wrap: break-word"> {{$service_payment->service->name}} </td>
-						<td style="word-wrap: break-word"> {{$service_payment->cost}} </td>
-						<td style="word-wrap: break-word"> {{$service_payment->file}} </td>
+						<td style="word-wrap: break-word"> {{$service_payment->service->cost}} </td>
+						<td style="word-wrap: break-word"> <button onclick="view_file( {{ $service_payment }} )" class="btn btn-primary p-1">File</button> </td>
+						<!-- <td style="word-wrap: break-word"> {{$service_payment->file}} </td> -->
                         <td style="word-wrap: break-word"> {{$service_payment->status}} </td>
 						<td style="word-wrap: break-word"> {{$service_payment->note}} </td>
-						<td style="word-wrap: break-word"> {{$service_payment->created_at}} </td>
+						<!-- <td style="word-wrap: break-word"> {{$service_payment->created_at}} </td> -->
+						<td> {{date('Y-m-d', strtotime($service_payment->created_at))}} </td>
 						<td style="word-wrap: break-word">
-							<a onClick="edit_function({{$book->id}})" href="#editBookModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
-							<a onClick="delete_function({{$book->id}})" href="#deleteBookModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
+							<a onClick="edit_function({{$service_payment->id}})" href="#editBookModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
+							<!-- <a onClick="delete_function({{$service_payment->id}})" href="#deleteBookModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a> -->
 						</td>
 					</tr>
 
@@ -81,108 +78,37 @@
 		</div>
 	</div>        
 </div>
-<!-- Add Modal HTML -->
-<div id="addBookModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form method="post" action="{{route('books.add')}}" enctype="multipart/form-data">
-				@csrf
-				<div class="modal-header">						
-					<h4 class="modal-title">Add Book</h4>
-					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">		
-					<div class="form-group">
-						<label>Name</label>
-						<input type="text" name="name" class="form-control" required>
-					</div>
-                    <div class="form-group">		
-                        <label>Cover</label>
-						<input type="file" name="cover" class="form-control" required>
-                    </div>
-					<div class="form-group">
-						<label>Cost</label>
-						<input type="number" name="cost" class="form-control"required>
-					</div>
-                    <div class="form-group">
-						<label>abstract_file</label>
-						<input type="file" name="abstract_file" class="form-control" required>
-					</div>
-                    <div class="form-group">
-						<label>full_file</label>
-						<input type="file" name="full_file" class="form-control" required>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Add">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
+
 <!-- Edit Modal HTML -->
 <div id="editBookModal" class="modal fade">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-            <form method="post" action="{{route('books.edit')}}" enctype="multipart/form-data">
+            <form method="post" action="{{route('service_payments.edit')}}" enctype="multipart/form-data">
 				@csrf
                 <input type="hidden" id="edit_hidden_id" name="id" >
 				<div class="modal-header">						
-					<h4 class="modal-title">Edit Book</h4>
+					<h4 class="modal-title">Edit Service Payment</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">	
                 <div class="form-group">				
 					<div class="form-group">
-						<label>Name</label>
-						<input type="text" name="name" id="edit_name" class="form-control" required>
-					</div>
-                        <img style="height: 150px; width: 300px; margin-bottom: 15px; border-radius:2em;" id="edit_cover">
-						<label>Cover</label>
-						<input type="file" name="cover" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>Cost</label>
-						<input type="number" name="cost" id="edit_cost" class="form-control" required>
+						<label>Status</label>
+						<select class="form-control" id='edit_status' name="status">
+							<option value="accepted">Accepted</option>
+							<option value="refused">Refused</option>
+							<option value="done">Done</option>
+							<option value="pending">Pending</option>
+						</select>
 					</div>
                     <div class="form-group">
-                    <label>Abstract File</label>    
-                    <button onclick="abstract_tab()" class="btn btn-primary my-2">View Abstract File</button>
-						<input type="file" name="abstract_file" class="form-control">
-					</div>
-                    <div class="form-group">
-                    <label>Full File</label>    
-                    <button onclick="full_tab()" class="btn btn-primary my-2">View Full File</button>
-						<input type="file" name="full_file" class="form-control">>
+                    <label>Note</label>
+						<textarea class="form-control" name="note" id="edit_note" rows="3"  required></textarea>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 					<input type="submit" class="btn btn-success" value="Add">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-<!-- Delete Modal HTML -->
-<div id="deleteBookModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form id="delete_form" method="post" action="{{route('books.delete')}}">
-				@csrf
-                <input type="hidden" id="delete_hidden_id" name="id" >
-				<div class="modal-header">						
-					<h4 class="modal-title">Delete Service</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<p>Are you sure you want to delete these Records?</p>
-					<p class="text-warning"><small>This action cannot be undone.</small></p>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" value="Delete">
 				</div>
 			</form>
 		</div>
@@ -191,16 +117,21 @@
 
 <script> 
 
-    var edit_id = 0;
-	var delete_id = 0;
-    var abstract_url = "";
-    var full_url = "";
+    //var url = "" ;
 
     function abstract_tab(){
         //alert("Alo");
         window.open(abstract_url, '_blank').focus();
 
     }
+
+	function view_file(x){
+		//url = x.file;
+		var url = 'http://localhost:8000/' + x.file ;
+		window.open(url, '_blank').focus();
+		
+
+	}
 
     function full_tab(){
         //alert("Alo");
@@ -216,7 +147,7 @@
 	}
 
 	function edit_function(id){
-		edit_id = id;
+		var edit_id = id;
 		//alert(edit_id);
         $("#edit_hidden_id").attr("value", edit_id);
 		
@@ -229,17 +160,14 @@
      			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
    			},
 			type: "GET",
-			url: "{{ route('books.data_to_edit') }}" ,
+			url: "{{ route('service_payments.data_to_edit') }}" ,
 			data: formData,
 			dataType: "json",
 			encode: true,
 			}).done(function (data) {
 			console.log(data);
-			$("#edit_name").attr("value", data.name);
-            $("#edit_cost").attr("value", data.cost);
-            $("#edit_cover").attr("src", data.cover);
-            abstract_url = 'http://localhost:8000/' + data.abstract_file  ;
-            full_url = 'http://localhost:8000/' + data.full_file  ;
+			$("#edit_status> option[value=" + data.status + "]").prop("selected",true);
+            $("#edit_note").val( data.note );
 		});
 
 	}

@@ -70,7 +70,7 @@ class LoginController extends Controller
             //     return redirect()->intended('/admin2');
             // }
             //return "right";
-            return redirect()->intended('/cycles');
+            return redirect()->intended('/dashboard');
         }
         return back()->withInput($request->only('email', 'remember'))->with('error', 'You are not registered!');
     }
@@ -89,7 +89,7 @@ class LoginController extends Controller
 
         if (Auth::guard('student')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
-            return redirect()->intended('/student');
+            return redirect()->intended('/index');
         }
         return back()->withInput($request->only('email', 'remember'));
     }

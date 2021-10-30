@@ -14,6 +14,8 @@ class ServicePayment extends Model
         'note',
         'status',
         'file',
+        'student_id',
+        'service_id',
     ];
 
     public function student(){
@@ -21,7 +23,7 @@ class ServicePayment extends Model
     }
 
     public function service(){
-        return this->belongsTo('App\Models\Service');
+        return $this->belongsTo('App\Models\Service');
     }
 
 }

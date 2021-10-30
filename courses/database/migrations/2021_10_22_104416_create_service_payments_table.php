@@ -18,7 +18,7 @@ class CreateServicePaymentsTable extends Migration
 
             $table->integer('money_paid');
             $table->text('note');
-            $table->enum('status', array('accepted', 'refused','pending')); 
+            $table->enum('status', array('accepted', 'refused','pending','done'))->default('pending'); 
             $table->string('file');
 
             //$table->bigInteger('student_id')->default(0);

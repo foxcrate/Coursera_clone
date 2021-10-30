@@ -52,12 +52,12 @@ class ServicePaymentController extends Controller
             $my_service_payment->file ='uploads/service payments/' . $image_new_name;
         }
 
-        $my_service_payment->cost = $request->cost ;
+        // $my_service_payment->cost = $request->cost ;
         $my_service_payment->note = $request->note ;
-        $my_service_payment->money_paid = $request->money_paid ;
+        // $my_service_payment->money_paid = $request->money_paid ;
         $my_service_payment->status = $request->status ;
-        $my_service_payment->student_id = $request->student_id ;
-        $my_service_payment->service_id = $request->service_id ;
+        // $my_service_payment->student_id = $request->student_id ;
+        // $my_service_payment->service_id = $request->service_id ;
         $my_service_payment->save();
 
         return redirect()->back();

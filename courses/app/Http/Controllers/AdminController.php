@@ -20,6 +20,12 @@ class AdminController extends Controller
         if(Auth::user()->level == 0){
             return view('admin/dashboard');
         }
-    }    
+    }  
+    
+    public function dashboard(){
+        
+
+        return view('admin/dashboard');
+    }
 
 }

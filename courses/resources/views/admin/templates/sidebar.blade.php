@@ -16,17 +16,6 @@
                 <li>
                     <a href="{{ route('teachers.index') }}">Teachers</a>
                 </li>
-                <!-- <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Library</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#">My Books</a>
-                        </li>
-                        <li>
-                            <a href="#">All Books</a>
-                        </li>
-                    </ul>
-                </li> -->
                 <li>
                     <a href="{{ route('students.index') }}">Students</a>
                 </li>

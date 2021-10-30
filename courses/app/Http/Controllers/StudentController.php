@@ -110,5 +110,42 @@ class StudentController extends Controller
         return redirect()->back();
     }
 
+    public function all_projects(){
+        $all_projects = Project::all();
+        //return $all_projects;
+        return view('student.all_projects')->with('projects',$all_projects) ;
+    }
+
+    public function phd_projects(){
+        $php_projects = Project::where('type', 'phd')->get();
+
+        return view('student.all_projects')->with('projects',$php_projects) ;
+    }
+
+    public function master_projects(){
+        $master_projects = Project::where('type', 'master')->get();
+
+        return view('student.all_projects')->with('projects',$master_projects) ;
+    }
+
+    public function diploma_projects(){
+        $diploma_projects = Project::where('type', 'diploma')->get();
+
+        return view('student.all_projects')->with('projects',$diploma_projects) ;
+    }
+
+    public function fellowship_projects(){
+        $fellowship_projects = Project::where('type', 'fellowship')->get();
+
+        return view('student.all_projects')->with('projects',$fellowship_projects) ;
+    }
+
+    public function project_details($id){
+
+        $the_project = Project::find($id);
+
+        return view('student.project')->with('project',$the_project);
+
+    }
 
 }

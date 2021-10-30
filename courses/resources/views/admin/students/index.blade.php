@@ -685,7 +685,7 @@
                     <div class="form-group">
 						<label>Status</label>
 						<select class="form-control" id='edit_status' name="status">
-							<option selected value="allowed">Allowed</option>
+							<option value="allowed">Allowed</option>
 							<option value="blocked">Blocked</option>
 						</select>
 					</div>
@@ -790,7 +790,7 @@
 			document.getElementById('edit_case').value = data.case;
             // $("#edit_country").attr("value", data.country);
 			document.getElementById('edit_country').value = data.country;
-            $("#edit_status").attr("value", data.status);
+			$("#edit_status> option[value=" + data.status + "]").prop("selected",true);
             $("#edit_passport").attr("value", data.passport);
             $("#edit_job").attr("value", data.job);
             $("#edit_general_note").attr("value", data.general_note);
