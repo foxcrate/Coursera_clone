@@ -72,6 +72,9 @@ Route::get('/project_details/{id}', [StudentController::class,'project_details']
 Route::group(['middleware' => 'auth:student'], function () {
 
     Route::view('/student', 'student');
+    Route::get('/my_courses', [StudentController::class,'my_courses'])->name('my_courses');
+    Route::get('/my_books', [StudentController::class,'my_books'])->name('my_books');
+    Route::get('/my_payments', [StudentController::class,'my_payments'])->name('my_payments');
     
 });
 
@@ -110,6 +113,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/delete', [SemesterController::class,'delete'])->name('delete');
         Route::post('/mass_edit', [SemesterController::class,'mass_edit'])->name('mass_edit');
         Route::get('/details/{id}', [SemesterController::class,'details'])->name('details');
+        Route::get('/data_to_edit', [SemesterController::class,'data_to_edit'])->name('data_to_edit');
     });
 
     Route::group(['prefix'=>'courses','as'=>'courses.'], function(){

@@ -162,8 +162,9 @@
 <div id="editEmployeeModal" class="modal fade">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form method="post" action="{{route('projects.add')}}" enctype="multipart/form-data" >
+			<form method="post" action="{{route('projects.edit')}}" enctype="multipart/form-data" >
 				@csrf
+				<input type="hidden" id="edit_hidden_id" name="id" >
 				<div class="modal-header">						
 					<h4 class="modal-title">Add Project</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -175,13 +176,14 @@
 						<input type="text" id="edit_name" name="name" class="form-control" required >
 					</div>
                     <div class="form-group">
+						<img id="edit_image" style="height: 40px; width: 40px; margin-bottom: 15px; border-radius:2em;" src="">
 						<label>Image</label>
-						<input type="file" id="edit_image" name="image" class="form-control" required>
+						<input type="file"  name="image" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>Type</label>
-						<select name="type" class="form-select" aria-label="Default select example">
-                            <option selected value="phd">PHD</option>
+						<select name="type" id="edit_type" class="form-select" aria-label="Default select example">
+                            <option value="phd">PHD</option>
                             <option value="master">Master</option>
                             <option value="diploma">Diploma</option>
                             <option value="fellowship">Fellowship</option>
@@ -189,7 +191,8 @@
 					</div>
                     <div class="form-group">
 						<label>Video</label>
-						<input type="file" id="edit_video" name="video" class="form-control"  required>
+						<button onclick="video_tab()" class="btn btn-primary mb-2">View Video</button>
+						<input type="file" id="edit_video" name="video" class="form-control"  >
 					</div>
                     <div class="form-group">
 						<label>Price</label>
@@ -243,9 +246,12 @@
 	// });
 	var edit_id = 0;
 	var delete_id = 0;
+	var video_url = '';
 
 	function edit_function(id){
 		edit_id = id;
+		$("#edit_hidden_id").attr("value", id);
+		
 		//alert(edit_id);
 		
 		var formData = {
@@ -263,7 +269,12 @@
 			encode: true,
 			}).done(function (data) {
 			console.log(data);
-			$("#edit_name").attr("placeholder", data.name);
+			$("#edit_name").attr("value", data.name);
+			$("#edit_price").attr("value", data.price);
+			$("#edit_type> option[value=" + data.type + "]").prop("selected",true);
+			$("#edit_summery").val( data.summery );
+			$("#edit_image").attr("src", 'http://localhost:8000/'+ data.image);
+			video_url = 'http://localhost:8000/' + data.video  ;
 		});
 
 	}
@@ -325,5 +336,11 @@
 		});
 
 	});
+
+	function video_tab(){
+		//alert("Alo");
+		window.open(video_url, '_blank').focus();
+
+    }
 
 </script>

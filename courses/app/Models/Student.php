@@ -40,8 +40,12 @@ class Student extends Authenticatable
         return $this->hasMany( 'App\Models\Calender');
     }
 
-    public function cycle(){
-        return $this->belongsTo( Cycle::class);
+    public function cycles(){
+        return $this->belongsToMany(Cycle::class,'cycle_students');
+    }
+
+    public function books(){
+        return $this->belongsToMany(Book::class,'book_students');
     }
 
     public function uploaded_researches(){
@@ -49,7 +53,7 @@ class Student extends Authenticatable
     }
 
     public function cycles_payment(){
-        return $this->hasMany( 'CyclePayment::class');
+        return $this->hasMany(CyclePayment::class);
     }
 
     public function services_payment(){

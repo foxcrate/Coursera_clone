@@ -1,0 +1,371 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+@media (min-width: 768px) {
+    .news-input {
+      width: 50%;
+      
+    }
+  }
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    color: rgb(255, 69, 0);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.fixed-top{
+    background-color: #fb8500 !important;
+    color: #FFF !important;
+}
+
+.our_ad{
+    background-color: #fb8500 !important;
+    color: #FFF !important;
+}
+
+.our_footer{
+    background-color: #333;
+    color: #FFF;
+}
+.social{
+    color:  #fb8500 ;
+    font-size: 20px;
+}
+
+.social:hover{
+    color:  #fcfaf8 ;
+    font-size: 20px;
+}
+.fot{
+    position: relative;
+    display: block;
+    padding: .5rem 1rem;
+    color: white;
+    text-decoration: none;
+    background-color: #333;
+}
+
+.withus{
+    color: #fb8500 ;
+}
+
+.copyright{
+    background-color: #fb8500;
+    color: #FFF;
+}
+
+.back-to-top{
+    z-index: 999;
+    color: #fb8500 ;
+}
+.back-to-top:hover{
+    z-index: 999;
+    color: #ffffff ;
+}
+
+.arrow{
+    color: #fb8500 ;
+}
+
+.ad_image{
+    border-radius: 20px;
+}
+
+.click{
+    margin-left: 10vw;
+}
+
+.log-bot{
+    margin-left: 30vw;
+}
+
+.logo{
+    height: 40px;
+}
+
+.icon-s{
+    color: #fb8500;
+}
+
+.nav-link{
+    color: white !important;
+    margin-left: 1rem;
+    font-weight: bold;
+}
+
+.loginButton{
+    color: blue !important;
+}
+
+.toggler-color{
+    color: white;
+    border: none;
+}
+
+.navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-image-style{
+    height: 20rem;
+}
+
+/* .header-bg{
+    height: 650px !important;
+    background-color: black;
+    background-image:    url(../img/newbackground.jpg);
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: auto; 
+    opacity:0.6;
+} */
+/* "../assets/img/background.png" */
+ 
+#showcase{
+    background: #252A34 url("/assets/images/newbackground.jpg") no-repeat center center/cover;
+    height: 650px;
+    color: #fff;
+}
+
+#showcase .showcase-content{
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; */
+    padding: 4rem;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2) ;
+}
+
+.ww{
+    background-color:rgba(235, 156, 10, 0.542) ;
+}
+
+.fonty{
+    font-size: 50px;
+}
+
+.title-head{
+    margin-bottom: 2rem;
+    padding-top: 10rem;
+    text-align: center;
+    color: white;
+}
+
+.search-top{
+    border: 1px solid #333 !important;
+    border-radius: 30px !important;
+    font-size: 50px;
+    width: 40rem !important;
+    height: 3rem;
+
+}
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 200px;
+    max-width: 200px;
+    background: #000000;
+    color: #fff;
+    transition: all 0.3s;
+}
+#sidebar.active {
+    margin-left: -200px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #000000;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #000000;
+}
+
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+#sidebar ul li a:hover {
+    color: #2249e6;
+    background: #fff;
+}
+
+#sidebar a[data-toggle="collapse"] {
+    position: relative;
+}
+
+#sidebar .dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+#sidebar ul ul a {
+    font-size: 1.0em !important;
+    padding-left: 30px !important;
+    background: #000000;
+}
+
+
+
+
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+#content {
+    width: 100%;
+    padding: 0px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+.project-header{
+    background-image: url("/assets/images//project.jpg") ;
+    background-size:cover;
+    background-blend-mode: multiply;
+    width: 100%;
+    height: 200px;
+    background-repeat: no-repeat;
+    position: relative;
+}
+.icon-les{
+    display: inline;
+    margin-left: 1rem;
+    text-align: center;
+}
+.les-spa{
+    color: orangered;
+    font-weight: bold;
+}
+.icon-head{
+    display: inline;
+    margin: 3rem;
+}
+.icon-head-master{
+    text-align: center;
+    padding: 1rem;
+    background-color: #333;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+.Course-title{
+    text-align: center;
+}
+.course-text-title{
+    margin-top: 1rem;
+}
+.course-span{
+    color: orangered;
+    font-weight: bold;
+}
+.pro-desc{
+    text-align: left;
+    font-weight: bold;
+    margin-top: 2rem;
+}
+.pro-desc1{
+    text-align:justify;
+}
+.pro-inst{
+    text-align: left;
+    font-weight: bold;
+    margin-top: 2rem;
+}
+.inst-span{
+    font-weight: bold;
+    color: orangered;
+}
+.inst-li{
+    font-weight: bold;
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed orangered;
+}
+.course-lesson{
+    margin-bottom: 2rem;
+}
+.lesson-head{
+    background-color:orangered !important;
+    border-color:orangered !important;
+}
+.video-intro{
+    text-align: center;
+}
+
+.my_a{
+    text-decoration: none;
+    color: white;
+}
+
+.about{
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.about-title{
+    margin-bottom: 4rem;
+}
+.about-story-title{
+    text-align: left;
+    font-weight: bold;
+    margin-top: 2rem;
+}
+.about-story{
+    text-align:justify;
+}
+.about-img{
+    margin-top: 2rem;
+    width: 120%;
+    height: 90%;
+}
+.google-map{
+    margin: auto;
+}
+.contact-content{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.contat-info{
+    list-style: none;
+    font-size: 20px;
+}
+.social-icon{
+    font-size: 20px;
+    margin: .5rem;
+    color: orangered;
+}
+.social-master{
+    text-align: left;
+    margin-left: 2rem;
+}

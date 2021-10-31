@@ -8,7 +8,7 @@
             <h2 class="mb-4">Details</h2>
 
             <h6 class="mb-2"> <span class="fw-bold">Main Location: </span> 12 El-Harm St. Giza </h6>
-            <h6 class="mb-2"> <span class="fw-bold">Phone Number: </span> 01550307033 </h6>
+            <h6 class="mb-2"> <span class="fw-bold">Phone Number: </span> 01550398033 </h6>
             <h6 class="mb-2"> <span class="fw-bold">Email: </span> ahmedmustafa22@gmail.com </h6>
             <h6 class="mb-2"> <span class="fw-bold">Fax: </span> 003898 88262 222 </h6>
 
@@ -29,7 +29,8 @@
             <ul class="list-group text-light list-group-flush lead">
                 <li class="fot ">
                     <i class="fas fa-chevron-right arrow"></i>
-                <span class="fw-bold">Projects</span> 
+                <!-- <span class="fw-bold">Projects</span>  -->
+                <a class="fw-bold my_a" href="{{ route('all_projects') }}">Projects</a>
                 </li>
                 <li class="fot">
                     <i class="fas fa-chevron-right arrow"></i>
@@ -45,11 +46,11 @@
             <ul class="list-group text-light list-group-flush lead">
                 <li class="fot ">
                     <i class="fas fa-chevron-right arrow"></i>
-                <span class="fw-bold">About Us</span>
+                    <a class="fw-bold my_a" href="{{ route('about') }}">About Us</a>
                 </li>
                 <li class="fot">
                     <i class="fas fa-chevron-right arrow"></i>
-                <span class="fw-bold">Contact Us</span> 
+                    <a class="fw-bold my_a" href="{{ route('contact') }}">Contact</a> 
                 </li>
             </ul>
 

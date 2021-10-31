@@ -104,9 +104,10 @@
             <i class="bi bi-chevron-right"></i> Read More
           </a>
         </div>
-        <img src="assets/images/1.jpg" style="border-radius: 20px ;" class="img-fluid"  alt="alo" />
+        
         <div class="col-md">
-          <!-- ad_image -->
+          <!-- style="border-radius: 20px ;" -->
+          <img src="assets/images/1.jpg"  class="img-fluid ad_image"  alt="alo" />
         </div>
       </div>
     </div>

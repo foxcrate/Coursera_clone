@@ -159,7 +159,7 @@ class ProjectController extends Controller
             }
 
         }else{
-            if($request->has('video') && $request->video != 'undefined'){
+            if($request->has('video') && $request->video != 'undefined' && $request->video !=''){
                 $video = $request->video;
                 $code = rand(1111111, 9999999);
                 $video_new_name=time().$code ."pv";
@@ -167,7 +167,7 @@ class ProjectController extends Controller
                 $my_project->video ='uploads/projects/' . $video_new_name;
             }
 
-            if($request->has('image') && $request->image != 'undefined'){
+            if($request->has('image') && $request->image != 'undefined' && $request->image !='' ){
                 $image = $request->image;
                 $code = rand(1111111, 9999999);
                 $image_new_name=time().$code ."pp";

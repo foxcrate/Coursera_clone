@@ -107,18 +107,19 @@
 		<div class="modal-content">
 			<form id="edit_form" name="alo" method="post" action="{{route('semesters.edit')}}">
 				@csrf
+				<input type="hidden" id="edit_hidden_id" name="id" >
 				<div class="modal-header">						
-					<h4 class="modal-title">Edit Semester {{$semester->id}}</h4>
+					<h4 class="modal-title">Edit Semester</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input id="edit_modal_name" name="name" type="text" class="form-control" required>
+						<input id="edit_name" name="name" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>Duration</label>
-						<input type="number" id="edit_modal_duration" name="Duration" class="form-control" required>
+						<input type="number" id="edit_duration" name="duration" class="form-control" required>
 					</div>					
 				</div>
 				<div class="modal-footer">
@@ -164,7 +165,28 @@
 
 	function edit_function(id){
 		edit_id = id;
+		$("#edit_hidden_id").attr("value", id);
+		
 		//alert(edit_id);
+		
+		var formData = {
+			id:edit_id,
+		};
+
+		$.ajax({
+			headers: {
+     			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   			},
+			type: "GET",
+			url: "{{ route('semesters.data_to_edit') }}" ,
+			data: formData,
+			dataType: "json",
+			encode: true,
+			}).done(function (data) {
+			console.log(data);
+			$("#edit_name").attr("value", data.name);
+			$("#edit_duration").attr("value", data.duration);
+		});
 	}
 
 	function delete_function(id){
@@ -175,28 +197,28 @@
 
 	$("#edit_form").submit(function(e) {
 
-		e.preventDefault(); // avoid to execute the actual submit of the form.
+		// e.preventDefault(); // avoid to execute the actual submit of the form.
 
-		var formData = {
-			id:edit_id,
-			name: $("#edit_modal_name").val(),
-			duration: $("#edit_modal_duration").val(),
-		};
-        //console.log(formData);
+		// var formData = {
+		// 	id:edit_id,
+		// 	name: $("#edit_modal_name").val(),
+		// 	duration: $("#edit_modal_duration").val(),
+		// };
+        // //console.log(formData);
 
-		$.ajax({
-			headers: {
-     			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-   			},
-			type: "POST",
-			url: e.target.action,
-			data: formData,
-			dataType: "json",
-			encode: true,
-			}).done(function (data) {
-			// console.log(data);
-			window.location.reload();
-		});
+		// $.ajax({
+		// 	headers: {
+     	// 		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   		// 	},
+		// 	type: "POST",
+		// 	url: e.target.action,
+		// 	data: formData,
+		// 	dataType: "json",
+		// 	encode: true,
+		// 	}).done(function (data) {
+		// 	// console.log(data);
+		// 	window.location.reload();
+		// });
 
 	});
 

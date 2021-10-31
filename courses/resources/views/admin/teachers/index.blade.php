@@ -122,9 +122,9 @@
 						<input type="text" name="name" id="edit_name" class="form-control" required>
 					</div>
 					<div class="form-group">
-                        <img style="height: 40px; width: 40px; margin-bottom: 15px; border-radius:2em;" src="{{asset($teacher->image)}}">
+                        <img id="edit_image" style="height: 40px; width: 40px; margin-bottom: 15px; border-radius:2em;" src="">
 						<label>image</label>
-						<input type="file" name="image" id="edit_image" class="form-control" name="image" required>
+						<input type="file" name="image"  class="form-control" name="image" required>
 					</div>
                     <div class="form-group">
 						<label>Bio</label>
@@ -196,7 +196,7 @@
 			}).done(function (data) {
 			console.log(data);
 			$("#edit_name").attr("value", data.name);
-            //$("#edit_image").attr("value", data.image);
+            $("#edit_image").attr("src", 'http://localhost:8000/'+ data.image);
             $("#edit_bio").val( data.bio );
 		});
 

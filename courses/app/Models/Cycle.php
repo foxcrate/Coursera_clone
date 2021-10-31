@@ -15,13 +15,12 @@ class Cycle extends Model
 
     protected $table = "cycles";
 
+    public function students(){
+        return $this->belongsToMany(Student::class,'cycle_students');
+    }
 
     public function project(){
         return $this->hasOne(Project::class);
-    }
-
-    public function students(){
-        return $this->hasMany(Student::class);
     }
 
     public function cycle_payments(){

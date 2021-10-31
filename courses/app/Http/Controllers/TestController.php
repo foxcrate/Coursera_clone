@@ -9,6 +9,8 @@ use App\Models\Course;
 use App\Models\Cycle;
 use App\Models\CourseQuestion;
 use App\Models\Student;
+use App\Models\Book;
+use App\Models\CyclePayment;
 use App\Models\Lesson;
 use App\Models\LessonQuestion;
 use App\Models\Semester;
@@ -22,11 +24,49 @@ class TestController extends Controller
 {
     public function test(){
 
-        $p1 = Project::find(1);
-        // return $p1->semesters;
+        $c1 = Cycle::find(4);
 
-        $s1 = Semester::find(1);
-        $s2 = Semester::find(3);
+        return $c1->project->image; 
+
+        // $cp1 = CyclePayment::create([
+
+        //     'due_date' => '2021-7-4',
+        //     'amount_paid' => 43,
+        //     'amount_left' => 43,
+        //     'note' => 'first',
+        //     'status' => 'accepted',
+        //     'file' => 'first',
+        //     'student_id' => 6,
+        //     'cycle_id' => 4,
+
+        // ]);
+
+        // $cp2 = CyclePayment::create([
+
+        //     'due_date' => '2021-7-4',
+        //     'amount_paid' => 43,
+        //     'amount_left' => 43,
+        //     'note' => 'first',
+        //     'status' => 'accepted',
+        //     'file' => 'first',
+        //     'student_id' => 6,
+        //     'cycle_id' => 7,
+
+        // ]);
+
+
+        // $p1 = Project::find(1);
+        // // return $p1->semesters;
+
+        // $s1 = Semester::find(1);
+        // $s2 = Semester::find(3);
+
+        // $c1 = Cycle::find(4);
+        // $c2 = Cycle::find(6);
+        // $s2  =Student::find(6);
+
+        // $s2->cycles()->attach([$c1->id,$c2->id]);
+        //return $c1->students;
         
         // $t1 = Teacher::create([
         //     'name'=>'one',

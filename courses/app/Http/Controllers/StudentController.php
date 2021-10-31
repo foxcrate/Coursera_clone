@@ -148,4 +148,28 @@ class StudentController extends Controller
 
     }
 
+    public function my_courses(){
+
+        
+
+        return view('student.my_courses');
+
+    }
+
+    public function my_books(){
+
+        
+
+        return view('student.my_books');
+
+    }
+
+    public function my_payments(){
+
+        
+
+        return view('student.my_payments');
+
+    }
+
 }

@@ -15,4 +15,9 @@ class Book extends Model
         'cover',
         'cost',
     ];
+
+    public function students(){
+        return $this->belongsToMany(Student::class,'book_students');
+    }
+
 }

@@ -51,17 +51,16 @@
 <div class="container course-lesson">
     <div class="row">
         <div class="col-12">
-                <div class="list-group">
+            @foreach ($project->semesters as $semester)
+                <div class="list-group m-3">
                     <a href="#" class="list-group-item list-group-item-action active lesson-head" aria-current="true">
-                    <i class="fab fa-discourse"></i> Course lesson
+                    <i class="fab fa-discourse"></i>Semester {{ $loop->iteration }} - {{$semester->name}}
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i> A second link item</a>
-                    <a href="#" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i> A third link item</a>
-                    <a href="#" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i> A fourth link item</a>
-                    <a href="#" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i> A second link item</a>
-                    <a href="#" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i> A third link item</a>
-                    <a href="#" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i> A fourth link item</a>
+                    @foreach ($semester->courses as $course)
+                        <a href="#" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i>Course {{ $loop->iteration }} - {{$course->name}}</a>
+                    @endforeach
                 </div>
+            @endforeach
         </div>
     </div>
 </div>

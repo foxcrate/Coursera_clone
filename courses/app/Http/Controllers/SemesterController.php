@@ -38,7 +38,7 @@ class SemesterController extends Controller
         $my_semester->duration = $request->duration;
         $my_semester->save();
 
-        return response(200);;
+        return redirect()->back();
     }
 
     public function mass_edit(Request $request){
@@ -108,6 +108,11 @@ class SemesterController extends Controller
         //return $c;
 
         return response(200);;
+    }
+
+    public function data_to_edit(Request $req){
+        $project = Semester::find($req->id);
+        return $project;
     }
 
 }

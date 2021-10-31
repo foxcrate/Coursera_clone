@@ -16,6 +16,8 @@ class CyclePayment extends Model
         'note',
         'status',
         'file' ,
+        'student_id',
+        'cycle_id',
     ];
 
     public function student(){
