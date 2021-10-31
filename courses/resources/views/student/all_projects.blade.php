@@ -22,9 +22,9 @@
                             <a href="{{ route('project_details', ['id'=>$project->id] ) }}"><img src="assets/images/course1.jpg" class="card-img-top card-image-style" alt="..."></a>
                             <div class="card-body">
                                 <h5 class="card-title"><i class="fas fa-wine-bottle icon-s"></i>{{ $project->name }}</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. </p>
-                                <p class="icon-les"><i class="fa fa-calendar"></i><span class="les-spa"> 3</span> semesters</p>
-                                <p class="icon-les"><i class="fa fa-book"></i><span class="les-spa"> 5</span> courses</p>
+                                <p class="card-text">{{ $project->summery }}</p>
+                                <p class="icon-les"><i class="fa fa-calendar"></i><span class="les-spa"> {{ count($project->semesters) }}</span>Semesters</p>
+                                <p class="icon-les"><i class="fa fa-book"></i><span class="les-spa"> {{ $project->courses_count() }}</span> Courses</p>
                             </div>
                             <div class="card-footer">
                                 <i class="fas fa-book-open icon-s"></i>

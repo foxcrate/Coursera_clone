@@ -4,7 +4,7 @@
 @extends('student.templates.header')
 
 @section('title')
-  <title>Project</title>
+  <title>Project Details</title>
 @endsection
 
 <div class="col-12 project-header">
@@ -14,20 +14,19 @@
 <div class="container-fluid">
         <div class="row">
             <div class="col-12 icon-head-master">
-                <p class="icon-head"><i class="fa fa-calendar"></i><span class="les-spa"> 3</span> semesters</p>
-                <p class="icon-head"><i class="fa fa-book"></i><span class="les-spa"> 5</span> courses</p>
-                <p class="icon-head"><i class="far fa-money-bill-alt"></i><span class="les-spa"> $</span> 1888</p>
+                <p class="icon-head"><i class="fa fa-calendar"></i><span class="les-spa"> {{ count( $project->semesters ) }}</span> Semesters</p>
+                <p class="icon-head"><i class="fa fa-book"></i><span class="les-spa"> {{ $project->courses_count() }}</span> Courses</p>
+                <p class="icon-head"><i class="far fa-money-bill-alt"></i><span class="les-spa"> $</span> {{ $project->price }}</p>
             </div>
         </div>
     </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 video-intro">
-            <video width="70%" height="90%" controls>
-                <source src="movie.mp4" type="video/mp4">
-                <source src="movie.ogg" type="video/ogg">
-                Your browser does not support the video tag.
-            </video>
+                <video width="70%" height="90%" controls>
+                    <source src="http://localhost:8000/{{ $project->video }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
     </div>
@@ -37,18 +36,14 @@
     <div class="row corse-content">
         <div class="col-6">
             <h5 class="pro-desc"><i class="fas fa-database icon-s"></i> Project Description</h5>
-            <p class="pro-desc1">"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"</p>
+            <p class="pro-desc1">{{ $project->summery }}</p>
         </div>
         <div class="col-6">
             <h5 class="pro-inst"><i class="fas fa-user-graduate icon-s"></i> Project instructors</h5> 
             <ul class="pro-desc1">
-                <li class="inst-li"><span class="inst-span">Doctor</span>  Youssef Wassal</li>
-                <li class="inst-li"><span class="inst-span">Doctor</span>  Youssef Wassal</li>
-                <li class="inst-li"><span class="inst-span">Doctor</span>  Youssef Wassal</li>
-                <li class="inst-li"><span class="inst-span">Doctor</span>  Youssef Wassal</li>
-                <li class="inst-li"><span class="inst-span">Doctor</span>  Youssef Wassal</li>
-                <li class="inst-li"><span class="inst-span">Doctor</span>  Youssef Wassal</li>
-
+                @foreach($project->teachers_count() as $teacher)
+                    <li class="inst-li"><span class="inst-span">Doctor</span> {{ $teacher->name }} </li>
+                @endforeach
             </ul>
         </div>
     </div>

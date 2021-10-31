@@ -54,6 +54,7 @@ Route::post('/login/student', [LoginController::class,'studentLogin']);
 Route::post('/register/admin', [RegisterController::class,'createAdmin']);
 Route::post('/register/student', [RegisterController::class,'createStudent']);
 
+// Student Open Routes //
 Route::view('/index', 'student.index')->name('index');
 Route::view('/all_projects', 'student.all_projects')->name('all_projects');
 Route::view('/about', 'student.about')->name('about');
@@ -67,14 +68,15 @@ Route::get('/fellowship_projects', [StudentController::class,'fellowship_project
 Route::get('/project_details/{id}', [StudentController::class,'project_details'])->name('project_details');
 
 
+// Student Closed Routes //
 Route::group(['middleware' => 'auth:student'], function () {
 
     Route::view('/student', 'student');
     
-    
-
 });
 
+
+// Admin Closed Routes //
 Route::group(['middleware' => 'auth:admin'], function () {
     
     //Route::view('/admin', 'admin');
@@ -180,7 +182,6 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
 });
 
-//Route::get('/details', [ProjectController::class,'details'])->name('details');
 
 Route::get('logout', [LoginController::class,'logout']);
 

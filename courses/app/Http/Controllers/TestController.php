@@ -22,6 +22,12 @@ class TestController extends Controller
 {
     public function test(){
 
+        $p1 = Project::find(1);
+        // return $p1->semesters;
+
+        $s1 = Semester::find(1);
+        $s2 = Semester::find(3);
+        
         // $t1 = Teacher::create([
         //     'name'=>'one',
         //     'image'=>'one',
@@ -80,41 +86,41 @@ class TestController extends Controller
         //     'service_id'=>2,
         // ]);
 
-        $p1 = $new_project = Project::create([
-            'name'=>' first',
-            'image'=>' first',
-            'type'=>'phd',
-            'video'=>' first',
-            'price'=>1554,
-            'summery'=>' first',
-        ]);
+        // $p1 = $new_project = Project::create([
+        //     'name'=>' first',
+        //     'image'=>' first',
+        //     'type'=>'phd',
+        //     'video'=>' first',
+        //     'price'=>1554,
+        //     'summery'=>' first',
+        // ]);
 
-        $p2 = $new_project = Project::create([
-            'name'=>' first',
-            'image'=>' first',
-            'type'=>'master',
-            'video'=>' first',
-            'price'=>1554,
-            'summery'=>' first',
-        ]);
+        // $p2 = $new_project = Project::create([
+        //     'name'=>' first',
+        //     'image'=>' first',
+        //     'type'=>'master',
+        //     'video'=>' first',
+        //     'price'=>1554,
+        //     'summery'=>' first',
+        // ]);
 
-        $p3 = $new_project = Project::create([
-            'name'=>' first',
-            'image'=>' first',
-            'type'=>'diploma',
-            'video'=>' first',
-            'price'=>1554,
-            'summery'=>' first',
-        ]);
+        // $p3 = $new_project = Project::create([
+        //     'name'=>' first',
+        //     'image'=>' first',
+        //     'type'=>'diploma',
+        //     'video'=>' first',
+        //     'price'=>1554,
+        //     'summery'=>' first',
+        // ]);
 
-        $p4 = $new_project = Project::create([
-            'name'=>' first',
-            'image'=>'fellowship',
-            'type'=>'fellowship',
-            'video'=>' first',
-            'price'=>1554,
-            'summery'=>' first',
-        ]);
+        // $p4 = $new_project = Project::create([
+        //     'name'=>' first',
+        //     'image'=>'fellowship',
+        //     'type'=>'fellowship',
+        //     'video'=>' first',
+        //     'price'=>1554,
+        //     'summery'=>' first',
+        // ]);
 
     }
 }
