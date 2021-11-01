@@ -11,6 +11,7 @@ a,
 a:hover,
 a:focus {
     color: inherit;
+    color: rgb(255, 69, 0);
     text-decoration: none;
     transition: all 0.3s;
 }
@@ -18,11 +19,6 @@ a:focus {
 .fixed-top{
     background-color: #fb8500 !important;
     color: #FFF !important;
-}
-
-.my_a{
-    text-decoration: none;
-    color: white;
 }
 
 .our_ad{
@@ -131,10 +127,10 @@ a:focus {
     background-position: auto; 
     opacity:0.6;
 } */
-
+/* "../assets/img/background.png" */
+ 
 #showcase{
-    background: #252A34 url("/assets/images//newbackground.jpg")  no-repeat center center/cover;
-    
+    background: #252A34 url("/assets/images/newbackground.jpg") no-repeat center center/cover;
     height: 650px;
     color: #fff;
 }
@@ -256,7 +252,6 @@ a:focus {
 }
 .project-header{
     background-image: url("/assets/images//project.jpg") ;
-    
     background-size:cover;
     background-blend-mode: multiply;
     width: 100%;
@@ -327,6 +322,12 @@ a:focus {
 .video-intro{
     text-align: center;
 }
+
+.my_a{
+    text-decoration: none;
+    color: white;
+}
+
 .about{
     text-align: center;
     margin-top: 2rem;
@@ -367,28 +368,4 @@ a:focus {
 .social-master{
     text-align: left;
     margin-left: 2rem;
-}
-.dash-cat{
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-.cat-active{
-    background-color: orangered !important;
-    color: white;
-    border: orangered !important;
-}
-.dash-card{
-    display: inline;
-}
-.card-h-sp{
-    font-size: 45px;
-    font-weight: bolder;
-}
-.last-courses{
-    margin: 2rem;
-}
-.my-c-title{
-    text-align: center;
-    margin-bottom: 2rem;
-
 }

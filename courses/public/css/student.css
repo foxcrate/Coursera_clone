@@ -20,11 +20,6 @@ a:focus {
     color: #FFF !important;
 }
 
-.my_a{
-    text-decoration: none;
-    color: white;
-}
-
 .our_ad{
     background-color: #fb8500 !important;
     color: #FFF !important;
@@ -133,8 +128,7 @@ a:focus {
 } */
 
 #showcase{
-    background: #252A34 url("/assets/images//newbackground.jpg")  no-repeat center center/cover;
-    
+    background: #252A34 url(../img/newbackground.jpg) no-repeat center center/cover;
     height: 650px;
     color: #fff;
 }
@@ -240,9 +234,10 @@ a:focus {
     background: #000000;
 }
 
-
-
-
+.my_a{
+    text-decoration: none;
+    color: white;
+}
 
 /* ---------------------------------------------------
     CONTENT STYLE
@@ -255,8 +250,7 @@ a:focus {
     transition: all 0.3s;
 }
 .project-header{
-    background-image: url("/assets/images//project.jpg") ;
-    
+    background-image: url("../img/project.jpg") ;
     background-size:cover;
     background-blend-mode: multiply;
     width: 100%;
@@ -391,4 +385,36 @@ a:focus {
     text-align: center;
     margin-bottom: 2rem;
 
+}
+.radio-title{
+    margin-right: 2rem;
+}
+.ol-num{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.ask{
+    background-color: #333;
+    color: #FFF;    
+    border: 1px solid #333;
+    border-radius: 10px;
+}
+.ask-al{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.ask-master{
+    margin-bottom: 2rem;
+    text-align: center;
+}
+.ask-span{
+    color: orangered;
+}
+.ask-but{
+    margin-top: 1rem;
+}
+.c-v-v{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
 }

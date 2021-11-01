@@ -75,6 +75,8 @@ Route::group(['middleware' => 'auth:student'], function () {
     Route::get('/my_courses', [StudentController::class,'my_courses'])->name('my_courses');
     Route::get('/my_books', [StudentController::class,'my_books'])->name('my_books');
     Route::get('/my_payments', [StudentController::class,'my_payments'])->name('my_payments');
+    Route::get('/project_view/{id}', [StudentController::class,'project_view'])->name('project_view');
+    Route::get('/ask', [StudentController::class,'ask'])->name('ask');
     
 });
 

@@ -172,4 +172,18 @@ class StudentController extends Controller
 
     }
 
+    public function project_view($id){
+
+        $the_project = Project::find($id);
+
+        return view('student.project_view')->with('project',$the_project);
+
+    }
+
+    public function ask(){
+
+        return view('student.ask');
+
+    }
+
 }

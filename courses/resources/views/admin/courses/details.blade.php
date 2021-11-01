@@ -186,7 +186,7 @@
                         </video> -->
                         <button onclick="video_tab()" class="btn btn-primary mb-2">View Video</button>
 						<label>Video</label>
-						<input type="file" id="edit_modal_video69" name="video" class="form-control" placeholder="Please upload the video again" required>
+						<input type="file" id="edit_modal_video69" name="video" class="form-control" placeholder="Please upload the video again" >
 					</div>
                     <div class="form-group">
 						<label>Lesson Question</label>

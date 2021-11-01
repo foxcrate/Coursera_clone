@@ -23,9 +23,23 @@
             <a class="nav-link" href="{{ route('contact') }}">Contact</a>
         </li>
     
-        <form class="d-flex log-bot">
+        <!-- <form class="d-flex log-bot">
         <a class="btn btn-dark " href="{{ route('student_login') }}"  type="submit">Login</a>
+        </form> -->
+
+
+         <!-- Right Side Of Navbar -->
+        <form class="d-flex log-bot">
+            @guest
+                <a class="btn btn-dark m-1"  href="{{ route('student_login') }}">{{ __('Login') }}</a>
+            @else 
+                <a class="btn btn-dark "  href="{{ route('logout') }}">
+                    {{ __('Logout') }}
+                </a>
+            </div>
+            @endguest
         </form>
+
     </div>
     </div>
 </nav>

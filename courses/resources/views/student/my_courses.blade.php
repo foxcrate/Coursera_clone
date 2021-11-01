@@ -24,9 +24,9 @@
                         <img src={{ asset( $cycle->project->image ) }} class="card-img-top card-image-style" alt="...">
                     <div class="card-body">
                         <h5 class="card-title"><i class="fas fa-wine-bottle icon-s"></i>{{$cycle->name}}</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. </p>
-                        <p class="icon-les"><i class="fa fa-calendar"></i><span class="les-spa"> 3</span> semesters</p>
-                        <p class="icon-les"><i class="fa fa-book"></i><span class="les-spa"> 5</span> courses</p>
+                        <p class="card-text">{{ $cycle->project->summery  }}</p>
+                        <p class="icon-les"><i class="fa fa-calendar"></i><span class="les-spa"> {{ count($cycle->project->semesters)  }} </span> semesters</p>
+                        <p class="icon-les"><i class="fa fa-book"></i><span class="les-spa"> {{ $cycle->project->courses_count()  }} </span> courses</p>
                     </div>
                     <div class="card-footer">
                         <i class="fas fa-book-open icon-s"></i>

@@ -24,9 +24,9 @@ class TestController extends Controller
 {
     public function test(){
 
-        $c1 = Cycle::find(4);
+        // $c1 = Cycle::find(4);
 
-        return $c1->project->image; 
+        // return $c1->project->image; 
 
         // $cp1 = CyclePayment::create([
 
@@ -36,37 +36,39 @@ class TestController extends Controller
         //     'note' => 'first',
         //     'status' => 'accepted',
         //     'file' => 'first',
-        //     'student_id' => 6,
+        //     'student_id' => 4,
         //     'cycle_id' => 4,
 
         // ]);
 
         // $cp2 = CyclePayment::create([
 
-        //     'due_date' => '2021-7-4',
+        //     'due_date' => '2021-10-9',
         //     'amount_paid' => 43,
         //     'amount_left' => 43,
         //     'note' => 'first',
         //     'status' => 'accepted',
         //     'file' => 'first',
-        //     'student_id' => 6,
-        //     'cycle_id' => 7,
+        //     'student_id' => 4,
+        //     'cycle_id' => 3,
 
         // ]);
 
 
-        // $p1 = Project::find(1);
+        $p1 = Project::find(2);
         // // return $p1->semesters;
 
         // $s1 = Semester::find(1);
         // $s2 = Semester::find(3);
 
-        // $c1 = Cycle::find(4);
-        // $c2 = Cycle::find(6);
-        // $s2  =Student::find(6);
+        $c1 = book::find(1);
+        $c2 = book::find(2);
+        $s2  =Student::find(4);
 
-        // $s2->cycles()->attach([$c1->id,$c2->id]);
-        //return $c1->students;
+        //$s2->books()->attach([$c1->id,$c2->id]);
+        // $p1->cycle_id = $c1->id;
+        // $p1->save();
+        //return $s2->cycles;
         
         // $t1 = Teacher::create([
         //     'name'=>'one',

@@ -32,7 +32,7 @@
     </div>
 <div class="container-fluid Course-title">
     <h2 class="course-text-title">Project <span class="course-span">{{$project->name}}</span></h2>
-    <a class="btn btn-outline-dark btn-lg btn-block" href="#">Enrol Now</a>
+    <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'id' => $project->id ]) }}" >Enrol Now</a>
     <div class="row corse-content">
         <div class="col-6">
             <h5 class="pro-desc"><i class="fas fa-database icon-s"></i> Project Description</h5>

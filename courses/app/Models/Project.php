@@ -36,6 +36,19 @@ class Project extends Model
         return $courses_count;
     }
 
+    public function all_courses(){
+        
+        $all_semesters = $this->semesters;
+        $all_courses = array();
+        foreach($all_semesters as $semester){
+            foreach($semester->courses as $course){
+                array_push($all_courses, $course );
+            }
+        }
+
+        return $all_courses;
+    }
+
     public function teachers_count(){
         
         $all_semesters = $this->semesters;
