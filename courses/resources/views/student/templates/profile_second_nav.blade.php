@@ -14,7 +14,7 @@
             <div class="card text-white bg-danger mb-3 dash-card" style="max-width: 18rem;">
                 <div class="card-header"><i class="fab fa-discourse"></i> Courses</div>
                     <div class="card-body">
-                        <h5 class="card-title"><span class="card-h-sp">{{ count(Auth::user()->cycles) }}</span> Cycles</h5>
+                        <h5 class="card-title"><span class="card-h-sp">{{ count(Auth::user()->all_cycles) }}</span> Cycles</h5>
                         <p class="card-text">You Have These Courses.</p>
                     </div>
             </div>

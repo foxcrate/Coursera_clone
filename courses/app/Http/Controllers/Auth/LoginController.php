@@ -82,6 +82,12 @@ class LoginController extends Controller
 
     public function studentLogin(Request $request)
     {
+
+        session_start();
+	
+        // Add values to the session.
+        $_SESSION['student'] = 1;
+
         $this->validate($request, [
             'email'   => 'required|email',
             'password' => 'required|min:6'

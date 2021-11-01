@@ -128,7 +128,7 @@ a:focus {
 } */
 
 #showcase{
-    background: #252A34 url(../img/newbackground.jpg) no-repeat center center/cover;
+    background: #252A34 url("/assets/images/newbackground.jpg")  no-repeat center center/cover;
     height: 650px;
     color: #fff;
 }
@@ -250,7 +250,7 @@ a:focus {
     transition: all 0.3s;
 }
 .project-header{
-    background-image: url("../img/project.jpg") ;
+    background-image: url("/assets/images//project.jpg") ;
     background-size:cover;
     background-blend-mode: multiply;
     width: 100%;

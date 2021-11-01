@@ -15,7 +15,7 @@ class Cycle extends Model
 
     protected $table = "cycles";
 
-    public function students(){
+    public function all_students(){
         return $this->belongsToMany(Student::class,'cycle_students');
     }
 
@@ -25,6 +25,10 @@ class Cycle extends Model
 
     public function cycle_payments(){
         return $this->hasMany(CyclePayment::class);
+    }
+
+    public function students(){
+        return $this->hasMany( 'App\Models\Student');
     }
 
 }

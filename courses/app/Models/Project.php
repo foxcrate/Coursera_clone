@@ -25,6 +25,10 @@ class Project extends Model
         return $this->belongsToMany(Semester::class,'project_semesters');
     }
 
+    public function semesters_num(){
+        return count($this->semesters);
+    }
+
     public function courses_count(){
         
         $all_semesters = $this->semesters;

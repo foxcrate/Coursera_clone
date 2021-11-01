@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class Student extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, HasApiTokens, Notifiable;
 
     protected $guard = 'student';
 
@@ -40,7 +40,11 @@ class Student extends Authenticatable
         return $this->hasMany( 'App\Models\Calender');
     }
 
-    public function cycles(){
+    public function cycle(){
+        return $this->belongsTo( 'App\Models\Cycle');
+    }
+
+    public function all_cycles(){
         return $this->belongsToMany(Cycle::class,'cycle_students');
     }
 

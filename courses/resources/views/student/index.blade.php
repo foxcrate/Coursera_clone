@@ -1,4 +1,4 @@
-@include('student.templates.header')
+<!-- @include('student.templates.header') -->
 @include('student.templates.navbar')
       
 @extends('student.templates.header')
@@ -6,6 +6,7 @@
 @section('title')
   <title>Easy Courses</title>
 @endsection
+
 
 <!---------- Showcase ---------->
 
@@ -23,6 +24,7 @@
 </section>
 
 <!------------- Types Of Projects ----------->
+
 
 <section class="p-5">
     <h2 class="text-center mb-5">OnlinePrograms Degrees</h2>

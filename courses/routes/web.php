@@ -95,6 +95,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/add', [CycleController::class,'add'])->name('add');
         Route::post('/edit', [CycleController::class,'edit'])->name('edit');
         Route::post('/delete', [CycleController::class,'delete'])->name('delete');
+        Route::get('/data_to_edit', [CycleController::class,'data_to_edit'])->name('data_to_edit');
 
     });
 

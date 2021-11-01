@@ -14,7 +14,13 @@ use App\Models\Course;
 
 class StudentController extends Controller
 {
-    
+    public function __construct()
+    {
+        /* dd(Auth::check()); */ //return false : just want to show you
+
+          $this->middleware('auth:student');
+    }
+
     public function index(){
         $all_students = Student::all();
         //$all_lessons = "Alo";
@@ -67,6 +73,7 @@ class StudentController extends Controller
         $my_student->payment_note = $request->payment_note;
         $my_student->money_paid = $request->money_paid;
         $my_student->money_to_pay = $request->money_to_pay;
+        $my_student->cycle_id = $request->cycle_id;
 
         $my_student->save();
 
@@ -94,6 +101,7 @@ class StudentController extends Controller
             'payment_note' =>$the_student->payment_note ,
             'money_paid' =>$the_student->money_paid ,
             'money_to_pay' =>$the_student->money_to_pay ,
+            'cycle_id' =>$the_student->cycle_id ,
         ];
 
         return $array[0];
@@ -150,7 +158,9 @@ class StudentController extends Controller
 
     public function my_courses(){
 
-        
+        //$s1 = Student::find($id);
+
+        //$all_cycles = $s1->all_cycles;
 
         return view('student.my_courses');
 

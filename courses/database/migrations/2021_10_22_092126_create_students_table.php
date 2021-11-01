@@ -31,6 +31,9 @@ class CreateStudentsTable extends Migration
             $table->integer('money_paid')->nullable();
             $table->integer('money_to_pay')->nullable();
 
+            $table->unsignedBigInteger('cycle_id')->default(0);
+            $table->foreign('cycle_id')->references('id')->on('cycles')->onDelete('cascade');
+
             $table->rememberToken();
             $table->timestamps();
         });
