@@ -5,7 +5,7 @@
                 <a href="#" class="list-group-item list-group-item-action active cat-active" aria-current="true">
                     Dashboard
                 </a>
-                <a href="{{ route('my_courses') }}" class="list-group-item list-group-item-action"><i class="fab fa-discourse"></i> My Course</a>
+                <a href="{{ route('my_courses',['id'=> session()->get('loggedID') ]) }}" class="list-group-item list-group-item-action"><i class="fab fa-discourse"></i> My Course</a>
                 <a href="{{ route('my_books') }}" class="list-group-item list-group-item-action"><i class="fas fa-book-reader"></i> library</a>
                 <a href="{{ route('my_payments') }}" class="list-group-item list-group-item-action"><i class="fab fa-cc-visa"></i> Payment</a>
             </div>

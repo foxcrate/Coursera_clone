@@ -22,11 +22,11 @@ class CreateServicePaymentsTable extends Migration
             $table->string('file');
 
             //$table->bigInteger('student_id')->default(0);
-            $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('student_id')->nullable();
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
 
             //$table->bigInteger('service_id')->default(0);
-            $table->unsignedBigInteger('service_id');
+            $table->unsignedBigInteger('service_id')->nullable();
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
 
             $table->timestamps();

@@ -29,16 +29,16 @@ class Project extends Model
         return count($this->semesters);
     }
 
-    public function courses_count(){
+    // public function courses_count(){
         
-        $all_semesters = $this->semesters;
-        $courses_count = 0;
-        foreach($all_semesters as $semester){
-            $courses_count = $courses_count + count( $semester->courses );
-        }
+    //     $all_semesters = $this->semesters;
+    //     $courses_count = 0;
+    //     foreach($all_semesters as $semester){
+    //         $courses_count = $courses_count + count( $semester->courses );
+    //     }
 
-        return $courses_count;
-    }
+    //     return $courses_count;
+    // }
 
     public function all_courses(){
         

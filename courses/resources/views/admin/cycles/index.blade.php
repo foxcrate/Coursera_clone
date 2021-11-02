@@ -4,8 +4,6 @@
 
 @include('admin.templates.navbar')
 
-<h6>{{ $projects_ids}}</h6>
-<h6>{{ $projects_names}}</h6>
 
 <div class="container-xl">
 	<div class="table-responsive">
@@ -130,7 +128,7 @@
 				<input type="hidden" id="edit_hidden_id" name="id" >
 				@csrf
 				<div class="modal-header">						
-					<h4 class="modal-title">Edit Cycle {{$cycle->id}}</h4>
+					<h4 class="modal-title">Edit Cycle</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					

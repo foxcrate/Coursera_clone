@@ -24,7 +24,7 @@
                                 <h5 class="card-title"><i class="fas fa-wine-bottle icon-s"></i>{{ $project->name }}</h5>
                                 <p class="card-text">{{ $project->summery }}</p>
                                 <p class="icon-les"><i class="fa fa-calendar"></i><span class="les-spa"> {{ count($project->semesters) }}</span>Semesters</p>
-                                <p class="icon-les"><i class="fa fa-book"></i><span class="les-spa"> {{ $project->courses_count() }}</span> Courses</p>
+                                <p class="icon-les"><i class="fa fa-book"></i><span class="les-spa"> {{ count( $project->all_courses() ) }}</span> Courses</p>
                             </div>
                             <div class="card-footer">
                                 <i class="fas fa-book-open icon-s"></i>

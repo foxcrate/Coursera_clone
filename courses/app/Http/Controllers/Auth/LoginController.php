@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Student;
+use App\Models\Admin;
 
 class LoginController extends Controller
 {
@@ -70,6 +72,10 @@ class LoginController extends Controller
             //     return redirect()->intended('/admin2');
             // }
             //return "right";
+            $the_admin = Admin::where( 'email', $request->email ) -> first();
+            session(['loggedID' => $the_admin->id ]);
+            session(['loggedName' => $the_admin->name ]);
+
             return redirect()->intended('/dashboard');
         }
         return back()->withInput($request->only('email', 'remember'))->with('error', 'You are not registered!');
@@ -82,11 +88,8 @@ class LoginController extends Controller
 
     public function studentLogin(Request $request)
     {
-
-        session_start();
 	
         // Add values to the session.
-        $_SESSION['student'] = 1;
 
         $this->validate($request, [
             'email'   => 'required|email',
@@ -94,8 +97,12 @@ class LoginController extends Controller
         ]);
 
         if (Auth::guard('student')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
+            
+            $the_student = Student::where( 'email', $request->email ) -> first();
+            session(['loggedID' => $the_student->id ]);
+            session(['loggedName' => $the_student->name ]);
 
-            return redirect()->intended('/my_courses');
+            return redirect()->intended( route( 'my_courses', $the_student->id ) );
         }
         return back()->withInput($request->only('email', 'remember'));
     }
@@ -106,7 +113,7 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
 
-        return $this->loggedOut($request) ?: redirect('/');
+        return $this->loggedOut($request) ?: redirect('/index');
     }
 
 }

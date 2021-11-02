@@ -21,12 +21,12 @@
             @foreach( $chunk as $cycle )
                 <div class="col-lg-4">
                     <div class="card h-100">
-                        <img src={{ asset( $cycle->project['image'] ) }} class="card-img-top card-image-style" alt="...">
+                        <img src={{ asset( $cycle->project->image ) }} class="card-img-top card-image-style" alt="...">
                     <div class="card-body">
                         <h5 class="card-title"><i class="fas fa-wine-bottle icon-s"></i>{{$cycle->name}}</h5>
-                        <p class="card-text">{{ $cycle->project['summery']  }}</p>
-                        <!-- <p class="icon-les"><i class="fa fa-calendar"></i><span class="les-spa"> {{ $cycle->project['semesters']  }} </span> semesters</p>
-                        <p class="icon-les"><i class="fa fa-book"></i><span class="les-spa"> {{ $cycle->project['courses_count()']  }} </span> courses</p> -->
+                        <p class="card-text">{{ $cycle->project->summery  }}</p>
+                        <p class="icon-les"><i class="fa fa-calendar"></i><span class="les-spa"> {{ count( $cycle->project->semesters ) }} </span> semesters</p>
+                        <p class="icon-les"><i class="fa fa-book"></i><span class="les-spa"> {{ count( $cycle->project->all_courses() ) }} </span> courses</p>
                     </div>
                     <div class="card-footer">
                         <i class="fas fa-book-open icon-s"></i>

@@ -98,12 +98,7 @@
 	</div>        
 </div>
 
- <!-- <video width="400" controls>
-                <source src="http://localhost:8000/{{ $project->video }}" type="video/mp4">
-                Your browser does not support HTML video.
-            </video> -->
 
-<!-- Add Modal HTML -->
 <div id="addCycleModal" class="modal fade">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -125,7 +120,7 @@
                     <div class="form-group">
 						<label>Type</label>
 						<select name="type" class="form-select" aria-label="Default select example">
-                            <option selected value="php">PHD</option>
+                            <option selected value="phd">PHD</option>
                             <option value="master">Master</option>
                             <option value="diploma">Diploma</option>
                             <option value="fellowship">Fellowship</option>

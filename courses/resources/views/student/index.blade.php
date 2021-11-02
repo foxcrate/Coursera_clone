@@ -1,4 +1,4 @@
-<!-- @include('student.templates.header') -->
+@include('student.templates.header')
 @include('student.templates.navbar')
       
 @extends('student.templates.header')

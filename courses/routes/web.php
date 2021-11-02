@@ -15,6 +15,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\ServicePaymentController;
 use Illuminate\Support\Facades\Artisan;
 
@@ -72,7 +73,7 @@ Route::get('/project_details/{id}', [StudentController::class,'project_details']
 Route::group(['middleware' => 'auth:student'], function () {
 
     Route::view('/student', 'student');
-    Route::get('/my_courses', [StudentController::class,'my_courses'])->name('my_courses');
+    Route::get('/my_courses/{id}', [StudentController::class,'my_courses'])->name('my_courses');
     Route::get('/my_books', [StudentController::class,'my_books'])->name('my_books');
     Route::get('/my_payments', [StudentController::class,'my_payments'])->name('my_payments');
     Route::get('/project_view/{id}', [StudentController::class,'project_view'])->name('project_view');
@@ -88,6 +89,8 @@ Route::group(['middleware' => 'auth:admin'], function () {
     // Route::get('/admin', [AdminController::class,'divideAdmins']);
     Route::get('/dashboard', [AdminController::class,'dashboard'])->name('dashboard');
 
+    Route::view('/excel', 'admin.excel');
+    Route::post('/import_data', [ExcelController::class,'import_data'])->name('import_data');
     
     Route::group(['prefix'=>'cycles','as'=>'cycles.'], function(){
 

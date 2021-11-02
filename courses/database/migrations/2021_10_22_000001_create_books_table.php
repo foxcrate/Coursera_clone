@@ -17,6 +17,7 @@ class CreateBooksTable extends Migration
             $table->id();
 
             $table->string('name');
+            $table->integer('cost');
             $table->string('abstract_file');
             $table->string('full_file');
             $table->string('cover');
