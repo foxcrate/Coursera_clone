@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Student;
+use Illuminate\Http\Request;
 use App\Models\Cycle;
 use App\Models\Project;
 use App\Models\CyclePayment;
@@ -14,7 +14,7 @@ use App\Models\Course;
 
 class StudentController extends Controller
 {
-    
+
     public function index(){
         $all_students = Student::all();
         //$all_lessons = "Alo";

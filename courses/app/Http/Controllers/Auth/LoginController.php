@@ -89,10 +89,16 @@ class LoginController extends Controller
 
         if (Auth::guard('student')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
 
-            return redirect()->intended('/my_courses');
+            //Auth::login();
+            session(['loggedUser' => 'student']);
+            return redirect()->intended('/index');
         }
         return back()->withInput($request->only('email', 'remember'));
+
+
     }
+
+    
 
     public function logout(Request $request)
     {
@@ -102,5 +108,6 @@ class LoginController extends Controller
 
         return $this->loggedOut($request) ?: redirect('/');
     }
+    
 
 }

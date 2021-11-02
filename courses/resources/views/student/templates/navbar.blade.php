@@ -29,8 +29,8 @@
 
 
          <!-- Right Side Of Navbar -->
-        <form class="d-flex log-bot">
-            @guest
+        <!-- <form class="d-flex log-bot">
+            @guest('student')
                 <a class="btn btn-dark m-1"  href="{{ route('student_login') }}">{{ __('Login') }}</a>
             @else 
                 <a class="btn btn-dark "  href="{{ route('logout') }}">
@@ -38,7 +38,26 @@
                 </a>
             </div>
             @endguest
-        </form>
+        </form> -->
+
+        <!-- @auth
+            <a class="btn btn-dark "  href="{{ route('logout') }}">
+                {{ __('Logout') }}
+            </a>
+        @else 
+            <a class="btn btn-dark m-1"  href="{{ route('student_login') }}">{{ __('Login') }}</a>
+        @endauth  -->
+
+
+        <form class="d-flex log-bot">
+        @if(Session::has('loggedUser'))
+            <a class="btn btn-dark "  href="{{ route('logout') }}">
+                {{ __('Logout') }}
+            </a>
+        @else 
+        <a class="btn btn-dark m-1"  href="{{ route('student_login') }}">{{ __('Login') }}</a>
+        @endif
+        </form> 
 
     </div>
     </div>
