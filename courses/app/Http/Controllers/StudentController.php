@@ -156,8 +156,9 @@ class StudentController extends Controller
     public function project_details($id){
 
         $the_project = Project::find($id);
-
-        return view('student.project')->with('project',$the_project);
+        $ids_array = $the_project->cycle_students();
+        //return $ids_array;
+        return view('student.project')->with(['project'=>$the_project, 'ids_array'=>$ids_array]);
 
     }
 

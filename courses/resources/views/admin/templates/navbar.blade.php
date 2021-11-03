@@ -29,7 +29,7 @@
                             {{Auth::user()->name}}
                         </a>
                         <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item text-light" href="#">Profile</a>
+                            <!-- <a class="dropdown-item text-light" href="#">Profile</a> -->
                             <!-- <a class="dropdown-item text-light" href="#">Logout</a> -->
                             <a class="dropdown-item text-light" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

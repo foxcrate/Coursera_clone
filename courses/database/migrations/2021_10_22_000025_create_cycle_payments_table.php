@@ -16,10 +16,10 @@ class CreateCyclePaymentsTable extends Migration
         Schema::create('cycle_payments', function (Blueprint $table) {
             $table->id();
 
-            $table->date('due_date');
-            $table->integer('amount_paid');
-            $table->integer('amount_left');
-            $table->text('note');
+            $table->date('due_date')->nullable();
+            $table->integer('amount_paid')->nullable();
+            $table->integer('amount_left')->nullable();
+            $table->text('note')->nullable();
             $table->enum('status', array('accepted', 'refused','pending')); 
             $table->string('file');
 

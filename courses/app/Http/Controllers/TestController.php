@@ -10,6 +10,7 @@ use App\Models\Cycle;
 use App\Models\CourseQuestion;
 use App\Models\Student;
 use App\Models\Book;
+use App\Models\User;
 use App\Models\CyclePayment;
 use App\Models\Lesson;
 use App\Models\LessonQuestion;
@@ -82,8 +83,16 @@ class TestController extends Controller
         $c1 = Cycle::find(1);
 
         // $s1->all_cycles()->attach([$s1]);
-        $c1->all_students()->attach($s1->id);
-        return $c1->all_students();
+        // $c1->all_students()->attach($s1->id);
+        // return $c1->all_students();
+
+        $u1 = User::create([
+            'name'=>'aaa',
+            'email'=>'wwee@wee.com',
+            'password'=>hash::make("12345"),
+        ]);
+
+        return $u1;
 
         // $p1 = Project::find(2);
         // // return $p1->semesters;

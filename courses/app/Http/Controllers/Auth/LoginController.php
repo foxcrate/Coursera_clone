@@ -75,6 +75,7 @@ class LoginController extends Controller
             $the_admin = Admin::where( 'email', $request->email ) -> first();
             session(['loggedID' => $the_admin->id ]);
             session(['loggedName' => $the_admin->name ]);
+            session(['loggedType' => 'admin' ]);
 
             return redirect()->intended('/dashboard');
         }
@@ -101,6 +102,7 @@ class LoginController extends Controller
             $the_student = Student::where( 'email', $request->email ) -> first();
             session(['loggedID' => $the_student->id ]);
             session(['loggedName' => $the_student->name ]);
+            session(['loggedType' => 'student' ]);
 
             return redirect()->intended( route( 'my_courses', $the_student->id ) );
         }
