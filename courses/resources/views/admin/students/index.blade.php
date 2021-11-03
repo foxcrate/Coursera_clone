@@ -421,7 +421,7 @@
 					</div>
                     <div class="form-group">
 						<label>Password</label>
-						<input type="text" id="edit_password" name="password" class="form-control" required>
+						<input type="text" id="edit_password" name="password" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>Primary Phone</label>
@@ -713,6 +713,10 @@
 						<label>Money To Pay</label>
 						<input type="number" id="edit_money_to_pay" name="money_to_pay" class="form-control" required>
 					</div>
+					<div class="form-group">
+						<label>Cycle ID</label>
+						<input type="number" id="edit_cycle_id" name="cycle_id" class="form-control" required>
+					</div>
                     <div class="modal-footer">
 					    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 					    <input type="submit" class="btn btn-primary" value="Save">
@@ -797,6 +801,7 @@
             $("#edit_payment_note").attr("value", data.payment_note);
             $("#edit_money_paid").attr("value", data.money_paid);
             $("#edit_money_to_pay").attr("value", data.money_to_pay);
+			$("#edit_cycle_id").attr("value", data.cycle_id);
 		});
 
 	}

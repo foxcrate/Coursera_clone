@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Student;
-use Illuminate\Http\Request;
 use App\Models\Cycle;
 use App\Models\Project;
 use App\Models\CyclePayment;
@@ -14,6 +15,13 @@ use App\Models\Course;
 
 class StudentController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     /* dd(Auth::check()); */ //return false : just want to show you
+
+    //       $this->middleware('auth:student');
+    // }
 
     public function index(){
         $all_students = Student::all();
@@ -55,7 +63,8 @@ class StudentController extends Controller
         //return $request->name;
         $my_student->name = $request->name;
         $my_student->email = $request->email;
-        $my_student->password = json_encode($request->password);
+        $my_student->password = Hash::make($request->password);
+        // $my_student->password = json_encode($request->password);
         $my_student->case = $request->case;
         $my_student->phone1 = $request->phone1;
         $my_student->phone2 = $request->phone2;
@@ -67,6 +76,10 @@ class StudentController extends Controller
         $my_student->payment_note = $request->payment_note;
         $my_student->money_paid = $request->money_paid;
         $my_student->money_to_pay = $request->money_to_pay;
+        $my_student->cycle_id = $request->cycle_id;
+
+        $c1 = Cycle::find($request->cycle_id);
+        $c1->all_students()->attach($my_student->id);
 
         $my_student->save();
 
@@ -94,6 +107,7 @@ class StudentController extends Controller
             'payment_note' =>$the_student->payment_note ,
             'money_paid' =>$the_student->money_paid ,
             'money_to_pay' =>$the_student->money_to_pay ,
+            'cycle_id' =>$the_student->cycle_id ,
         ];
 
         return $array[0];
@@ -148,9 +162,11 @@ class StudentController extends Controller
 
     }
 
-    public function my_courses(){
+    public function my_courses($id){
 
-        
+        $s1 = Student::find($id);
+
+        $all_cycles = $s1->all_cycles;
 
         return view('student.my_courses');
 

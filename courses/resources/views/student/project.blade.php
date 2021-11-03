@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-12 icon-head-master">
                 <p class="icon-head"><i class="fa fa-calendar"></i><span class="les-spa"> {{ count( $project->semesters ) }}</span> Semesters</p>
-                <p class="icon-head"><i class="fa fa-book"></i><span class="les-spa"> {{ $project->courses_count() }}</span> Courses</p>
+                <p class="icon-head"><i class="fa fa-book"></i><span class="les-spa"> {{ count( $project->all_courses() ) }}</span> Courses</p>
                 <p class="icon-head"><i class="far fa-money-bill-alt"></i><span class="les-spa"> $</span> {{ $project->price }}</p>
             </div>
         </div>

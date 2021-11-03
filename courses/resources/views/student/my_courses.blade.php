@@ -16,7 +16,7 @@
 @include('student.templates.profile_second_nav')
 <div class="conntainer last-courses">
     <h2 class="my-c-title"> My Cycles</h2>
-    @foreach ( Auth::user()->cycles->chunk(3) as $chunk)
+    @foreach ( Auth::user()->all_cycles->chunk(3) as $chunk)
         <div class="row">
             @foreach( $chunk as $cycle )
                 <div class="col-lg-4">
@@ -25,8 +25,8 @@
                     <div class="card-body">
                         <h5 class="card-title"><i class="fas fa-wine-bottle icon-s"></i>{{$cycle->name}}</h5>
                         <p class="card-text">{{ $cycle->project->summery  }}</p>
-                        <p class="icon-les"><i class="fa fa-calendar"></i><span class="les-spa"> {{ count($cycle->project->semesters)  }} </span> semesters</p>
-                        <p class="icon-les"><i class="fa fa-book"></i><span class="les-spa"> {{ $cycle->project->courses_count()  }} </span> courses</p>
+                        <p class="icon-les"><i class="fa fa-calendar"></i><span class="les-spa"> {{ count( $cycle->project->semesters ) }} </span> semesters</p>
+                        <p class="icon-les"><i class="fa fa-book"></i><span class="les-spa"> {{ count( $cycle->project->all_courses() ) }} </span> courses</p>
                     </div>
                     <div class="card-footer">
                         <i class="fas fa-book-open icon-s"></i>

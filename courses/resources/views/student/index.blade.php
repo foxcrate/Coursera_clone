@@ -7,6 +7,7 @@
   <title>Easy Courses</title>
 @endsection
 
+
 <!---------- Showcase ---------->
 
 <section id="showcase" class="">
@@ -23,6 +24,7 @@
 </section>
 
 <!------------- Types Of Projects ----------->
+
 
 <section class="p-5">
     <h2 class="text-center mb-5">OnlinePrograms Degrees</h2>

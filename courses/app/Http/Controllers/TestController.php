@@ -24,6 +24,20 @@ class TestController extends Controller
 {
     public function test(){
 
+        //$s1 = Student::find(6);
+        // $s2 = Student::find(3);
+
+        //$c1 = Cycle::find(10);
+
+        //return $s1->all_cycles[0]->project->semesters_num();
+
+        // $s1->cycle_id = $c1->id;
+        // $s1->save();
+        // $s2->cycle_id = $c1->id;
+        // $s2->save();
+
+        // return $s1->cycle;
+
         // $c1 = Cycle::find(4);
 
         // return $c1->project->image; 
@@ -54,16 +68,32 @@ class TestController extends Controller
 
         // ]);
 
+        // $c1 = Cycle::create([
 
-        $p1 = Project::find(2);
+        //     'name'=>'Second Cycle',
+        //     'start_date'=>'2022-1-1',
+
+        // ]);
+
+        //return Cycle::all();
+        
+        $s1 = Student::find(2);
+        // $c2 = Cycle::find(2);
+        $c1 = Cycle::find(1);
+
+        // $s1->all_cycles()->attach([$s1]);
+        $c1->all_students()->attach($s1->id);
+        return $c1->all_students();
+
+        // $p1 = Project::find(2);
         // // return $p1->semesters;
 
         // $s1 = Semester::find(1);
         // $s2 = Semester::find(3);
 
-        $c1 = book::find(1);
-        $c2 = book::find(2);
-        $s2  =Student::find(4);
+        // $c1 = book::find(1);
+        // $c2 = book::find(2);
+        // $s2  =Student::find(4);
 
         //$s2->books()->attach([$c1->id,$c2->id]);
         // $p1->cycle_id = $c1->id;

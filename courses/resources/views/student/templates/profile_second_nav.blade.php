@@ -5,7 +5,7 @@
                 <a href="#" class="list-group-item list-group-item-action active cat-active" aria-current="true">
                     Dashboard
                 </a>
-                <a href="{{ route('my_courses') }}" class="list-group-item list-group-item-action"><i class="fab fa-discourse"></i> My Course</a>
+                <a href="{{ route('my_courses',['id'=> session()->get('loggedID') ]) }}" class="list-group-item list-group-item-action"><i class="fab fa-discourse"></i> My Course</a>
                 <a href="{{ route('my_books') }}" class="list-group-item list-group-item-action"><i class="fas fa-book-reader"></i> library</a>
                 <a href="{{ route('my_payments') }}" class="list-group-item list-group-item-action"><i class="fab fa-cc-visa"></i> Payment</a>
             </div>
@@ -14,7 +14,7 @@
             <div class="card text-white bg-danger mb-3 dash-card" style="max-width: 18rem;">
                 <div class="card-header"><i class="fab fa-discourse"></i> Courses</div>
                     <div class="card-body">
-                        <h5 class="card-title"><span class="card-h-sp">{{ count(Auth::user()->cycles) }}</span> Cycles</h5>
+                        <h5 class="card-title"><span class="card-h-sp">{{ count(Auth::user()->all_cycles) }}</span> Cycles</h5>
                         <p class="card-text">You Have These Courses.</p>
                     </div>
             </div>

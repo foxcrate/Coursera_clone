@@ -25,16 +25,20 @@ class Project extends Model
         return $this->belongsToMany(Semester::class,'project_semesters');
     }
 
-    public function courses_count(){
-        
-        $all_semesters = $this->semesters;
-        $courses_count = 0;
-        foreach($all_semesters as $semester){
-            $courses_count = $courses_count + count( $semester->courses );
-        }
-
-        return $courses_count;
+    public function semesters_num(){
+        return count($this->semesters);
     }
+
+    // public function courses_count(){
+        
+    //     $all_semesters = $this->semesters;
+    //     $courses_count = 0;
+    //     foreach($all_semesters as $semester){
+    //         $courses_count = $courses_count + count( $semester->courses );
+    //     }
+
+    //     return $courses_count;
+    // }
 
     public function all_courses(){
         

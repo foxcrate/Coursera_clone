@@ -4,7 +4,7 @@
 
 @include('admin.templates.navbar')
 
-<!-- <h1>{{ $cycles}}</h1> -->
+
 <div class="container-xl">
 	<div class="table-responsive">
 		<div class="table-wrapper">
@@ -93,7 +93,24 @@
 					<div class="form-group">
 						<label>Start Date</label>
 						<input type="date" name="start_date" class="form-control" required>
-					</div>					
+					</div>
+					<!-- <div class="form-group">
+						<label>Project ID</label>
+						<input type="number" id="project_id" name="project_id" class="form-control">
+					</div>			 -->
+					
+					<div class="form-group">
+						<label>Project ID</label>
+						<select class="form-control" id='project_id' name="project_id">
+							@foreach ( $projects_ids as $id  )
+								
+								<option value="{{$id}}"> {{$id}} </option>
+
+							@endforeach
+							
+						</select>
+					</div>	
+
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -108,19 +125,24 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form id="edit_form" name="alo" method="post" action="{{route('cycles.edit')}}">
+				<input type="hidden" id="edit_hidden_id" name="id" >
 				@csrf
 				<div class="modal-header">						
-					<h4 class="modal-title">Edit Cycle {{$cycle->id}}</h4>
+					<h4 class="modal-title">Edit Cycle</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
 						<label>Name</label>
-						<input id="edit_modal_name" name="name" type="text" class="form-control" required>
+						<input id="edit_name" name="name" type="text" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label>Start Date</label>
-						<input type="date" id="edit_modal_start_date" name="start_date" class="form-control" required>
+						<input type="date" id="edit_start_date" name="start_date" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Project ID</label>
+						<input type="number" id="edit_project_id" name="project_id" class="form-control">
 					</div>					
 				</div>
 				<div class="modal-footer">
@@ -167,6 +189,28 @@
 	function edit_function(id){
 		edit_id = id;
 		//alert(edit_id);
+        $("#edit_hidden_id").attr("value", edit_id);
+		
+		var formData = {
+			id:edit_id,
+		};
+
+		$.ajax({
+			headers: {
+     			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   			},
+			type: "GET",
+			url: "{{ route('cycles.data_to_edit') }}" ,
+			data: formData,
+			dataType: "json",
+			encode: true,
+			}).done(function (data) {
+			console.log(data);
+			$("#edit_name").attr("value", data.name);
+            $("#edit_start_date").attr("value", data.start_date);
+			$("#edit_project_id").attr("value",  data.project_id);
+		});
+
 	}
 
 	function delete_function(id){
@@ -175,31 +219,31 @@
 		// alert(delete_id);
 	}
 
-	$("#edit_form").submit(function(e) {
+	// $("#edit_form").submit(function(e) {
 
-		e.preventDefault(); // avoid to execute the actual submit of the form.
+	// 	e.preventDefault(); // avoid to execute the actual submit of the form.
 
-		var formData = {
-			id:edit_id,
-			name: $("#edit_modal_name").val(),
-			start_date: $("#edit_modal_start_date").val(),
-		};
+	// 	var formData = {
+	// 		id:edit_id,
+	// 		name: $("#edit_modal_name").val(),
+	// 		start_date: $("#edit_modal_start_date").val(),
+	// 		project_id: $("#edit_modal_project_id").val(),
+	// 	}
+	// 	$.ajax({
+	// 		headers: {
+    //  			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   	// 		},
+	// 		type: "POST",
+	// 		url: e.target.action,
+	// 		data: formData,
+	// 		dataType: "json",
+	// 		encode: true,
+	// 		}).done(function (data) {
+	// 		// console.log(data);
+	// 		window.location.reload();
+	// 	});
 
-		$.ajax({
-			headers: {
-     			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-   			},
-			type: "POST",
-			url: e.target.action,
-			data: formData,
-			dataType: "json",
-			encode: true,
-			}).done(function (data) {
-			// console.log(data);
-			window.location.reload();
-		});
-
-	});
+	// });
 
 	$("#delete_form").submit(function(e) {
 
