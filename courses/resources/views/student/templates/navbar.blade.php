@@ -83,7 +83,9 @@
                 {{ session()->get('loggedName') }}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                @if( session()->get('loggedType') == 'student' )
                     <a class="dropdown-item" href="{{ route('my_courses',['id'=> session()->get('loggedID') ]) }}">Profile</a>
+                @endif
                     <a class="dropdown-item"  href="{{ route('logout') }}">
                         {{ __('Logout') }}
                     </a>

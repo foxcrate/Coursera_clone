@@ -74,6 +74,16 @@ class Project extends Model
         return $this->belongsTo(Cycle::class);
     }
 
+    public function cycle_students(){
+        $the_cycle = $this->cycle;
+        $cycle_students = $the_cycle->students;
+        $ids_array = array();
+        foreach($cycle_students as $student){
+            array_push($ids_array, $student->id);
+        }
+        return $ids_array;
+    }
+
     public function request_to_project(){
         return $this->hasMany( 'RequestToProject::class');
     }

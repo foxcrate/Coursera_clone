@@ -6,7 +6,7 @@
 @section('title')
   <title>Project Details</title>
 @endsection
-
+<h1>{{ in_array( 2, $ids_array) }}</h1>
 <div class="col-12 project-header">
     <div class="row">
     </div>
@@ -14,7 +14,7 @@
 <div class="container-fluid">
         <div class="row">
             <div class="col-12 icon-head-master">
-                <p class="icon-head"><i class="fa fa-calendar"></i><span class="les-spa"> {{ count( $project->semesters ) }}</span> Semesters</p>
+                <p class="icon-head"><i class="fa fa-calendar"></i><span class="les-spa"> {{ count( $project->semesters ) }}</span> - Semesters</p>
                 <p class="icon-head"><i class="fa fa-book"></i><span class="les-spa"> {{ count( $project->all_courses() ) }}</span> Courses</p>
                 <p class="icon-head"><i class="far fa-money-bill-alt"></i><span class="les-spa"> $</span> {{ $project->price }}</p>
             </div>
@@ -32,7 +32,9 @@
     </div>
 <div class="container-fluid Course-title">
     <h2 class="course-text-title">Project <span class="course-span">{{$project->name}}</span></h2>
-    <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'id' => $project->id ]) }}" >Enrol Now</a>
+    <!-- <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'id' => $project->id ]) }}" >Enrol Now</a> -->
+    <!-- <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'id' => $project->id ]) }}" >Enrol Now</a> -->
+    <a class="btn btn-outline-dark btn-lg btn-block" onClick="edit_function( {{ 1 }} )" data-bs-toggle="modal" data-bs-target="#enrolModal">Enrol Now </a>
     <div class="row corse-content">
         <div class="col-6">
             <h5 class="pro-desc"><i class="fas fa-database icon-s"></i> Project Description</h5>
@@ -64,5 +66,65 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="enrolModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            <form id="edit_form" name="alo" method="post" action=" {{ route('project_enroll') }} " enctype="multipart/form-data">
+				@csrf
+				<input type="hidden" id="edit_hidden_id" name="project_id" value={{ $project->id }} >
+                <input type="hidden" id="edit_hidden_id" name="student_id" value={{ session()->get('loggedID') }} >
+					<div class="form-group">
+						<label>Payment File</label>
+						<input id="payment" name="payment" type="file" class="form-control" required>
+					</div>
+                    
+                <button type="submit" class="btn btn-primary mt-2">Submit</button>
+			</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+    var edit_id = 0;
+
+    function edit_function(id){
+        // edit_id = id;
+        // //alert(edit_id);
+        // $("#edit_hidden_id").attr("value", edit_id);
+        
+        // var formData = {
+        //     id:edit_id,
+        // };
+
+        // $.ajax({
+        //     headers: {
+        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //     },
+        //     type: "GET",
+        //     url: "{{ route('teachers.data_to_edit') }}" ,
+        //     data: formData,
+        //     dataType: "json",
+        //     encode: true,
+        //     }).done(function (data) {
+        //     console.log(data);
+        //     $("#edit_name").attr("value", data.name);
+        //     $("#edit_image").attr("src", 'http://localhost:8000/'+ data.image);
+        //     $("#edit_bio").val( data.bio );
+        // });
+
+    }
+
+</script>
 
 @include('student.templates.footer')

@@ -15,6 +15,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\CyclePaymentController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\ServicePaymentController;
 use Illuminate\Support\Facades\Artisan;
@@ -78,6 +79,8 @@ Route::group(['middleware' => 'auth:student'], function () {
     Route::get('/my_payments', [StudentController::class,'my_payments'])->name('my_payments');
     Route::get('/project_view/{id}', [StudentController::class,'project_view'])->name('project_view');
     Route::get('/ask', [StudentController::class,'ask'])->name('ask');
+    Route::post('/project_enroll', [CyclePaymentController::class,'project_enroll'])->name('project_enroll');
+    
     
 });
 
