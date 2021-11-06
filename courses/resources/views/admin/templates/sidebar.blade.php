@@ -20,7 +20,7 @@
                     <a href="{{ route('students.index') }}">Students</a>
                 </li>
                 <li>
-                    <a href="#">Cycles Payements</a>
+                    <a href="{{ route('cycle_payments.index') }}" >Cycles Payements</a>
                 </li>
                 <li>
                     <a href="{{ route('services.index') }}">Services</a>
@@ -41,7 +41,7 @@
                     <a href="{{ route('courses.index') }}" >Courses</a>
                 </li>
                 <li>
-                    <a href="#">Requests To Projects</a>
+                    <a href="{{ route('requests_to_projects.index') }}" >Requests To Projects</a>
                 </li>
                 <li>
                     <a href="#">Discussion</a>

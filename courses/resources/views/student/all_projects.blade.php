@@ -19,7 +19,11 @@
                     @foreach($chunk as $project)
                         <div class="col">
                             <div class="card h-100">
-                            <a href="{{ route('project_details', ['id'=>$project->id] ) }}"><img src="{{ asset( $project->image ) }}" class="card-img-top card-image-style" alt="..."></a>
+                            @if(Session::has('loggedID'))
+                            <a href="{{ route('project_details', [ 'student_id' => session()->get('loggedID') , 'project_id' => $project->id ] ) }}"><img src="{{ asset( $project->image ) }}" class="card-img-top card-image-style" alt="..."></a>
+                            @else
+                            <a href="{{ route('project_details', [ 'student_id' => 0 , 'project_id' => $project->id  ] ) }}"><img src="{{ asset( $project->image ) }}" class="card-img-top card-image-style" alt="..."></a>
+                            @endif
                             <div class="card-body">
                                 <h5 class="card-title"><i class="fas fa-wine-bottle icon-s"></i>{{ $project->name }}</h5>
                                 <p class="card-text">{{ $project->summery }}</p>

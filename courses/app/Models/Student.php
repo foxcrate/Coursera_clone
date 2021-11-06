@@ -48,6 +48,16 @@ class Student extends Authenticatable
         return $this->belongsToMany(Cycle::class,'cycle_students');
     }
 
+    public function all_cycles_array(){
+        $all_cycles = $this->all_cycles;
+        $all_cycles_array = array();
+        //return $all_cycles;
+        foreach( $all_cycles as $cycle ){
+            array_push( $all_cycles_array , $cycle->project->id );
+        }
+        return $all_cycles_array;
+    }
+
     public function books(){
         return $this->belongsToMany(Book::class,'book_students');
     }

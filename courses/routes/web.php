@@ -16,6 +16,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CyclePaymentController;
+use App\Http\Controllers\ProjectsRequestsController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\ServicePaymentController;
 use Illuminate\Support\Facades\Artisan;
@@ -67,7 +68,7 @@ Route::get('/phd_projects', [StudentController::class,'phd_projects'])->name('ph
 Route::get('/master_projects', [StudentController::class,'master_projects'])->name('master_projects');
 Route::get('/diploma_projects', [StudentController::class,'diploma_projects'])->name('diploma_projects');
 Route::get('/fellowship_projects', [StudentController::class,'fellowship_projects'])->name('fellowship_projects');
-Route::get('/project_details/{id}', [StudentController::class,'project_details'])->name('project_details');
+Route::get('/project_details/{student_id}/{project_id}', [StudentController::class,'project_details'])->name('project_details');
 
 
 // Student Closed Routes //
@@ -190,6 +191,26 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/edit', [ServicePaymentController::class,'edit'])->name('edit');
         Route::post('/delete', [ServicePaymentController::class,'delete'])->name('delete');
         Route::get('/data_to_edit', [ServicePaymentController::class,'data_to_edit'])->name('data_to_edit');
+        
+    });
+
+    Route::group(['prefix'=>'cycle_payments','as'=>'cycle_payments.'], function(){
+
+        Route::get('/', [CyclePaymentController::class,'index'])->name('index');
+        Route::post('/add', [CyclePaymentController::class,'add'])->name('add');
+        Route::post('/edit', [CyclePaymentController::class,'edit'])->name('edit');
+        Route::post('/delete', [CyclePaymentController::class,'delete'])->name('delete');
+        Route::get('/data_to_edit', [CyclePaymentController::class,'data_to_edit'])->name('data_to_edit');
+        
+    });
+
+    Route::group(['prefix'=>'requests_to_projects','as'=>'requests_to_projects.'], function(){
+
+        Route::get('/', [ProjectsRequestsController::class,'index'])->name('index');
+        Route::post('/add', [ProjectsRequestsController::class,'add'])->name('add');
+        Route::post('/edit', [ProjectsRequestsController::class,'edit'])->name('edit');
+        Route::post('/delete', [ProjectsRequestsController::class,'delete'])->name('delete');
+        Route::get('/data_to_edit', [ProjectsRequestsController::class,'data_to_edit'])->name('data_to_edit');
         
     });
 

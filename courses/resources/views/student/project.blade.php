@@ -6,7 +6,8 @@
 @section('title')
   <title>Project Details</title>
 @endsection
-<h1>{{ in_array( 2, $ids_array) }}</h1>
+
+<h1>{{ in_array( $project->id ,$ids_array) }}</h1>
 <div class="col-12 project-header">
     <div class="row">
     </div>
@@ -34,7 +35,15 @@
     <h2 class="course-text-title">Project <span class="course-span">{{$project->name}}</span></h2>
     <!-- <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'id' => $project->id ]) }}" >Enrol Now</a> -->
     <!-- <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'id' => $project->id ]) }}" >Enrol Now</a> -->
-    <a class="btn btn-outline-dark btn-lg btn-block" onClick="edit_function( {{ 1 }} )" data-bs-toggle="modal" data-bs-target="#enrolModal">Enrol Now </a>
+    @if(Session::has('loggedID'))
+        @if( in_array( $project->id ,$ids_array)  )
+        <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'id' => $project->id ]) }}" >Go To Course</a>
+        @else
+        <a class="btn btn-outline-dark btn-lg btn-block" href="" data-bs-toggle="modal" data-bs-target="#enrolModal">Enroll Now</a>
+        @endif
+    @else
+        <a class="btn btn-dark m-1"  href="{{ route('student_login') }}">{{ __('Login') }}</a>
+    @endif
     <div class="row corse-content">
         <div class="col-6">
             <h5 class="pro-desc"><i class="fas fa-database icon-s"></i> Project Description</h5>
@@ -71,7 +80,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{ $project->name }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
