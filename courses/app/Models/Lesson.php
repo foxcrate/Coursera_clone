@@ -10,9 +10,11 @@ class Lesson extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'name',
         'description',
         'file',
+        'image',
         'video',
         'course_id',
     ];

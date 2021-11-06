@@ -5,30 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\RequestToProject;
 use App\Models\Cycle;
+use App\Models\Student;
 
 class ProjectsRequestsController extends Controller
 {
 
     public function index(){
-        $all_teachers = Teacher::all();
+        $all_requests = RequestToProject::all();
+        $all_cycles = Cycle::all();
         //$all_lessons = "Alo";
         
         //return $all_lessons;
-        return view('admin.teachers.index')->with('teachers',$all_teachers) ;
+        return view('admin.requests_to_projects.index')->with( [ 'all_requests' => $all_requests , 'all_cycles' => $all_cycles ] ) ;
     }
 
-    public function add(Request $request){
-        //return $request;
-        if($request->has('image')){
-            $image = $request->image;
-            $code = rand(1111111, 9999999);
-            $image_new_name=time().$code ."tp";
-            $image->move('uploads/teachers/', $image_new_name);
-        }
-        $new_teacher = Teacher::create([
-            'name'=>$request->name,
-            'image'=>'uploads/teachers/' . $image_new_name,
-            'bio'=>$request->bio,
+    public function request_to_join($student_id,$project_id){
+        //return [$student_id,$project_id] ;
+       
+        $rp = RequestToProject::create([
+            'student_id' => $student_id ,
+            'project_id' => $project_id ,
+            'status' => 'pending' ,
         ]);
         
         return redirect()->back();
@@ -37,39 +34,16 @@ class ProjectsRequestsController extends Controller
 
     public function edit(Request $request){
         //return $request;
-        //echo $request;
-        $my_teacher = Teacher::find($request->id);
-        //return $request->name;
-        $my_teacher->name = $request->name ;
-        if($request->has('image')){
-            $image = $request->image;
-            $code = rand(1111111, 9999999);
-            $image_new_name=time().$code ."tp";
-            $image->move('uploads/teachers/', $image_new_name);
-            $my_teacher->image ='uploads/teachers/' . $image_new_name;
-        }
-        $my_teacher->bio = $request->bio ;
-        $my_teacher->save();
-
+        $the_student = Student::find($request->student_id);
+        $the_student->cycle_id = $request->cycle_id;
+        $the_student->all_cycles()->attach($request->cycle_id);
+        $the_student->save();
+        $the_request = RequestToProject::find($request->request_id);
+        $the_request->status = 'accepted';
+        $the_request->save();
+        
         return redirect()->back();
-    }
 
-    public function data_to_edit(Request $request){
-
-        $the_teacher = Teacher::find($request->id);
-
-        return $the_teacher;
-
-    }
-
-    public function delete(Request $request){
-        $my_teacher = Teacher::find($request->id);
-        // $my_course = Semester::destroy($request->id);
-        // return $my_course;
-        $c = $my_teacher->delete();
-        //return $c;
-
-        return redirect()->back();
     }
 
 }

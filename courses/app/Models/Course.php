@@ -11,7 +11,11 @@ class Course extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'name',
+        'description',
+        'material',
+        'order',
     ];
 
     protected $table = 'courses';

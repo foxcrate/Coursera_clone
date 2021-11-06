@@ -16,8 +16,8 @@ class ExcelController extends Controller
 
 
         $file =$request->file('excel_file');
-        //dd($path);
+        //dd($file);
         Excel::import(new ExcelImport , $file);
-        return "Alo";
+        return "Done";
     }
 }

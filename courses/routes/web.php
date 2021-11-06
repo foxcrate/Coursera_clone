@@ -81,6 +81,7 @@ Route::group(['middleware' => 'auth:student'], function () {
     Route::get('/project_view/{id}', [StudentController::class,'project_view'])->name('project_view');
     Route::get('/ask', [StudentController::class,'ask'])->name('ask');
     Route::post('/project_enroll', [CyclePaymentController::class,'project_enroll'])->name('project_enroll');
+    Route::get('/request_to_join/{student_id}/{project_id}', [ProjectsRequestsController::class,'request_to_join'])->name('request_to_join');
     
     
 });

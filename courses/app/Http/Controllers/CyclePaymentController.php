@@ -28,4 +28,28 @@ class CyclePaymentController extends Controller
         return redirect()->back();
 
     }
+
+    public function index(){
+        $all_cycles_payments = CyclePayment::all();
+
+        return view('admin.cycle_payments.index')->with('all_cycles_payments',$all_cycles_payments);
+    }
+
+    public function edit(Request $request){
+        $the_cycles_payments = CyclePayment::find($request->id);
+
+        $the_cycles_payments->amount_paid = $request-> amount_paid ;
+        $the_cycles_payments->status = $request-> status ;
+        $the_cycles_payments->note = $request-> note ;
+
+        $the_cycles_payments->save();
+
+        return redirect()->back();
+    }
+
+    public function data_to_edit(Request $request){
+        $the_cycles_payments = CyclePayment::find($request->id);
+
+        return view('admin.cycle_payments.index')->with('the_cycles_payments',$the_cycles_payments);
+    }
 }

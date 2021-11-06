@@ -10,6 +10,9 @@ class RequestToProject extends Model
     use HasFactory;
 
     protected $fillable = [
+        'student_id',
+        'project_id',
+        'status',
     ];
 
     public function student(){

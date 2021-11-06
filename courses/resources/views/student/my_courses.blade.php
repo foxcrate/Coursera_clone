@@ -21,7 +21,11 @@
             @foreach( $chunk as $cycle )
                 <div class="col-lg-4">
                     <div class="card h-100">
-                        <img src={{ asset( $cycle->project->image ) }} class="card-img-top card-image-style" alt="...">
+                    <a href="{{ route('project_details', [ 'student_id' => session()->get('loggedID') , 'project_id' => $cycle->project->id ] ) }}">
+                        @if ($cycle->project->image)
+                            <img src={{ asset( $cycle->project->image ) }} class="card-img-top card-image-style" alt="...">
+                        @endif
+                        </a>
                     <div class="card-body">
                         <h5 class="card-title"><i class="fas fa-wine-bottle icon-s"></i>{{$cycle->name}}</h5>
                         <p class="card-text">{{ $cycle->project->summery  }}</p>

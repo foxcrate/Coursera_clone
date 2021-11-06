@@ -39,7 +39,8 @@
         @if( in_array( $project->id ,$ids_array)  )
         <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'id' => $project->id ]) }}" >Go To Course</a>
         @else
-        <a class="btn btn-outline-dark btn-lg btn-block" href="" data-bs-toggle="modal" data-bs-target="#enrolModal">Enroll Now</a>
+        <!-- <a class="btn btn-outline-dark btn-lg btn-block" href="" data-bs-toggle="modal" data-bs-target="#enrolModal">Enroll Now</a> -->
+        <a class="btn btn-outline-dark btn-lg btn-block"  href="{{ route('request_to_join',[ 'student_id' => session()->get('loggedID') ,'project_id' => $project->id ]) }}" >Enroll Now</a>
         @endif
     @else
         <a class="btn btn-dark m-1"  href="{{ route('student_login') }}">{{ __('Login') }}</a>

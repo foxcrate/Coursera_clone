@@ -11,11 +11,7 @@
 			<div class="table-title">
 				<div class="row">
 					<div class=" col-sm-6 ">
-						<h2>Manage <b>Teachers</b></h2>
-					</div>
-					<div class=" col-sm-6 ">
-						<a href="#addTeacherModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Teacher</span></a>
-						<!-- <a href="#deleteSemesterModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						 -->
+						<h2>Manage <b>Cycle Payments</b></h2>
 					</div>
 				</div>
 			</div>
@@ -28,15 +24,19 @@
 								<label for="selectAll"></label>
 							</span>
 						</th>
-						<th>ID</th>
-						<th>Name</th>
-						<th>image</th>
-                        <!-- <th>bio</th> -->
+						<th>Student ID</th>
+						<th>Creation Date</th>
+						<th>Student Name</th>
+                        <th>Cycle</th>
+						<th>Amount Paid</th>
+						<th>Payment File</th>
+						<th>Amount Left</th>
+						<th>Note</th>
 						<th>Actions</th> 
 					</tr>
 				</thead>
 				<tbody>
-				@foreach ($teachers as $teacher)
+				@foreach ($all_cycles_payments as $cycle_payment)
      
 					<tr>
 						<td style="word-wrap: break-word">
@@ -45,12 +45,16 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td>
-						<td style="word-wrap: break-word"> {{$teacher->id}} </td>
-						<td style="word-wrap: break-word"> {{$teacher->name}} </td>
-                        <td> <img style="height: 60px; width: 60px; margin-bottom: 15px; border-radius:2em;" src="{{asset($teacher->image)}}"> </td>
+						<td style="word-wrap: break-word"> {{$cycle_payment->student_id}} </td>
+						<td style="word-wrap: break-word"> {{$cycle_payment->created_at}} </td>
+						<td style="word-wrap: break-word"> {{$cycle_payment->student_name}} </td>
+						<td style="word-wrap: break-word"> {{$cycle_payment->cycle_id}} </td>
+						<td style="word-wrap: break-word"> {{$cycle_payment->amount_paid}} </td>
+						<td style="word-wrap: break-word"> {{$cycle_payment->file}} </td>
+						<td style="word-wrap: break-word"> {{$cycle_payment->amount_left}} </td>
+						<td style="word-wrap: break-word"> {{$cycle_payment->note}} </td>
 						<td style="word-wrap: break-word">
-							<a onClick="edit_function({{$teacher->id}})" href="#editTeacherModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
-							<a onClick="delete_function({{$teacher->id}})" href="#deleteTeacherModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
+							<a onClick="edit_function({{$cycle_payment->id}})" href="#editCyclePaymentModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
 						</td>
 					</tr>
 
@@ -73,90 +77,38 @@
 		</div>
 	</div>        
 </div>
-<!-- Add Modal HTML -->
-<div id="addTeacherModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form method="post" action="{{route('teachers.add')}}" enctype="multipart/form-data">
-				@csrf
-				<div class="modal-header">						
-					<h4 class="modal-title">Add Teacher</h4>
-					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<div class="form-group">
-						<label>Name</label>
-						<input type="text" name="name" class="form-control" required>
-					</div>
-					<div class="form-group">
-						<label>image</label>
-						<input type="file" name="image" class="form-control" name="image" required>
-					</div>
-                    <div class="form-group">
-						<label>Bio</label>
-						<textarea class="form-control" name="bio" rows="3"  required></textarea>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Add">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
+
 <!-- Edit Modal HTML -->
-<div id="editTeacherModal" class="modal fade">
+<div id="editCyclePaymentModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
-            <form method="post" action="{{route('teachers.edit')}}" enctype="multipart/form-data">
+            <form method="post" action="{{route('cycle_payments.edit')}}" enctype="multipart/form-data">
 				@csrf
                 <input type="hidden" id="edit_hidden_id" name="id" >
 				<div class="modal-header">						
-					<h4 class="modal-title">Edit Teacher</h4>
+					<h4 class="modal-title">Edit Cyle Payment</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
 					<div class="form-group">
-						<label>Name</label>
-						<input type="text" name="name" id="edit_name" class="form-control" required>
+						<label>Comfirmed Payment Amount</label>
+						<input type="number" name="amount_paid" id="edit_amount_paid" class="form-control" required>
 					</div>
 					<div class="form-group">
-                        <img id="edit_image" style="height: 40px; width: 40px; margin-bottom: 15px; border-radius:2em;" src="">
-						<label>image</label>
-						<input type="file" name="image"  class="form-control" name="image" required>
+						<select class="form-control" id='edit_status' name="status">
+							<option value="accepted">Accepted</option>
+							<option value="refused">Refused</option>
+							<option value="pending">Pneding</option>
+						</select>
 					</div>
                     <div class="form-group">
-						<label>Bio</label>
-						<textarea class="form-control" name="bio" id="edit_bio" rows="3"  required></textarea>
+						<label>Note</label>
+						<textarea class="form-control" name="note" id="edit_note" rows="3"  required></textarea>
 					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 					<input type="submit" class="btn btn-success" value="Add">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-<!-- Delete Modal HTML -->
-<div id="deleteTeacherModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form id="delete_form" method="post" action="{{route('teachers.delete')}}">
-				@csrf
-                <input type="hidden" id="delete_hidden_id" name="id" >
-				<div class="modal-header">						
-					<h4 class="modal-title">Delete Teacher</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<p>Are you sure you want to delete these Records?</p>
-					<p class="text-warning"><small>This action cannot be undone.</small></p>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" value="Delete">
 				</div>
 			</form>
 		</div>
@@ -166,14 +118,6 @@
 <script> 
 
     var edit_id = 0;
-	var delete_id = 0;
-
-	function delete_function(id){
-		
-		delete_id = id;
-        $("#delete_hidden_id").attr("value", delete_id);
-		// alert(delete_id);
-	}
 
 	function edit_function(id){
 		edit_id = id;
@@ -189,15 +133,15 @@
      			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
    			},
 			type: "GET",
-			url: "{{ route('teachers.data_to_edit') }}" ,
+			url: "{{ route('cycle_payments.data_to_edit') }}" ,
 			data: formData,
 			dataType: "json",
 			encode: true,
 			}).done(function (data) {
 			console.log(data);
-			$("#edit_name").attr("value", data.name);
-            $("#edit_image").attr("src", 'http://localhost:8000/'+ data.image);
-            $("#edit_bio").val( data.bio );
+			$("#edit_amount_paid").attr("value", data.edit_amount_paid);
+			$("#edit_status> option[value=" + data.status + "]").prop("selected",true);
+            $("#edit_note").val( edit_note.bio );
 		});
 
 	}
