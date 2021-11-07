@@ -11,7 +11,7 @@ class SemesterController extends Controller
 {
     
     public function index(){
-        $all_semesters = Semester::all();
+        $all_semesters = Semester::orderBy('id','desc')->paginate(12);
         
         //return $all_semesters;
         return view('admin.semesters.index')->with('semesters',$all_semesters) ;

@@ -9,7 +9,7 @@ class ServiceController extends Controller
 {
     
     public function index(){
-        $all_services = Service::all();
+        $all_services = Service::orderBy('id','desc')->paginate(8);
         //$all_lessons = "Alo";
         
         //return $all_lessons;

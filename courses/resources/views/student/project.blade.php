@@ -4,7 +4,7 @@
 @extends('student.templates.header')
 
 @section('title')
-  <title>Project Details</title>
+  <title>Project</title>
 @endsection
 
 <h1>{{ in_array( $project->id ,$ids_array) }}</h1>
@@ -15,7 +15,7 @@
 <div class="container-fluid">
         <div class="row">
             <div class="col-12 icon-head-master">
-                <p class="icon-head"><i class="fa fa-calendar"></i><span class="les-spa"> {{ count( $project->semesters ) }}</span> - Semesters</p>
+                <p class="icon-head"><i class="fa fa-calendar"></i><span class="les-spa"> {{ count( $project->semesters ) }}</span> Semesters</p>
                 <p class="icon-head"><i class="fa fa-book"></i><span class="les-spa"> {{ count( $project->all_courses() ) }}</span> Courses</p>
                 <p class="icon-head"><i class="far fa-money-bill-alt"></i><span class="les-spa"> $</span> {{ $project->price }}</p>
             </div>
@@ -40,7 +40,7 @@
         <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'id' => $project->id ]) }}" >Go To Course</a>
         @else
         <!-- <a class="btn btn-outline-dark btn-lg btn-block" href="" data-bs-toggle="modal" data-bs-target="#enrolModal">Enroll Now</a> -->
-        <a class="btn btn-outline-dark btn-lg btn-block"  href="{{ route('request_to_join',[ 'student_id' => session()->get('loggedID') ,'project_id' => $project->id ]) }}" >Enroll Now</a>
+        <a class="btn btn-outline-dark btn-lg btn-block" onclick="this.disabled=true;" disabled href="{{ route('request_to_join',[ 'student_id' => session()->get('loggedID') ,'project_id' => $project->id ]) }}" >Enroll Now</a>
         @endif
     @else
         <a class="btn btn-dark m-1"  href="{{ route('student_login') }}">{{ __('Login') }}</a>

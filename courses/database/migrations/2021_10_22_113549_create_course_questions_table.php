@@ -19,8 +19,8 @@ class CreateCourseQuestionsTable extends Migration
             $table->mediumText('question');
             $table->mediumText('first_answer');
             $table->mediumText('second_answer');
-            $table->mediumText('third_answer')->default('0');
-            $table->mediumText('fourth_answer')->default('0');
+            $table->mediumText('third_answer')->nullable();
+            $table->mediumText('fourth_answer')->nullable();
             $table->integer('correct_answer');
 
             // $table->bigInteger('course_id')->default(0) ;

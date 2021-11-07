@@ -20,6 +20,7 @@ use App\Http\Controllers\ProjectsRequestsController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\ServicePaymentController;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\CourseQuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -212,6 +213,16 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/edit', [ProjectsRequestsController::class,'edit'])->name('edit');
         Route::post('/delete', [ProjectsRequestsController::class,'delete'])->name('delete');
         Route::get('/data_to_edit', [ProjectsRequestsController::class,'data_to_edit'])->name('data_to_edit');
+        
+    });
+
+    Route::group(['prefix'=>'course_question','as'=>'course_question.'], function(){
+
+        Route::get('/', [CourseQuestionController::class,'index'])->name('index');
+        Route::post('/add', [CourseQuestionController::class,'add'])->name('add');
+        Route::post('/edit', [CourseQuestionController::class,'edit'])->name('edit');
+        Route::post('/delete', [CourseQuestionController::class,'delete'])->name('delete');
+        Route::get('/data_to_edit', [CourseQuestionController::class,'data_to_edit'])->name('data_to_edit');
         
     });
 

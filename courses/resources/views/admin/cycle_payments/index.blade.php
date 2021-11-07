@@ -18,12 +18,12 @@
 			<table style="table-layout:fixed; width: 100%;" class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>
+						<!-- <th>
 							<span class="custom-checkbox">
 								<input type="checkbox" id="selectAll">
 								<label for="selectAll"></label>
 							</span>
-						</th>
+						</th> -->
 						<th>Student ID</th>
 						<th>Creation Date</th>
 						<th>Student Name</th>
@@ -39,12 +39,12 @@
 				@foreach ($all_cycles_payments as $cycle_payment)
      
 					<tr>
-						<td style="word-wrap: break-word">
+						<!-- <td style="word-wrap: break-word">
 							<span class="custom-checkbox">
 								<input type="checkbox" id="checkbox1" name="options[]" value="1">
 								<label for="checkbox1"></label>
 							</span>
-						</td>
+						</td> -->
 						<td style="word-wrap: break-word"> {{$cycle_payment->student_id}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->created_at}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->student_name}} </td>
@@ -62,7 +62,10 @@
 
 				</tbody>
 			</table>
-			<div class="clearfix">
+			<div class="d-flex">
+                {{ $all_cycles_payments->links() }}
+            </div>
+			<!-- <div class="clearfix">
 				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
 				<ul class="pagination">
 					<li class="page-item disabled"><a href="#">Previous</a></li>
@@ -73,7 +76,7 @@
 					<li class="page-item"><a href="#" class="page-link">5</a></li>
 					<li class="page-item"><a href="#" class="page-link">Next</a></li>
 				</ul>
-			</div>
+			</div> -->
 		</div>
 	</div>        
 </div>

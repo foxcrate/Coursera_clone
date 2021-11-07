@@ -24,7 +24,7 @@ class StudentController extends Controller
     // }
 
     public function index(){
-        $all_students = Student::all();
+        $all_students = Student::orderBy('id','desc')->paginate(5);
         //$all_lessons = "Alo";
         
         //return $all_lessons;

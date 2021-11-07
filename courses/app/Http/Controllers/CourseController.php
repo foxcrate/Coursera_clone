@@ -12,7 +12,8 @@ class CourseController extends Controller
 {
     
     public function index(){
-        $all_courses = Course::all();
+        // $all_courses = Course::all();
+        $all_courses = Course::orderBy('id','desc')->paginate(11);
         //$all_courses = "Alo";
         
         //return $all_courses;

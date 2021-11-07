@@ -22,12 +22,12 @@
 			<table class="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>
+						<!-- <th>
 							<span class="custom-checkbox">
 								<input type="checkbox" id="selectAll">
 								<label for="selectAll"></label>
 							</span>
-						</th>
+						</th> -->
 						<th>ID</th>
 						<th>Name</th>
 						<th>Start Date</th>
@@ -41,12 +41,12 @@
 				@foreach ($cycles as $cycle)
      
 					<tr>
-						<td>
+						<!-- <td>
 							<span class="custom-checkbox">
 								<input type="checkbox" id="checkbox1" name="options[]" value="1">
 								<label for="checkbox1"></label>
 							</span>
-						</td>
+						</td> -->
 						<td> {{$cycle->id}} </td>
 						<td> {{$cycle->name}} </td>
 						<td> {{$cycle->start_date}} </td>
@@ -60,7 +60,10 @@
 
 				</tbody>
 			</table>
-			<div class="clearfix">
+			<div class="d-flex">
+                {{ $cycles->links() }}
+            </div>
+			<!-- <div class="clearfix">
 				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
 				<ul class="pagination">
 					<li class="page-item disabled"><a href="#">Previous</a></li>
@@ -71,7 +74,7 @@
 					<li class="page-item"><a href="#" class="page-link">5</a></li>
 					<li class="page-item"><a href="#" class="page-link">Next</a></li>
 				</ul>
-			</div>
+			</div> -->
 		</div>
 	</div>        
 </div>

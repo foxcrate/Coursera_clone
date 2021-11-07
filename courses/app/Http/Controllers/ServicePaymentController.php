@@ -9,7 +9,7 @@ class ServicePaymentController extends Controller
 {
     
     public function index(){
-        $all_service_payments= ServicePayment::all();
+        $all_service_payments= ServicePayment::orderBy('id','desc')->paginate(8);
         //$all_lessons = "Alo";
         
         //return $all_lessons;

@@ -10,12 +10,14 @@ class CourseQuestion extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'question',
         'first_answer',
         'second_answer',
         'third_answer',
         'fourth_answer',
         'correct_answer',
+        'course_id',
     ];
 
     public function course(){

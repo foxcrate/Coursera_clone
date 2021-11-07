@@ -4,8 +4,17 @@
 @extends('student.templates.header')
 
 @section('title')
-  <title>Course View</title>
+  <title>Project View</title>
 @endsection
+
+<!-- <script> 
+    var s = '';
+    //alert(s);
+    var element = document.getElementById( '' );
+    element.innerHTML = s;
+    // var element = document.getElementById("db_html");
+    // element.appendChild(temp);
+</script> -->
 
 <div class="col-12 project-header">
 </div>
@@ -31,15 +40,26 @@
             </div> -->
 
         <div class="col-lg-12">
-            @foreach( $project->all_courses() as $course)
-                <div class="list-group mb-3">
-                    <a  class="list-group-item list-group-item-action active lesson-head" aria-current="true">
-                    <i class="fab fa-discourse"></i> {{$loop->iteration}}: {{$course->name}}
-                    </a>
-                    @foreach( $course->lessons as $lesson)
-                        <button onclick = "display_video( '{{$lesson->video}}' )" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i>{{$lesson->name}}, {{ $lesson->description }} </button>
+
+            @foreach( $project->semesters as $semester)
+                <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title">Semester: {{$semester->name}}</h5>
+                    @foreach ($semester->courses as $course)
                         
+                    <div class="list-group mb-3">
+                        <a  class="list-group-item list-group-item-action active lesson-head" aria-current="true">
+                        <i class="fab fa-discourse"></i> {{$loop->iteration}}: {{$course->name}}
+                        </a>
+                        @foreach( $course->lessons as $lesson)
+                        
+                            <button onclick = "display_video( '{{$lesson->video}}' )" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i> {{$lesson->name}} <div  > {{$lesson->description}} </div> </button>
+                            
+                        @endforeach
+                    </div>
+
                     @endforeach
+                    </div>
                 </div>
             @endforeach
         </div>
@@ -66,6 +86,12 @@
         // }, 3000);
 
     }
+
+    // var s = '<div style="color:red;"> Aloo </div>';
+    // var temp = document.createElement('div');
+    // temp.innerHTML = s;
+    // var element = document.getElementById("db_html");
+    // element.appendChild(temp);
 
 </script>
 

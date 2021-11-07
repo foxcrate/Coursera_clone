@@ -12,7 +12,8 @@ use SebastianBergmann\Environment\Console;
 class ProjectController extends Controller
 {
     public function index(){
-        $all_projects = Project::all();
+        //$all_projects = Project::all();
+        $all_projects = Project::orderBy('id','desc')->paginate(8);
         
         //return $all_cycles;
         return view('admin.projects.index')->with('projects',$all_projects) ;

@@ -47,7 +47,7 @@
                     <a href="#">Discussion</a>
                 </li>
                 <li>
-                    <a href="#">Courses Questions</a>
+                    <a href="{{ route('course_question.index') }}" >Courses Questions</a>
                 </li>
                 <li>
                     <a href="#">Researches</a>

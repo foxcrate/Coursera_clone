@@ -9,7 +9,7 @@ class BookController extends Controller
 {
     
     public function index(){
-        $all_books= Book::all();
+        $all_books= Book::orderBy('id','desc')->paginate(12);
         //$all_lessons = "Alo";
         
         //return $all_lessons;
