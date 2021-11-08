@@ -7,7 +7,7 @@
   <title>Project</title>
 @endsection
 
-<h1>{{ in_array( $project->id ,$ids_array) }}</h1>
+
 <div class="col-12 project-header">
     <div class="row">
     </div>
@@ -40,7 +40,11 @@
         <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'id' => $project->id ]) }}" >Go To Course</a>
         @else
         <!-- <a class="btn btn-outline-dark btn-lg btn-block" href="" data-bs-toggle="modal" data-bs-target="#enrolModal">Enroll Now</a> -->
-        <a class="btn btn-outline-dark btn-lg btn-block" onclick="this.disabled=true;" disabled href="{{ route('request_to_join',[ 'student_id' => session()->get('loggedID') ,'project_id' => $project->id ]) }}" >Enroll Now</a>
+            @if ($already_requested == 1)
+            <a  class="btn btn-dark btn-lg btn-block">You Requested The Project</a>
+            @else
+            <a id="enroll_a"  class="btn btn-dark btn-lg btn-block" onclick="done_enrolling()" href="{{ route('request_to_join',[ 'student_id' => session()->get('loggedID') ,'project_id' => $project->id ]) }}" >Enroll Now</a>
+            @endif
         @endif
     @else
         <a class="btn btn-dark m-1"  href="{{ route('student_login') }}">{{ __('Login') }}</a>
@@ -133,6 +137,11 @@
         //     $("#edit_bio").val( data.bio );
         // });
 
+    }
+
+    function done_enrolling(){
+    var x = document.getElementById("enroll_a");
+    x.innerText = "Done";
     }
 
 </script>

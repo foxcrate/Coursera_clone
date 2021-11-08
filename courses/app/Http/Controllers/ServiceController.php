@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Service;
+use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
@@ -14,6 +15,11 @@ class ServiceController extends Controller
         
         //return $all_lessons;
         return view('admin.services.index')->with('services',$all_services) ;
+    }
+
+    public function buy_service(){
+        return Auth::user();
+        //return view('admin.books.index')->with('books',$all_books) ;
     }
 
     public function add(Request $request){

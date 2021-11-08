@@ -20,4 +20,8 @@ class Book extends Model
         return $this->belongsToMany(Student::class,'book_students');
     }
 
+    public function book_payment(){
+        return $this->hasMany( 'BookPayment::class');
+    }
+
 }

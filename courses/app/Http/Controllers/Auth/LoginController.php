@@ -58,6 +58,8 @@ class LoginController extends Controller
             'password' => 'required|min:6'
         ]);
 
+        // $the_admin = Admin::where( 'email', $request->email ) -> first();
+        //     return $the_admin->password;
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
             
             
@@ -79,7 +81,7 @@ class LoginController extends Controller
 
             return redirect()->intended('/dashboard');
         }
-        return back()->withInput($request->only('email', 'remember'))->with('error', 'You are not registered!');
+        return back()->withInput($request->only('email', 'remember'))->with('error', 'You are not registered !');
     }
 
     public function showStudentLoginForm()
@@ -89,25 +91,28 @@ class LoginController extends Controller
 
     public function studentLogin(Request $request)
     {
-	
+        
         // Add values to the session.
 
         $this->validate($request, [
             'email'   => 'required|email',
             'password' => 'required|min:6'
         ]);
+        // $the_student = Student::where( 'email', $request->email ) -> first();
+        //     return $the_student->password;
 
         if (Auth::guard('student')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
             
             $the_student = Student::where( 'email', $request->email ) -> first();
+            //return $the_student;
             session(['loggedID' => $the_student->id ]);
             session(['loggedName' => $the_student->name ]);
             session(['loggedType' => 'student' ]);
-
+            
             return redirect()->intended( route( 'my_courses', $the_student->id ) );
             
         }
-        return back()->withInput($request->only('email', 'remember'));
+        return back()->withInput($request->only('email', 'remember'))->with('error', 'You are not registered !');
 
 
     }

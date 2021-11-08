@@ -14,6 +14,7 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\BookPaymentController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CyclePaymentController;
 use App\Http\Controllers\ProjectsRequestsController;
@@ -76,6 +77,8 @@ Route::get('/project_details/{student_id}/{project_id}', [StudentController::cla
 Route::group(['middleware' => 'auth:student'], function () {
 
     Route::view('/student', 'student');
+    Route::get('/all_books', [StudentController::class,'all_books'])->name('all_books');
+    Route::get('/all_services', [StudentController::class,'all_services'])->name('all_services');
     Route::get('/my_courses/{id}', [StudentController::class,'my_courses'])->name('my_courses');
     Route::get('/my_books', [StudentController::class,'my_books'])->name('my_books');
     Route::get('/my_payments', [StudentController::class,'my_payments'])->name('my_payments');
@@ -83,6 +86,8 @@ Route::group(['middleware' => 'auth:student'], function () {
     Route::get('/ask', [StudentController::class,'ask'])->name('ask');
     Route::post('/project_enroll', [CyclePaymentController::class,'project_enroll'])->name('project_enroll');
     Route::get('/request_to_join/{student_id}/{project_id}', [ProjectsRequestsController::class,'request_to_join'])->name('request_to_join');
+    Route::post('/buy_book', [BookController::class,'buy_book'])->name('buy_book');
+    Route::get('/buy_service/{student_id}/{service_id}', [ServiceController::class,'buy_service'])->name('buy_service');
     
     
 });
@@ -203,6 +208,16 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/edit', [CyclePaymentController::class,'edit'])->name('edit');
         Route::post('/delete', [CyclePaymentController::class,'delete'])->name('delete');
         Route::get('/data_to_edit', [CyclePaymentController::class,'data_to_edit'])->name('data_to_edit');
+        
+    });
+
+    Route::group(['prefix'=>'book_payments','as'=>'book_payments.'], function(){
+
+        Route::get('/', [BookPaymentController::class,'index'])->name('index');
+        Route::post('/add', [BookPaymentController::class,'add'])->name('add');
+        Route::post('/edit', [BookPaymentController::class,'edit'])->name('edit');
+        Route::post('/delete', [BookPaymentController::class,'delete'])->name('delete');
+        Route::get('/data_to_edit', [BookPaymentController::class,'data_to_edit'])->name('data_to_edit');
         
     });
 

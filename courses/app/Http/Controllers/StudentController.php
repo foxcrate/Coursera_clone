@@ -7,11 +7,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Student;
 use App\Models\Cycle;
+use App\Models\Book;
 use App\Models\Project;
 use App\Models\CyclePayment;
+use App\Models\RequestToProject;
 use App\Models\Service;
 use App\Models\ServicePayment;
 use App\Models\Course;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -155,16 +158,23 @@ class StudentController extends Controller
     }
 
     public function project_details($student_id,$project_id){
-        //return $id;
+        //return [$student_id,$project_id];
+        $requests_to_projects = RequestToProject::where( 'project_id' , $project_id )->where('student_id',$student_id)->get();
+        //return $requests_to_projects;
         $the_project = Project::find($project_id);
-        $ids_array = [];
+        $ids_array=[];
+        if(count($requests_to_projects) > 0){
+            //return "You have Already Requested this project";
+            return view('student.project')->with( ['project'=>$the_project,'already_requested'=>1,'ids_array'=>$ids_array,] );
+        }
+        //$ids_array = [];
         if($student_id != 0){
             $the_student = Student::find($student_id);
             $ids_array = $the_student->all_cycles_array();
         }
         //return $ids_array ;
         //return $ids_array;
-        return view('student.project')->with(['project'=>$the_project, 'ids_array'=>$ids_array]);
+        return view('student.project')->with(['project'=>$the_project, 'ids_array'=>$ids_array,'already_requested'=>0]);
 
     }
 
@@ -205,6 +215,21 @@ class StudentController extends Controller
     public function ask(){
 
         return view('student.ask');
+
+    }
+
+    public function all_books(){
+        $remaining_free_books = Auth::user()->remaining_free_books;
+        $all_books = Book::all();
+
+        return view('student.all_books')->with(['all_books'=>$all_books , 'remaining_free_books'=>$remaining_free_books]);
+
+    }
+
+    public function all_services(){
+        $all_services = Service::all();
+
+        return view('student.all_services')->with('all_services',$all_services);
 
     }
 

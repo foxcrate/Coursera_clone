@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\BookPayment;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
@@ -14,6 +16,33 @@ class BookController extends Controller
         
         //return $all_lessons;
         return view('admin.books.index')->with('books',$all_books) ;
+    }
+
+    public function buy_book(Request $request){
+        if(Auth::user()->remaining_free_books > 0){
+            Auth::user()->books()->attach($request->book_id);
+            Auth::user()->remaining_free_books -- ;
+            Auth::user()->save();
+        }else{
+            // Auth::user()->books()->attach($request->book_id);
+            // Auth::user()->remaining_free_books -- ;
+            // Auth::user()->save();
+
+            $extension = $request->file('file')->extension();
+            $file = $request->file;
+            $code = rand(1111111, 9999999);
+            $file_new_name=time().$code ."bpf".'.'.$extension;
+            $file->move('uploads/book_payments/', $file_new_name);
+
+            $the_book_payment = BookPayment::create([
+                'file'=> 'uploads/book_payments/' . $file_new_name,
+                'student_id'=> Auth::user()->id,
+                'book_id'=> $request->book_id,
+            ]);
+
+        }
+        return redirect()->back();
+
     }
 
     public function add(Request $request){

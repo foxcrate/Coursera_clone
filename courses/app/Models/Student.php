@@ -30,6 +30,7 @@ class Student extends Authenticatable
         'due_date',
         'money_paid',
         'money_to_pay',
+        'remaining_free_books',
     ];
 
     protected $hidden = [
@@ -45,7 +46,7 @@ class Student extends Authenticatable
     }
 
     public function all_cycles(){
-        return $this->belongsToMany(Cycle::class,'cycle_students');
+        return $this->belongsToMany(Cycle::class,'cycle_students')->distinct();
     }
 
     public function all_cycles_array(){
@@ -59,7 +60,7 @@ class Student extends Authenticatable
     }
 
     public function books(){
-        return $this->belongsToMany(Book::class,'book_students');
+        return $this->belongsToMany(Book::class,'book_students')->distinct();
     }
 
     public function uploaded_researches(){
@@ -72,6 +73,10 @@ class Student extends Authenticatable
 
     public function services_payment(){
         return $this->hasMany( 'ServicePayment::class');
+    }
+
+    public function books_payment(){
+        return $this->hasMany( 'BookPayment::class');
     }
 
     public function requests_to_projects(){

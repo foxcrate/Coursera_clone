@@ -11,7 +11,7 @@ class ProjectsRequestsController extends Controller
 {
 
     public function index(){
-        $all_requests = RequestToProject::orderBy('id','desc')->paginate(11);
+        $all_requests = RequestToProject::where('status','pending')->orderBy('id','desc')->paginate(11);
         $all_cycles = Cycle::all();
         //$all_lessons = "Alo";
         
@@ -35,7 +35,7 @@ class ProjectsRequestsController extends Controller
     public function edit(Request $request){
         //return $request;
         $the_student = Student::find($request->student_id);
-        $the_student->cycle_id = $request->cycle_id;
+        //$the_student->cycle_id = $request->cycle_id;
         $the_student->all_cycles()->attach($request->cycle_id);
         $the_student->save();
         $the_request = RequestToProject::find($request->request_id);
