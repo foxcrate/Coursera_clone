@@ -10,7 +10,7 @@ class TeacherController extends Controller
 {
     
     public function index(){
-        $all_teachers = Teacher::orderBy('id','desc')->paginate(8);
+        $all_teachers = Teacher::orderBy('id','desc')->paginate(5);
         //$all_lessons = "Alo";
         
         //return $all_lessons;

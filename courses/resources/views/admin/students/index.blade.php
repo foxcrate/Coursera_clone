@@ -19,7 +19,7 @@
 					</div>
 				</div>
 			</div>
-			<table style="table-layout:fixed; width: 100%;" class="table table-striped table-hover">
+			<table style="table-layout:fixed; width: 100%;" class="table table_condensed table-striped table-hover">
 				<thead>
 					<tr>
 						<!-- <th>
@@ -46,12 +46,12 @@
 								<label for="checkbox1"></label>
 							</span>
 						</td> -->
-						<td style="word-wrap: break-word"> {{$student->id}} </td>
-						<td style="word-wrap: break-word"> <p> {{$student->name}} <br>  {{$student->email}} <br>  {{$student->phone1}} </p> </td>
-                        <td style="word-wrap: break-word"> {{$student->case}} </td>
-                        <td style="word-wrap: break-word"> {{$student->status}} </td>
-                        <td style="word-wrap: break-word"> {{$student->country}} </td>
-						<td style="word-wrap: break-word">
+						<td style="word-wrap: break-word; "> {{$student->id}} </td>
+						<td style="word-wrap: break-word; "> <p> {{$student->name}} <br>  {{$student->email}} <br>  {{$student->phone1}} </p> </td>
+                        <td style="word-wrap: break-word; "> {{$student->case}} </td>
+                        <td style="word-wrap: break-word; "> {{$student->status}} </td>
+                        <td style="word-wrap: break-word; "> {{$student->country}} </td>
+						<td style="word-wrap: break-word; ">
 							<a onClick="edit_function({{$student->id}})" href="#editStudentModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
 							<a onClick="delete_function({{$student->id}})" href="#deleteStudentModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
 						</td>
@@ -61,7 +61,7 @@
 
 				</tbody>
 			</table>
-			<div class="d-flex">
+			<div class="d-flex pages">
                 {{ $students->links() }}
             </div>
 			<!-- <div class="clearfix">

@@ -19,7 +19,7 @@
 				</div>
 			</div>
             <!-- table-layout:fixed; width: 100%; -->
-			<table style="" class="table table-striped table-hover">
+			<table style="table-layout:fixed; width: 100%; " class="table table_condensed table-striped table-hover">
 				<thead>
 					<tr>
 						<!-- <th>
@@ -55,7 +55,7 @@
 
 				</tbody>
 			</table>
-			<div class="d-flex">
+			<div class="d-flex pages">
                 {{ $all_course_question->links() }}
             </div>
 			<!-- <div class="clearfix">

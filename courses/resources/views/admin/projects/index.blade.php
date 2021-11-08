@@ -27,7 +27,7 @@
 					</div>
 				</div>
 			</div>
-			<table style="table-layout:fixed; width: 100%;" class="table table-striped table-hover">
+			<table style="table-layout:fixed; width: 100%;" class="table table_condensed table-striped table-hover">
 				<thead>
 					<tr>
 						<!-- <th>
@@ -69,7 +69,7 @@
                         <!-- <td> {{$project->video}} </td> -->
                         <td style="word-wrap: break-word"> {{$project->price}} </td>
                         <!-- <td> {{$project->summery}} </td> -->
-						<td style="word-wrap: break-word" >
+						<td style="word-wrap: break-word;" >
 							<!-- <a onClick="edit_function({{$project->id}})" href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a> -->
 							<a onClick="edit_function({{$project->id}})" href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
 							<!-- <a onClick="delete_function({{$project->id}})" href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a> -->
@@ -82,7 +82,7 @@
 
 				</tbody>
 			</table>
-			<div class="d-flex">
+			<div class="d-flex pages">
                 {{ $projects->links() }}
             </div>
 			<!-- <div class="clearfix">

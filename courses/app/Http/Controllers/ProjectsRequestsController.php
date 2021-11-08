@@ -11,7 +11,7 @@ class ProjectsRequestsController extends Controller
 {
 
     public function index(){
-        $all_requests = RequestToProject::orderBy('id','desc')->paginate(10);
+        $all_requests = RequestToProject::orderBy('id','desc')->paginate(11);
         $all_cycles = Cycle::all();
         //$all_lessons = "Alo";
         

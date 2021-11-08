@@ -11,7 +11,7 @@ class CycleController extends Controller
 {
     
     public function index(){
-        $all_cycles = Cycle::orderBy('id','desc')->paginate(12);
+        $all_cycles = Cycle::orderBy('id','desc')->paginate(11);
 
         $projects_ids = Project::where('id' ,'>' ,0)->pluck('id');
         $projects_names = Project::where('id' ,'>' ,0)->pluck('name');

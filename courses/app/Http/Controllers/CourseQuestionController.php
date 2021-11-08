@@ -11,7 +11,7 @@ class CourseQuestionController extends Controller
     
     public function index(){
         $all_courses = Course::all();
-        $all_course_question= CourseQuestion::orderBy('id','desc')->paginate(8);
+        $all_course_question= CourseQuestion::orderBy('id','desc')->paginate(11);
         //$all_lessons = "Alo";
         
         //return $all_lessons;

@@ -30,7 +30,7 @@ class CyclePaymentController extends Controller
     }
 
     public function index(){
-        $all_cycles_payments = CyclePayment::orderBy('id','desc')->paginate(8);
+        $all_cycles_payments = CyclePayment::orderBy('id','desc')->paginate(9);
 
         return view('admin.cycle_payments.index')->with('all_cycles_payments',$all_cycles_payments);
     }

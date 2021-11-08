@@ -19,7 +19,7 @@
 					</div>
 				</div>
 			</div>
-			<table class="table table-striped table-hover">
+			<table class="table table_condensed table-striped table-hover">
 				<thead>
 					<tr>
 						<!-- <th>
@@ -60,7 +60,7 @@
 
 				</tbody>
 			</table>
-			<div class="d-flex">
+			<div class="d-flex pages">
                 {{ $cycles->links() }}
             </div>
 			<!-- <div class="clearfix">

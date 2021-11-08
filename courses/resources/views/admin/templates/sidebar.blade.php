@@ -3,8 +3,9 @@
     <div class="wrapper">
         <!-- Sidebar  -->
         <nav id="sidebar">
-            <div class="sidebar-header">
-                <h4>Easy Courses</h4>
+            <div class="sidebar-header" >
+                <!-- <h4>Easy Courses</h4> -->
+                <a href="{{ route('dashboard') }}" style="font-size:25px;" > Easy Courses </a>
             </div>
 
             
