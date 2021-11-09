@@ -716,10 +716,10 @@
 						<label>Money To Pay</label>
 						<input type="number" id="edit_money_to_pay" name="money_to_pay" class="form-control" required>
 					</div>
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<label>Cycle ID</label>
-						<input type="number" id="edit_cycle_id" name="cycle_id" class="form-control" required>
-					</div>
+						<input type="number" id="edit_cycle_id" name="cycle_id" class="form-control">
+					</div> -->
                     <div class="modal-footer">
 					    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 					    <input type="submit" class="btn btn-primary" value="Save">
@@ -787,10 +787,10 @@
 			dataType: "json",
 			encode: true,
 			}).done(function (data) {
-			console.log(data.password);
+			console.log(data);
 			$("#edit_name").attr("value", data.name);
             $("#edit_email").attr("value", data.email);
-            $("#edit_password").attr("value", data.password);
+            $("#edit_password").attr("value", data.password2);
             $("#edit_phone1").attr("value", data.phone1);
             $("#edit_phone2").attr("value", data.phone2);
             // $("#edit_case").attr("value", data.case);

@@ -32,12 +32,14 @@
                             </div>
                             <div class="card-footer">
                                 <!-- <i class="fas fa-book-open icon-s"></i> -->
-                                @if ($remaining_free_books >0)    
-                                <button type="button"  onclick="prepare_free( {{$book->id}} , {{session()->get('loggedID')}} )"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#free_book">Take For Free</button>
-                                @else
-                                <button type="button"  onclick="prepare_buy( {{$book->id}} , {{session()->get('loggedID')}} )"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buy_book">Buy Book</button>
+                                @if( ! in_array($book->id, $books_ids) )
+                                    @if ($remaining_free_books >0)    
+                                    <button type="button"  onclick="prepare_free( {{$book->id}} , {{session()->get('loggedID')}} )"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#free_book">Take For Free</button>
+                                    @else
+                                        <button type="button"  onclick="prepare_buy( {{$book->id}} , {{session()->get('loggedID')}} )"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buy_book">Buy Book</button>
+                                    @endif
+                                    <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
                                 @endif
-                                <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
                             </div>
                         </div>
                     </div>
@@ -98,7 +100,7 @@
     var abstract_url = "";
 
     function abstract_tab(url){
-        alert("Alo");
+        //alert("Alo");
         abstract_url = 'http://localhost:8000/' +  url;
         window.open(abstract_url, '_blank').focus();
 

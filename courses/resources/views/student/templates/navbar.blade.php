@@ -10,17 +10,17 @@
             <li class="nav-item ">
                 <a class="nav-link  active" aria-current="page" href="{{ route('index') }}">Home</a>
             </li>
+            <li class="nav-item ">
+                <a class="nav-link " href="{{ route('all_projects') }}">Projects</a>
+            </li>
             @if(Session::has('loggedID'))
             <li class="nav-item ">
-                <a class="nav-link  active" aria-current="page" href="{{ route('all_books') }}">Books</a>
+                <a class="nav-link  active" aria-current="page" href="{{ route('all_books', ['student_id'=> session()->get('loggedID') ] ) }}">Books</a>
             </li> 
             <li class="nav-item ">
                 <a class="nav-link  active" aria-current="page" href="{{ route('all_services') }}">Services</a>
             </li>
             @endif
-            <li class="nav-item ">
-                <a class="nav-link " href="{{ route('all_projects') }}">Projects</a>
-            </li>
             <!-- <li class="nav-item ">
                 <a class="nav-link  " href="#">How it Works</a>
             </li> -->

@@ -108,8 +108,14 @@ class LoginController extends Controller
             session(['loggedID' => $the_student->id ]);
             session(['loggedName' => $the_student->name ]);
             session(['loggedType' => 'student' ]);
-            
-            return redirect()->intended( route( 'my_courses', $the_student->id ) );
+            if($the_student->status != 'blocked'){
+                return redirect()->intended( route( 'my_courses', $the_student->id ) );
+            }else{
+                $this->guard()->logout();
+                $request->session()->invalidate();
+
+                return back()->with('error', 'You are blocked !');
+            }
             
         }
         return back()->withInput($request->only('email', 'remember'))->with('error', 'You are not registered !');

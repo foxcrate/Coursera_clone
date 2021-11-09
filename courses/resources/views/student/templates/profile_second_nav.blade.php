@@ -32,7 +32,7 @@
         </div>
         <div class="col-lg-3" >
             <div class="card text-white bg-dark mb-3 dash-card" style="max-width: 18rem;">
-                <div class="card-header"><i class="fab fa-cc-visa"></i> Payment</div>
+                <div class="card-header"><i class="fab fa-cc-visa"></i>Accepted Payment</div>
                     <div class="card-body">
                         <!-- <h5 class="card-title"><span class="card-h-sp">{{ count( Auth::user()->cycles_payment ) }}</span> Invoices</h5> -->
                         <h5 class="card-title"><span class="card-h-sp">{{ count( $accepted_requests ) }}</span> Invoices</h5>

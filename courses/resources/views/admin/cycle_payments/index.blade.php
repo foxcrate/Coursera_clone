@@ -30,6 +30,7 @@
                         <th>Cycle</th>
 						<th>Status</th>
 						<th>Payment File</th>
+						<th>Amount paid</th>
 						<th>Amount Left</th>
 						<th>Note</th>
 						<th>Actions</th> 
@@ -51,6 +52,7 @@
 						<td style="word-wrap: break-word"> {{$cycle_payment->cycle_id}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->status}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->file}} </td>
+						<td style="word-wrap: break-word"> {{$cycle_payment->amount_paid}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->amount_left}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->note}} </td>
 						<td style="word-wrap: break-word">
@@ -101,12 +103,12 @@
 						<select class="form-control" id='edit_status' name="status">
 							<option value="accepted">Accepted</option>
 							<option value="refused">Refused</option>
-							<option value="pending">Pneding</option>
+							<option value="pending">Pending</option>
 						</select>
 					</div>
                     <div class="form-group">
 						<label>Note</label>
-						<textarea class="form-control" name="note" id="edit_note" rows="3"  required></textarea>
+						<textarea class="form-control" name="note" id="edit_note" rows="3"  ></textarea>
 					</div>
 				</div>
 				<div class="modal-footer">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\ServicePayment;
 use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
@@ -17,9 +18,22 @@ class ServiceController extends Controller
         return view('admin.services.index')->with('services',$all_services) ;
     }
 
-    public function buy_service(){
-        return Auth::user();
-        //return view('admin.books.index')->with('books',$all_books) ;
+    public function buy_service(Request $request){
+        //return $request;
+        $extension = $request->file('file')->extension();
+        $file = $request->file;
+        $code = rand(1111111, 9999999);
+        $file_new_name=time().$code ."spf".'.'.$extension;
+        $file->move('uploads/service_payments/', $file_new_name);
+
+        $the_service_payment = ServicePayment::create([
+            'file'=> 'uploads/service_payments/' . $file_new_name,
+            'student_id'=> Auth::user()->id,
+            'service_id'=> $request->service_id,
+            'note'=> $request->note,
+        ]);
+
+        return redirect()->back();
     }
 
     public function add(Request $request){

@@ -16,10 +16,10 @@ class CreateServicePaymentsTable extends Migration
         Schema::create('service_payments', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('money_paid');
-            $table->text('note');
+            $table->integer('money_paid')->nullable();
+            $table->text('note')->nullable();
             $table->enum('status', array('accepted', 'refused','pending'))->default('pending'); 
-            $table->string('file');
+            $table->string('file')->nullable();
 
             //$table->bigInteger('student_id')->default(0);
             $table->unsignedBigInteger('student_id')->nullable();

@@ -68,6 +68,7 @@ class StudentController extends Controller
         $my_student->name = $request->name;
         $my_student->email = $request->email;
         $my_student->password = Hash::make($request->password);
+        $my_student->password2 =$request->password;
         // $my_student->password = json_encode($request->password);
         $my_student->case = $request->case;
         $my_student->phone1 = $request->phone1;
@@ -80,10 +81,10 @@ class StudentController extends Controller
         $my_student->payment_note = $request->payment_note;
         $my_student->money_paid = $request->money_paid;
         $my_student->money_to_pay = $request->money_to_pay;
-        $my_student->cycle_id = $request->cycle_id;
-
-        $c1 = Cycle::find($request->cycle_id);
-        $c1->all_students()->attach($my_student->id);
+        if($request->cycle_id != null){
+            $c1 = Cycle::find($request->cycle_id);
+            $c1->all_students()->attach($my_student->id);
+        }
 
         $my_student->save();
 
@@ -100,6 +101,7 @@ class StudentController extends Controller
             'name' => $the_student->name ,
             'email' =>$the_student->email  ,
             'password' =>json_decode($the_student->password) ,
+            'password2' =>$the_student->password2 ,
             'case' =>$the_student->case ,
             'phone1' =>$the_student->phone1 ,
             'phone2' =>$the_student->phone2 ,
@@ -181,20 +183,22 @@ class StudentController extends Controller
 
     public function my_courses($id){
 
+        // $x = Auth::user()->get_cycles_with_money();
+        // return $x[0]['project'];
+        $cycles_with_money = Auth::user()->get_cycles_with_money();
+        //return $cycles_with_money;
         $s1 = Student::find($id);
 
         $all_cycles = $s1->all_cycles;
 
-        ///////////////////////////////////////
         $accepted_requests = $this->get_accepted_requests();
-        /////////////////////////////////////////
-        
 
-        return view('student.my_courses')->with('accepted_requests',$accepted_requests);
+        return view('student.my_courses')->with([ 'accepted_requests' => $accepted_requests , 'cycles_with_money' => $cycles_with_money ] );
 
     }
 
-    public function my_books(){
+    public function my_books($student_id){
+        
         $accepted_requests = $this->get_accepted_requests();
 
         return view('student.my_books')->with('accepted_requests',$accepted_requests);
@@ -223,11 +227,17 @@ class StudentController extends Controller
 
     }
 
-    public function all_books(){
+    public function all_books($student_id){
+        //return $student_id;
+        $student_books = Student::find($student_id)->books;
+        $books_ids=[];
+        foreach($student_books as $book){
+            array_push( $books_ids , $book->id );
+        }
         $remaining_free_books = Auth::user()->remaining_free_books;
         $all_books = Book::all();
 
-        return view('student.all_books')->with(['all_books'=>$all_books , 'remaining_free_books'=>$remaining_free_books]);
+        return view('student.all_books')->with(['all_books'=>$all_books , 'remaining_free_books'=>$remaining_free_books , 'books_ids'=>$books_ids]);
 
     }
 
@@ -239,24 +249,10 @@ class StudentController extends Controller
     }
 
     public function my_accepted_requests(){
-        
-        // $accepted_cycles = CyclePayment::where('student_id',Auth::user()->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
-        // $accepted_services = ServicePayment::where('student_id',Auth::user()->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
-        // $accepted_books = BookPayment::where('student_id',Auth::user()->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
 
-        // $accepted_requests = [];
-        // foreach( $accepted_cycles as $x ){
-        //     array_push($accepted_requests, ['data' => $x,'kind' => 'Cycle' ]);
-        // }
-        // foreach( $accepted_services as $x ){
-        //     array_push($accepted_requests, ['data' => $x,'kind' => 'Service' ]);
-        // }
-        // foreach( $accepted_books as $x ){
-        //     array_push($accepted_requests, ['data' => $x,'kind' => 'Book' ]);
-        // }
-
-        // return $accepted_requests;
         $accepted_requests = $this->get_accepted_requests();
+        //return $accepted_requests;
+
         return view('student.accepted_requests')->with('accepted_requests',$accepted_requests);
 
     }
@@ -269,13 +265,13 @@ class StudentController extends Controller
 
         $accepted_requests = [];
         foreach( $accepted_cycles as $x ){
-            array_push($accepted_requests, ['data' => $x,'kind' => 'Cycle' ]);
+            array_push($accepted_requests, ['data' => $x,'kind' => 'Cycle' , 'money_paid' => $x->amount_paid ]);
         }
         foreach( $accepted_services as $x ){
-            array_push($accepted_requests, ['data' => $x,'kind' => 'Service' ]);
+            array_push($accepted_requests, ['data' => $x,'kind' => 'Service' , 'money_paid' => $x->money_paid ]);
         }
         foreach( $accepted_books as $x ){
-            array_push($accepted_requests, ['data' => $x,'kind' => 'Book' ]);
+            array_push($accepted_requests, ['data' => $x,'kind' => 'Book' , 'money_paid' => $x->money_paid ]);
         }
 
         return $accepted_requests;

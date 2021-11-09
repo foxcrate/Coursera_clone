@@ -19,6 +19,7 @@ class Student extends Authenticatable
         'name',
         'email',
         'password',
+        'password2',
         'case',
         'phone1',
         'phone2',
@@ -33,8 +34,11 @@ class Student extends Authenticatable
         'remaining_free_books',
     ];
 
+    // protected $hidden = [
+    //     'password', 'remember_token',
+    // ];
     protected $hidden = [
-        'password', 'remember_token',
+        'remember_token',
     ];
 
     public function calenders(){
@@ -57,6 +61,26 @@ class Student extends Authenticatable
             array_push( $all_cycles_array , $cycle->project->id );
         }
         return $all_cycles_array;
+    }
+
+    public function get_cycles_with_money(){
+        //return $this->id;
+        $cycles_with_money = [];
+        $student_cycles = $this->all_cycles;
+        //return $student_cycles;
+
+        foreach( $student_cycles as $cycle ){
+            $num_of_semesters = $cycle->project->semesters_num();
+            $num_of_courses = count( $cycle->project->all_courses() );
+            $paid_money= 0 ;
+            $all_cycle_payment = CyclePayment::where('student_id',$this->id)->where( 'cycle_id' , $cycle->id )->where( 'status' , 'accepted' )->get();
+            //return $all_cycle_payment;
+            foreach( $all_cycle_payment as $cycle_payment ){
+                $paid_money += $cycle_payment->amount_paid;
+            }
+            array_push( $cycles_with_money , [ 'cycle' => $cycle , 'money_paid' => $paid_money , 'num_of_semesters' => $num_of_semesters , 'num_of_courses' => $num_of_courses ] );
+        }
+        return $cycles_with_money;
     }
 
     public function books(){

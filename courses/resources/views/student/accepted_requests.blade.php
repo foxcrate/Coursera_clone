@@ -13,7 +13,6 @@
         </div>
     </div>
 
-	<!-- <h6>{{ $accepted_requests[0]['kind'] }}</h6> -->
 
 @include('student.templates.profile_second_nav')
 <div class="conntainer last-courses">
@@ -37,16 +36,26 @@
 		<tbody>
 		@foreach ($accepted_requests as $request)
 
-			<tr>
+			<tr class="py-2">
 				<!-- <td style="word-wrap: break-word">
 					<span class="custom-checkbox">
 						<input type="checkbox" id="checkbox1" name="options[]" value="1">
 						<label for="checkbox1"></label>
 					</span>
 				</td> -->
-				<td style="word-wrap: break-word"> {{ $request['kind'] }} </td>
-				<td style="word-wrap: break-word"> {{ $request['data']['money_paid'] }} </td>
-				<td style="word-wrap: break-word"> {{ $request['data']['updated_at'] }} </td>
+				@if( $request['kind'] == 'Cycle' )
+				<td style="word-wrap: break-word ;"> {{ $request['kind'] }} </td>
+				<td style="word-wrap: break-word; color: rgb(220,53,69) ;"> {{ $request['money_paid'] }} </td>
+				<td style="word-wrap: break-word ;"> {{ $request['data']['updated_at'] }} </td>
+				@elseif( $request['kind'] == 'Book' )
+				<td style="word-wrap: break-word ;"> {{ $request['kind'] }} </td>
+				<td style="word-wrap: break-word; color: rgb(25,135,84) ;"> {{ $request['money_paid'] }} </td>
+				<td style="word-wrap: break-word ;"> {{ $request['data']['updated_at'] }} </td>
+				@elseif( $request['kind'] == 'Service' )
+				<td style="word-wrap: break-word ;"> {{ $request['kind'] }} </td>
+				<td style="word-wrap: break-word; color: rgb(11,98,175) ;"> {{ $request['money_paid'] }} </td>
+				<td style="word-wrap: break-word ;"> {{ $request['data']['updated_at'] }} </td>
+				@endif
 			</tr>
 
 		@endforeach

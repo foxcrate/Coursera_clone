@@ -30,7 +30,7 @@
                             <div class="card-body">
                                 <h5 class="card-title"><i class="fas fa-book"></i> {{ $book->name }} </h5>
                                 <p class="card-text"><span class="les-spa"> $</span> {{ $book->cost}}</p>
-                                <p class="card-text"><small class="text-muted">Read Book</small></p>
+                                <button onclick="book_tab( '{{ $book->full_file }}' )" class="btn btn-primary my-2">Read Book</button>
                             </div>
                             </div>
                         </div>
@@ -40,5 +40,16 @@
         </div>
     @endforeach
 </div>
+
+<script>
+
+    function book_tab(url){
+        //alert("Alo");
+        abstract_url = 'http://localhost:8000/' +  url;
+        window.open(abstract_url, '_blank').focus();
+
+    }
+
+</script>
 
 @include('student.templates.footer')
