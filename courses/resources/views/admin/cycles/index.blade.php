@@ -51,8 +51,8 @@
 						<td> {{$cycle->name}} </td>
 						<td> {{$cycle->start_date}} </td>
 						<td>
-							<a onClick="edit_function({{$cycle->id}})" href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-							<a onClick="delete_function({{$cycle->id}})" href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+							<a onClick="edit_function({{$cycle->id}})" href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
+							<a onClick="delete_function({{$cycle->id}})" href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
 						</td>
 					</tr>
 
