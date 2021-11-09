@@ -28,7 +28,7 @@
 						<th>Creation Date</th>
 						<th>Student Name</th>
                         <th>Cycle</th>
-						<th>Amount Paid</th>
+						<th>Status</th>
 						<th>Payment File</th>
 						<th>Amount Left</th>
 						<th>Note</th>
@@ -49,7 +49,7 @@
 						<td style="word-wrap: break-word"> {{$cycle_payment->created_at}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->student_name}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->cycle_id}} </td>
-						<td style="word-wrap: break-word"> {{$cycle_payment->amount_paid}} </td>
+						<td style="word-wrap: break-word"> {{$cycle_payment->status}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->file}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->amount_left}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->note}} </td>
@@ -142,9 +142,9 @@
 			encode: true,
 			}).done(function (data) {
 			console.log(data);
-			$("#edit_amount_paid").attr("value", data.edit_amount_paid);
+			$("#edit_amount_paid").attr("value", data.amount_paid);
 			$("#edit_status> option[value=" + data.status + "]").prop("selected",true);
-            $("#edit_note").val( edit_note.bio );
+            $("#edit_note").val( data.note );
 		});
 
 	}

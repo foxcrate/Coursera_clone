@@ -10,6 +10,7 @@ use App\Models\Cycle;
 use App\Models\Book;
 use App\Models\Project;
 use App\Models\CyclePayment;
+use App\Models\BookPayment;
 use App\Models\RequestToProject;
 use App\Models\Service;
 use App\Models\ServicePayment;
@@ -184,15 +185,19 @@ class StudentController extends Controller
 
         $all_cycles = $s1->all_cycles;
 
-        return view('student.my_courses');
+        ///////////////////////////////////////
+        $accepted_requests = $this->get_accepted_requests();
+        /////////////////////////////////////////
+        
+
+        return view('student.my_courses')->with('accepted_requests',$accepted_requests);
 
     }
 
     public function my_books(){
+        $accepted_requests = $this->get_accepted_requests();
 
-        
-
-        return view('student.my_books');
+        return view('student.my_books')->with('accepted_requests',$accepted_requests);
 
     }
 
@@ -230,6 +235,50 @@ class StudentController extends Controller
         $all_services = Service::all();
 
         return view('student.all_services')->with('all_services',$all_services);
+
+    }
+
+    public function my_accepted_requests(){
+        
+        // $accepted_cycles = CyclePayment::where('student_id',Auth::user()->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
+        // $accepted_services = ServicePayment::where('student_id',Auth::user()->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
+        // $accepted_books = BookPayment::where('student_id',Auth::user()->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
+
+        // $accepted_requests = [];
+        // foreach( $accepted_cycles as $x ){
+        //     array_push($accepted_requests, ['data' => $x,'kind' => 'Cycle' ]);
+        // }
+        // foreach( $accepted_services as $x ){
+        //     array_push($accepted_requests, ['data' => $x,'kind' => 'Service' ]);
+        // }
+        // foreach( $accepted_books as $x ){
+        //     array_push($accepted_requests, ['data' => $x,'kind' => 'Book' ]);
+        // }
+
+        // return $accepted_requests;
+        $accepted_requests = $this->get_accepted_requests();
+        return view('student.accepted_requests')->with('accepted_requests',$accepted_requests);
+
+    }
+
+    public function get_accepted_requests(){
+
+        $accepted_cycles = CyclePayment::where('student_id',Auth::user()->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
+        $accepted_services = ServicePayment::where('student_id',Auth::user()->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
+        $accepted_books = BookPayment::where('student_id',Auth::user()->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
+
+        $accepted_requests = [];
+        foreach( $accepted_cycles as $x ){
+            array_push($accepted_requests, ['data' => $x,'kind' => 'Cycle' ]);
+        }
+        foreach( $accepted_services as $x ){
+            array_push($accepted_requests, ['data' => $x,'kind' => 'Service' ]);
+        }
+        foreach( $accepted_books as $x ){
+            array_push($accepted_requests, ['data' => $x,'kind' => 'Book' ]);
+        }
+
+        return $accepted_requests;
 
     }
 

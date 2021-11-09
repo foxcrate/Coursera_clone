@@ -49,7 +49,8 @@ class CyclePaymentController extends Controller
 
     public function data_to_edit(Request $request){
         $the_cycles_payments = CyclePayment::find($request->id);
-
+        //return "Alo";
+        return $the_cycles_payments;
         return view('admin.cycle_payments.index')->with('the_cycles_payments',$the_cycles_payments);
     }
 }

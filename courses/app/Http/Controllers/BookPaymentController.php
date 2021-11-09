@@ -42,23 +42,15 @@ class BookPaymentController extends Controller
 
     public function edit(Request $request){
         //return $request;
-        $my_service_payment = ServicePayment::find($request->id);
-        if($request->has('file')){
-            $extension = $request->file('file')->extension();
-            $file = $request->file;
-            $code = rand(1111111, 9999999);
-            $image_new_name=time().$code ."sf" .'.'.$extension;
-            $file->move('uploads/service payments/', $image_new_name);
-            $my_service_payment->file ='uploads/service payments/' . $image_new_name;
-        }
+        $my_book_payment = BookPayment::find($request->id);
 
         // $my_service_payment->cost = $request->cost ;
-        $my_service_payment->note = $request->note ;
+        $my_book_payment->note = $request->note ;
         // $my_service_payment->money_paid = $request->money_paid ;
-        $my_service_payment->status = $request->status ;
+        $my_book_payment->status = $request->status ;
         // $my_service_payment->student_id = $request->student_id ;
         // $my_service_payment->service_id = $request->service_id ;
-        $my_service_payment->save();
+        $my_book_payment->save();
 
         return redirect()->back();
     }

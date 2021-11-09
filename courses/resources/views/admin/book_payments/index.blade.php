@@ -48,14 +48,12 @@
 						<td style="word-wrap: break-word"> {{$book_payment->student->name}} </td>
 						<td style="word-wrap: break-word"> {{$book_payment->book->cost}} </td>
 						<td style="word-wrap: break-word"> <button onclick="view_file( {{ $book_payment }} )" class="btn btn-primary p-1">File</button> </td>
-						<!-- <td style="word-wrap: break-word"> {{$service_payment->file}} </td> -->
                         <td style="word-wrap: break-word"> {{$book_payment->status}} </td>
 						<td style="word-wrap: break-word"> {{$book_payment->note}} </td>
-						<!-- <td style="word-wrap: break-word"> {{$service_payment->created_at}} </td> -->
 						<td> {{date('Y-m-d', strtotime($book_payment->created_at))}} </td>
 						<td style="word-wrap: break-word">
 							<a onClick="edit_function({{$book_payment->id}})" href="#editBookModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
-							<!-- <a onClick="delete_function({{$service_payment->id}})" href="#deleteBookModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a> -->
+							<!-- <a onClick="delete_function({{$book_payment->id}})" href="#deleteBookModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a> -->
 						</td>
 					</tr>
 
@@ -86,11 +84,11 @@
 <div id="editBookModal" class="modal fade">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-            <form method="post" action="{{route('service_payments.edit')}}" enctype="multipart/form-data">
+            <form method="post" action="{{route('book_payments.edit')}}" enctype="multipart/form-data">
 				@csrf
                 <input type="hidden" id="edit_hidden_id" name="id" >
 				<div class="modal-header">						
-					<h4 class="modal-title">Edit Service Payment</h4>
+					<h4 class="modal-title">Edit Book Payment</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">	
@@ -100,7 +98,6 @@
 						<select class="form-control" id='edit_status' name="status">
 							<option value="accepted">Accepted</option>
 							<option value="refused">Refused</option>
-							<option value="done">Done</option>
 							<option value="pending">Pending</option>
 						</select>
 					</div>
@@ -163,7 +160,7 @@
      			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
    			},
 			type: "GET",
-			url: "{{ route('service_payments.data_to_edit') }}" ,
+			url: "{{ route('book_payments.data_to_edit') }}" ,
 			data: formData,
 			dataType: "json",
 			encode: true,

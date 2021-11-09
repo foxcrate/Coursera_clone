@@ -88,6 +88,8 @@ Route::group(['middleware' => 'auth:student'], function () {
     Route::get('/request_to_join/{student_id}/{project_id}', [ProjectsRequestsController::class,'request_to_join'])->name('request_to_join');
     Route::post('/buy_book', [BookController::class,'buy_book'])->name('buy_book');
     Route::get('/buy_service/{student_id}/{service_id}', [ServiceController::class,'buy_service'])->name('buy_service');
+    Route::get('/my_accepted_requests', [StudentController::class,'my_accepted_requests'])->name('my_accepted_requests');
+    
     
     
 });

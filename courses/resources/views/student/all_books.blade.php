@@ -19,14 +19,14 @@
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 @foreach($chunk as $book)
                     <div class="col">
-                        <div class="card h-100">
+                        <div class="card" style="width:200px">
                             <!-- <a href="{{ route('buy_book', [ 'student_id' => session()->get('loggedID') , 'book_id' => $book->id ] ) }}"><img src="{{ asset( $book->cover ) }}" class="card-img-top card-image-style" alt="..."></a>     -->
                             <img src="{{ asset( $book->cover ) }}" class="card-img-top card-image-style" alt="...">
                             
                             <button onclick="abstract_tab( '{{ $book->abstract_file }}' )" class="btn btn-primary my-2">View Abstract File</button>
 
                             <div class="card-body">
-                                <h5 class="card-title"><i class="fas fa-wine-bottle icon-s"></i>{{ $book->name }}</h5>
+                                <h6 class="card-title"><i class="fas fa-wine-bottle icon-s"></i>{{ $book->name }}</h6>
                                 <!-- <p class="card-text">{{ $book->abstract_file }}</p> -->
                                 <p class="icon-les">Cost: <span class="les-spa"> {{ $book->cost }} $</span></p>
                             </div>

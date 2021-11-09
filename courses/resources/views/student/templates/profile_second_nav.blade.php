@@ -5,12 +5,14 @@
                 <a href="#" class="list-group-item list-group-item-action active cat-active" aria-current="true">
                     Dashboard
                 </a>
-                <a href="{{ route('my_courses',['id'=> session()->get('loggedID') ]) }}" class="list-group-item list-group-item-action"><i class="fab fa-discourse"></i> My Course</a>
-                <a href="{{ route('my_books') }}" class="list-group-item list-group-item-action"><i class="fas fa-book-reader"></i> library</a>
-                <a href="{{ route('my_payments') }}" class="list-group-item list-group-item-action"><i class="fab fa-cc-visa"></i> Payment</a>
+                <a href="{{ route('my_courses',['id'=> session()->get('loggedID') ]) }}" class="list-group-item list-group-item-action"><i class="fab fa-discourse"></i> My Cycles</a>
+                <a href="{{ route('my_books') }}" class="list-group-item list-group-item-action"><i class="fas fa-book-reader"></i> My Books</a>
+                
+                <!-- <a href="{{ route('my_payments') }}" class="list-group-item list-group-item-action"><i class="fab fa-cc-visa"></i> My Payments</a> -->
+                <a href="{{ route('my_accepted_requests') }}" class="list-group-item list-group-item-action"><i class="fab fa-cc-visa"></i> Accepted Payments</a>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3" >
             <div class="card text-white bg-danger mb-3 dash-card" style="max-width: 18rem;">
                 <div class="card-header"><i class="fab fa-discourse"></i> Courses</div>
                     <div class="card-body">
@@ -19,7 +21,7 @@
                     </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3" >
             <div class="card text-white bg-success mb-3 dash-card" style="max-width: 18rem;">
                 <div class="card-header"><i class="fas fa-book-reader"></i> library</div>
                     <div class="card-body">
@@ -28,11 +30,12 @@
                     </div>
             </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3" >
             <div class="card text-white bg-dark mb-3 dash-card" style="max-width: 18rem;">
                 <div class="card-header"><i class="fab fa-cc-visa"></i> Payment</div>
                     <div class="card-body">
-                        <h5 class="card-title"><span class="card-h-sp">{{ count( Auth::user()->cycles_payment ) }}</span> Invoices</h5>
+                        <!-- <h5 class="card-title"><span class="card-h-sp">{{ count( Auth::user()->cycles_payment ) }}</span> Invoices</h5> -->
+                        <h5 class="card-title"><span class="card-h-sp">{{ count( $accepted_requests ) }}</span> Invoices</h5>
                         <p class="card-text">You Have These Invoices.</p>
                     </div>
             </div>

@@ -33,6 +33,9 @@
                     <a href="{{ route('books.index') }}">Books</a>
                 </li>
                 <li>
+                    <a href="{{ route('book_payments.index') }}">Books Payments</a>
+                </li>
+                <li>
                     <a href="{{ route('projects.index') }}">Projects</a>
                 </li>
                 <li>

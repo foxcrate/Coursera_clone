@@ -100,7 +100,6 @@
 						<select class="form-control" id='edit_status' name="status">
 							<option value="accepted">Accepted</option>
 							<option value="refused">Refused</option>
-							<option value="done">Done</option>
 							<option value="pending">Pending</option>
 						</select>
 					</div>
