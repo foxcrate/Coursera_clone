@@ -89,24 +89,22 @@ Route::group(['middleware' => 'auth:student'], function () {
     Route::post('/buy_book', [BookController::class,'buy_book'])->name('buy_book');
     Route::post('/buy_service', [ServiceController::class,'buy_service'])->name('buy_service');
     Route::post('/pay_cycle', [CyclePaymentController::class,'pay_cycle'])->name('pay_cycle');
-    
+
     Route::get('/my_accepted_requests', [StudentController::class,'my_accepted_requests'])->name('my_accepted_requests');
-    
-    
-    
+
 });
 
 
 // Admin Closed Routes //
 Route::group(['middleware' => 'auth:admin'], function () {
-    
+
     //Route::view('/admin', 'admin');
     // Route::get('/admin', [AdminController::class,'divideAdmins']);
     Route::get('/dashboard', [AdminController::class,'dashboard'])->name('dashboard');
 
     Route::view('/excel', 'admin.excel');
     Route::post('/import_data', [ExcelController::class,'import_data'])->name('import_data');
-    
+
     Route::group(['prefix'=>'cycles','as'=>'cycles.'], function(){
 
         Route::get('/', [CycleController::class,'index'])->name('index');
@@ -172,7 +170,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/edit', [StudentController::class,'edit'])->name('edit');
         Route::post('/delete', [StudentController::class,'delete'])->name('delete');
         Route::get('/data_to_edit', [StudentController::class,'data_to_edit'])->name('data_to_edit');
-        
+
     });
 
     Route::group(['prefix'=>'services','as'=>'services.'], function(){
@@ -182,7 +180,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/edit', [ServiceController::class,'edit'])->name('edit');
         Route::post('/delete', [ServiceController::class,'delete'])->name('delete');
         Route::get('/data_to_edit', [ServiceController::class,'data_to_edit'])->name('data_to_edit');
-        
+
     });
 
     Route::group(['prefix'=>'books','as'=>'books.'], function(){
@@ -192,7 +190,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/edit', [BookController::class,'edit'])->name('edit');
         Route::post('/delete', [BookController::class,'delete'])->name('delete');
         Route::get('/data_to_edit', [BookController::class,'data_to_edit'])->name('data_to_edit');
-        
+
     });
 
     Route::group(['prefix'=>'service_payments','as'=>'service_payments.'], function(){
@@ -202,7 +200,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/edit', [ServicePaymentController::class,'edit'])->name('edit');
         Route::post('/delete', [ServicePaymentController::class,'delete'])->name('delete');
         Route::get('/data_to_edit', [ServicePaymentController::class,'data_to_edit'])->name('data_to_edit');
-        
+
     });
 
     Route::group(['prefix'=>'cycle_payments','as'=>'cycle_payments.'], function(){
@@ -212,7 +210,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/edit', [CyclePaymentController::class,'edit'])->name('edit');
         Route::post('/delete', [CyclePaymentController::class,'delete'])->name('delete');
         Route::get('/data_to_edit', [CyclePaymentController::class,'data_to_edit'])->name('data_to_edit');
-        
+
     });
 
     Route::group(['prefix'=>'book_payments','as'=>'book_payments.'], function(){
@@ -222,7 +220,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/edit', [BookPaymentController::class,'edit'])->name('edit');
         Route::post('/delete', [BookPaymentController::class,'delete'])->name('delete');
         Route::get('/data_to_edit', [BookPaymentController::class,'data_to_edit'])->name('data_to_edit');
-        
+
     });
 
     Route::group(['prefix'=>'requests_to_projects','as'=>'requests_to_projects.'], function(){
@@ -232,7 +230,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/edit', [ProjectsRequestsController::class,'edit'])->name('edit');
         Route::post('/delete', [ProjectsRequestsController::class,'delete'])->name('delete');
         Route::get('/data_to_edit', [ProjectsRequestsController::class,'data_to_edit'])->name('data_to_edit');
-        
+
     });
 
     Route::group(['prefix'=>'course_question','as'=>'course_question.'], function(){
@@ -242,7 +240,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/edit', [CourseQuestionController::class,'edit'])->name('edit');
         Route::post('/delete', [CourseQuestionController::class,'delete'])->name('delete');
         Route::get('/data_to_edit', [CourseQuestionController::class,'data_to_edit'])->name('data_to_edit');
-        
+
     });
 
 });

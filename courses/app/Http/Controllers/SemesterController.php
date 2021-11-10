@@ -9,10 +9,10 @@ use App\Models\Course;
 
 class SemesterController extends Controller
 {
-    
+
     public function index(){
         $all_semesters = Semester::orderBy('id','desc')->paginate(11);
-        
+
         //return $all_semesters;
         return view('admin.semesters.index')->with('semesters',$all_semesters) ;
     }
@@ -24,7 +24,7 @@ class SemesterController extends Controller
             'name'=>$request->name,
             'duration'=>$request->duration,
         ]);
-        
+
         return redirect()->back();
 
     }
@@ -54,7 +54,7 @@ class SemesterController extends Controller
                 foreach( $my_semester->courses as $course ){
                     array_push( $current_courses_array , $course->id );
                 }
-                
+
                 $my_semester->courses()->detach($current_courses_array);
             }
             //return $request->semesters_array;
@@ -73,13 +73,13 @@ class SemesterController extends Controller
                 foreach( $my_semester->courses as $course ){
                     array_push( $current_courses_array , $course->id );
                 }
-                
+
                 $my_semester->courses()->detach($current_courses_array);
             }
         }
 
-        $all_semesters = Semester::all();
-        return view('admin.semesters.index')->with('semesters',$all_semesters) ;
+        //$all_semesters = Semester::all();
+        return redirect()->route('semesters.index') ;
 
     }
 
@@ -94,7 +94,7 @@ class SemesterController extends Controller
         for($i = 0;$i<=$x-1;$i++){
             array_push($array_of_courses ,$semester_courses[$i]->id );
         }
-        
+
         //return $array_of_semesters;
         return view('admin.semesters.details')->with(['courses'=>$all_courses , 'semester'=>$semester , 'array_of_courses'=>$array_of_courses ]) ;
 

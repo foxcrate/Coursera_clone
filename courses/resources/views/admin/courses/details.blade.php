@@ -13,7 +13,7 @@
                     <!-- <h3 class="card-title" >Edit <span style="color:blue;"> {{$course->name}}   </span>'s Name & Lessons </h3> -->
                     <h3 class="card-title" >Edit "<span style="color:blue;">{{$course->name}}</span>" Course </h3>
                     <!-- action="{{ route('projects.edit') }}" -->
-                    
+
                     <form id="edit_form"  method="post" action="{{ route('courses.edit') }}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" id="idy" value=" {{$course->id}} ">
@@ -29,10 +29,10 @@
                                         <input class="form-check-input" type="checkbox" id="{{$teacher->id}}" value= "{{$teacher->id}}" name=teachers_array[]  {{ in_array($teacher->id, $array_of_teachers) ? 'checked' : '' }} >
                                         <label class="form-check-label" for="{{$teacher->id}}">{{$teacher->name}}</label>
                                     </div>
-                                @endforeach 
+                                @endforeach
                             </div>
                         </div>
-                        
+
                         <div class="form-group my-4">
 
                             <label>Lessons</label>
@@ -43,7 +43,7 @@
                                         <input class="form-check-input" type="checkbox" id="{{$lesson->id}}" value= "{{$lesson->id}}" name=lesson_array[]  {{ in_array($lesson->id, $array_of_lessons) ? 'checked' : '' }} >
                                         <label class="form-check-label" for="{{$course->id}}">{{$lesson->name}}</label>
                                     </div>
-                                @endforeach 
+                                @endforeach
                             </div> -->
                             <div class="form-control">
                                 <table style="table-layout:fixed; width: 100%;" class="table table-striped table-hover">
@@ -58,12 +58,12 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Order</th>
-                                            <th>Actions</th> 
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     @foreach ($elequent_lessons as $lesson)
-                        
+
                                         <tr>
                                             <td style="word-wrap: break-word">
                                                 <span class="custom-checkbox">
@@ -79,7 +79,7 @@
                                                 <a onClick="edit_function({{$lesson->id}})" href="#editSemesterModal"  data-toggle="modal" class="edit" ><i class="bi bi-pencil-fill"></i></a>
                                                 <!-- <a href="{{ route('courses.details',['id'=>$lesson->id]) }}" title="Lessons" class="details"><i class="bi bi-eye-fill"></i></a> -->
                                                 <a onClick="delete_function({{$lesson->id}})" href="#deleteSemesterModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
-                                                
+
                                             </td>
                                         </tr>
 
@@ -96,7 +96,7 @@
                     </form>
                 </div>
             </section>
-            
+
         </div>
     </div>
 
@@ -107,11 +107,11 @@
 			<form id="edit_form" name="alo" method="post" action="{{route('lessons.add')}}" enctype="multipart/form-data">
 				@csrf
                 <input type="hidden" name="id" value= {{$course->id}} >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Add New Lesson</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<div class="form-group">
 						<label>Name</label>
 						<input  name="name" type="text" class="form-control" required>
@@ -119,11 +119,11 @@
 					<div class="form-group">
 						<label>Order</label>
 						<input type="number" id="edit_modal_duration" name="order" class="form-control" required>
-					</div>	
+					</div>
                     <div class="form-group">
 						<label>Description</label>
 						<input type="text" id="edit_modal_duration" name="description" class="form-control" required>
-					</div>	
+					</div>
                     <div class="form-group mt-2">
 						<label>Video</label>
 						<input type="file" id="edit_modal_duration" name="video" class="form-control" required>
@@ -144,7 +144,7 @@
                     <div class="form-group mt-2">
 						<label>Correct Answer</label>
 						<input type="number" id="lesson_question_correct_answer" name="correct_answer" class="form-control" required>
-					</div>					
+					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -162,11 +162,12 @@
 			<form id="edit_form" name="alo" method="post" action="{{route('lessons.edit')}}" enctype="multipart/form-data">
 				@csrf
                 <input type="hidden" name="id" id="hidden_in_edit" value= edit_id >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Edit lesson</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
+                    {{-- <a href="#myModal2" data-toggle="modal" class="btn btn-success text-dark">2nd Modal</a> --}}
 					<div class="form-group">
 						<label>Name</label>
 						<input id="edit_modal_name" name="name" type="text" class="form-control" required>
@@ -174,11 +175,11 @@
 					<div class="form-group">
 						<label>Order</label>
 						<input type="number" id="edit_modal_order" name="order" class="form-control" required>
-					</div>	
+					</div>
                     <div class="form-group">
 						<label>Description</label>
 						<input type="text" id="edit_modal_description" name="description" class="form-control" required>
-					</div>	
+					</div>
                     <div class="form-group mt-2">
                         <!-- <video class="project_video_in_edit" controls>
                             <source id="edit_modal_video" src="" type="video/mp4">
@@ -203,7 +204,7 @@
                     <div class="form-group">
 						<label>Correct Answer</label>
 						<input type="number" id="edit_modal_correct_answer" name="correct_answer" class="form-control" required>
-					</div>				
+					</div>
 				</div>
 
 				<div class="modal-footer">
@@ -215,7 +216,7 @@
 	</div>
 </div>
 
-<!-- <div class="modal" id="myModal2" data-bs-backdrop="static">
+{{-- <div class="modal fade" id="myModal2" data-bs-backdrop="static">
 	<div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -229,11 +230,12 @@
             </video>
         </div>
         <div class="modal-footer">
-          <a href="#" data-dismiss="modal" class="btn">Close</a>
+            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+            <input type="submit" class="btn btn-info" value="Save">
         </div>
       </div>
     </div>
-</div> -->
+</div> --}}
 
 <!-- Delete Modal HTML -->
 <div id="deleteSemesterModal" class="modal fade">
@@ -242,11 +244,11 @@
 			<form id="delete_form" method="post" action="{{route('lessons.delete')}}">
 				@csrf
                 <input type="hidden" name="id" id="hidden_in_delete" value= delete_id >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Delete Lesson</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<p>Are you sure you want to delete these Records?</p>
 					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
@@ -258,14 +260,14 @@
 		</div>
 	</div>
 </div>
-    
+
 
     <script>
 
         var video_url = "";
 
         function edit_function(id){
-            
+
             var edit_id = id;
             //alert(edit_id);
             document.getElementById("hidden_in_edit").value = edit_id;
@@ -301,16 +303,16 @@
             });
 
 
-        }        
+        }
 
         function video_tab(){
             //alert("Alo");
             window.open(video_url, '_blank').focus();
 
         }
-        
+
         function delete_function(id){
-            
+
             var delete_id = id;
             // alert(delete_id);
             document.getElementById("hidden_in_delete").value = delete_id;
@@ -322,7 +324,7 @@
             //     $('<input>').attr('type','number');
 
             // );
-        
+
             // $('#idy').after(
             // $('<input>')
             //     .attr("type", "number")
