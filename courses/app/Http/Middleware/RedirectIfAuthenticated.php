@@ -24,10 +24,10 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
 
             if ($guard == "admin" && Auth::guard($guard)->check()) {
-                return redirect('/admin');
+                return redirect('/dashboard');
             }
             if ($guard == "student" && Auth::guard($guard)->check()) {
-                return redirect('/student');
+                return redirect('/index');
             }
 
             if (Auth::guard($guard)->check()) {

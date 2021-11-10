@@ -9,15 +9,15 @@ use App\Models\Project;
 
 class CycleController extends Controller
 {
-    
+
     public function index(){
         $all_cycles = Cycle::orderBy('id','desc')->paginate(11);
 
         $projects_ids = Project::where('id' ,'>' ,0)->pluck('id');
         $projects_names = Project::where('id' ,'>' ,0)->pluck('name');
-        
+        $all_projects = Project::all();
         //return $projects;
-        return view('admin.cycles.index')->with(['cycles' => $all_cycles , 'projects_ids' => $projects_ids , 'projects_names' => $projects_names]) ;
+        return view('admin.cycles.index')->with(['cycles' => $all_cycles , 'projects_ids' => $projects_ids , 'projects_names' => $projects_names , 'all_projects'=>$all_projects]) ;
     }
 
     public function add(Request $request){
@@ -30,7 +30,7 @@ class CycleController extends Controller
         $the_project = Project::find($request->project_id);
         $the_project->cycle_id = $new_cycle->id;
         $the_project->save();
-        
+
         return redirect()->back();
 
     }
@@ -65,7 +65,7 @@ class CycleController extends Controller
 
         $my_data[] = [
             'name' => $the_cycle->name ,
-            'start_date' =>$the_cycle->email  ,
+            'start_date' =>$the_cycle->start_date  ,
             'project_id' =>$the_project_id ,
         ];
 

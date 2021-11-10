@@ -34,12 +34,12 @@
 						<!-- <th>Email</th>
 						<th>Address</th>
 						<th>Phone</th>-->
-						<th>Actions</th> 
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 				@foreach ($cycles as $cycle)
-     
+
 					<tr>
 						<!-- <td>
 							<span class="custom-checkbox">
@@ -76,7 +76,7 @@
 				</ul>
 			</div> -->
 		</div>
-	</div>        
+	</div>
 </div>
 <!-- Add Modal HTML -->
 <div id="addCycleModal" class="modal fade">
@@ -84,11 +84,11 @@
 		<div class="modal-content">
 			<form method="post" action="{{route('cycles.add')}}">
 				@csrf
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Add Cycle</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<div class="form-group">
 						<label>Name</label>
 						<input type="text" name="name" class="form-control" required>
@@ -101,18 +101,18 @@
 						<label>Project ID</label>
 						<input type="number" id="project_id" name="project_id" class="form-control">
 					</div>			 -->
-					
+
 					<div class="form-group">
-						<label>Project ID</label>
+						<label>Project</label>
 						<select class="form-control" id='project_id' name="project_id">
-							@foreach ( $projects_ids as $id  )
-								
-								<option value="{{$id}}"> {{$id}} </option>
+							@foreach ( $all_projects as $project  )
+
+								<option value="{{$project->id}}"> {{$project->name}} </option>
 
 							@endforeach
-							
+
 						</select>
-					</div>	
+					</div>
 
 				</div>
 				<div class="modal-footer">
@@ -130,11 +130,11 @@
 			<form id="edit_form" name="alo" method="post" action="{{route('cycles.edit')}}">
 				<input type="hidden" id="edit_hidden_id" name="id" >
 				@csrf
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Edit Cycle</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<div class="form-group">
 						<label>Name</label>
 						<input id="edit_name" name="name" type="text" class="form-control" required>
@@ -144,9 +144,17 @@
 						<input type="date" id="edit_start_date" name="start_date" class="form-control" required>
 					</div>
 					<div class="form-group">
-						<label>Project ID</label>
-						<input type="number" id="edit_project_id" name="project_id" class="form-control">
-					</div>					
+						<label>Project</label>
+						{{-- <input type="number" id="edit_project_id" name="project_id" class="form-control"> --}}
+                        <select class="form-control" id='edit_project_id' name="project_id">
+							@foreach ( $all_projects as $project  )
+
+								<option value="{{$project->id}}"> {{$project->name}} </option>
+
+							@endforeach
+
+						</select>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -162,11 +170,11 @@
 		<div class="modal-content">
 			<form id="delete_form" method="post" action="{{route('cycles.delete')}}">
 				@csrf
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Delete Cycle</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<p>Are you sure you want to delete these Records?</p>
 					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
@@ -179,7 +187,7 @@
 	</div>
 </div>
 
-<script> 
+<script>
 
 	// $(document).ready(function(){
 	// 	// $("#edit_button").click(function(){
@@ -193,7 +201,7 @@
 		edit_id = id;
 		//alert(edit_id);
         $("#edit_hidden_id").attr("value", edit_id);
-		
+
 		var formData = {
 			id:edit_id,
 		};
@@ -211,13 +219,14 @@
 			console.log(data);
 			$("#edit_name").attr("value", data.name);
             $("#edit_start_date").attr("value", data.start_date);
-			$("#edit_project_id").attr("value",  data.project_id);
+			//$("#edit_project_id").attr("value",  data.project_id);
+            document.getElementById('edit_project_id').value = data.project_id;
 		});
 
 	}
 
 	function delete_function(id){
-		
+
 		delete_id = id;
 		// alert(delete_id);
 	}
