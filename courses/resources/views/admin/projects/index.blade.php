@@ -42,12 +42,12 @@
                         <th>Type</th>
                         <th>Price</th>
                         <!-- <th>Summery</th> -->
-						<th>Actions</th> 
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 				@foreach ($projects as $project)
-     
+
 					<tr>
 						<!-- <td>
 							<span class="custom-checkbox">
@@ -98,7 +98,7 @@
 				</ul>
 			</div> -->
 		</div>
-	</div>        
+	</div>
 </div>
 
 
@@ -107,11 +107,11 @@
 		<div class="modal-content">
 			<form method="post" action="{{route('projects.add')}}" enctype="multipart/form-data" >
 				@csrf
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Add Project</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<div class="form-group">
 						<label>Name</label>
 						<input type="text" name="name" class="form-control" required >
@@ -141,7 +141,7 @@
 						<label>Summery</label>
 						<input type="text" name="summery" class="form-control" >
 					</div>		 -->
-					
+
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Summery</label>
 						<textarea class="form-control" name="summery" id="summery" rows="3"  required></textarea>
@@ -163,12 +163,12 @@
 			<form method="post" action="{{route('projects.edit')}}" enctype="multipart/form-data" >
 				@csrf
 				<input type="hidden" id="edit_hidden_id" name="id" >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Add Project</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				
-				<div class="modal-body">					
+
+				<div class="modal-body">
 					<div class="form-group">
 						<label>Name</label>
 						<input type="text" id="edit_name" name="name" class="form-control" required >
@@ -196,7 +196,7 @@
 						<label>Price</label>
 						<input type="number" id="edit_price" name="price" class="form-control" required >
 					</div>
-					
+
 					<div class="form-group">
 						<label for="exampleFormControlTextarea1">Summery</label>
 						<textarea class="form-control" name="summery" id="edit_summery" rows="3"  required></textarea>
@@ -218,11 +218,11 @@
 		<div class="modal-content">
 			<form id="delete_form" method="post" action="{{route('projects.delete')}}">
 				@csrf
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Delete Project</h4>
 					<button type="button" class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<p>Are you sure you want to delete these Records?</p>
 					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
@@ -235,7 +235,7 @@
 	</div>
 </div>
 
-<script> 
+<script>
 
 	// $(document).ready(function(){
 	// 	// $("#edit_button").click(function(){
@@ -249,9 +249,9 @@
 	function edit_function(id){
 		edit_id = id;
 		$("#edit_hidden_id").attr("value", id);
-		
+
 		//alert(edit_id);
-		
+
 		var formData = {
 			id:edit_id,
 		};
@@ -278,7 +278,7 @@
 	}
 
 	function delete_function(id){
-		
+
 		delete_id = id;
 		// alert(delete_id);
 	}

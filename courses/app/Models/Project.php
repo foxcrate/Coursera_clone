@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\CourseSemester;
 use App\Models\ProjectSemester;
+use App\Models\SemesterCalender;
 
 class Project extends Model
 {
@@ -22,8 +23,10 @@ class Project extends Model
     ];
     protected $table = "projects";
 
+
+
     public function semesters(){
-        return $this->belongsToMany(Semester::class,'project_semesters');
+        return $this->belongsToMany(Semester::class,'project_semesters')->distinct();
     }
 
     public function semesters_num(){
@@ -31,7 +34,7 @@ class Project extends Model
     }
 
     // public function courses_count(){
-        
+
     //     $all_semesters = $this->semesters;
     //     $courses_count = 0;
     //     foreach($all_semesters as $semester){
@@ -42,7 +45,7 @@ class Project extends Model
     // }
 
     public function all_courses(){
-        
+
         $all_semesters = $this->semesters;
         $all_courses = array();
         foreach($all_semesters as $semester){
@@ -55,7 +58,7 @@ class Project extends Model
     }
 
     public function teachers_count(){
-        
+
         $all_semesters = $this->semesters;
         $teachers_array = array();
         foreach($all_semesters as $semester){
@@ -86,7 +89,11 @@ class Project extends Model
     }
 
     public function request_to_project(){
-        return $this->hasMany( 'RequestToProject::class');
+        return $this->hasMany( RequestToProject::class);
+    }
+
+    public function semester_calender(){
+        return $this->hasOne( SemesterCalender::class);
     }
 
 }

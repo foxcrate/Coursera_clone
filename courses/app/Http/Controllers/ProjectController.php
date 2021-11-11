@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Semester;
+use App\Models\SemesterCalender;
 use phpDocumentor\Reflection\PseudoTypes\True_;
 use App\Services\PayUService\Exception;
 use SebastianBergmann\Environment\Console;
@@ -14,7 +15,7 @@ class ProjectController extends Controller
     public function index(){
         //$all_projects = Project::all();
         $all_projects = Project::orderBy('id','desc')->paginate(8);
-        
+
         //return $all_cycles;
         return view('admin.projects.index')->with('projects',$all_projects) ;
     }
@@ -65,8 +66,8 @@ class ProjectController extends Controller
         $new_project->summery = $request->summery;
         $saved = $new_project->save();
 
-        
-        
+
+
         if($saved){
             return redirect()->back();
         }else{
@@ -84,12 +85,12 @@ class ProjectController extends Controller
         // }
         $my_project = Project::find($request->id);
 
-       
+
 
         // $my_project = Project::find($request->id);
         // return $request->name;
 
-        
+
 
         $my_project->name = $request->name;
         $my_project->price = $request->price;
@@ -112,11 +113,11 @@ class ProjectController extends Controller
                 $folder="uploads/projects/";
                 move_uploaded_file($file_loc,$folder.$file);
                 $my_project->image ='uploads/projects/' . $file;
-    
+
             }catch (\Exception $e) {
                 //echo $e;
             }
-    
+
             try{
                 $code = rand(1111111, 9999999);
                 $file = time().$code ."pv" ;
@@ -124,7 +125,7 @@ class ProjectController extends Controller
                 $folder="uploads/projects/";
                 move_uploaded_file($file_loc,$folder.$file);
                 $my_project->video ='uploads/projects/' . $file;
-    
+
             }catch (\Exception $e) {
                 //echo $e;
             }
@@ -136,12 +137,12 @@ class ProjectController extends Controller
                 //return "bst";
                 $current_semester_array = [];
                 // return $my_project->semesters[0]->id;
-    
+
                 if( count($my_project->semesters)  > 0){
                     foreach( $my_project->semesters as $semester ){
                         array_push( $current_semester_array , $semester->id );
                     }
-                    
+
                     $my_project->semesters()->detach($current_semester_array);
                 }
 
@@ -156,7 +157,7 @@ class ProjectController extends Controller
                         $my_project->semesters()->attach($x);
                     }
                 }
-        
+
             }
 
         }else{
@@ -180,12 +181,12 @@ class ProjectController extends Controller
                 //return $request->semesters_array;
                 $current_semester_array = [];
                 // return $my_project->semesters[0]->id;
-    
+
                 if( count($my_project->semesters) > 0){
                     foreach( $my_project->semesters as $semester ){
                         array_push( $current_semester_array , $semester->id );
                     }
-                    
+
                     $my_project->semesters()->detach($current_semester_array);
                 }
                 //return $request->semesters_array;
@@ -195,11 +196,11 @@ class ProjectController extends Controller
                     $x[$i] = (int)$x[$i] ;
                 }
                 $my_project->semesters()->attach($x);
-    
+
             }
 
         }
-        
+
         $my_project->save();
 
         return back();
@@ -207,30 +208,87 @@ class ProjectController extends Controller
 
     public function mass_edit(Request $request){
         //return $request;
-        $my_project = Project::find($request->id);
 
-        if($request->has('semesters_array')){
-            //return $request->semesters_array;
-            $current_semester_array = [];
-            // return $my_project->semesters[0]->id;
+        $my_project = Project::find($request->project_id);
+        //return $my_project;
 
-            if( count($my_project->semesters) > 0){
-                foreach( $my_project->semesters as $semester ){
-                    array_push( $current_semester_array , $semester->id );
-                }
-                
-                $my_project->semesters()->detach($current_semester_array);
+        $current_semester_array = [];
+
+        if( count($my_project->semesters) > 0){
+            foreach( $my_project->semesters as $semester ){
+                array_push( $current_semester_array , $semester->id );
             }
-            //return $request->semesters_array;
-            // $x= explode(",",$request->semesters_array);
-            $x = $request->semesters_array;
-            for( $i=0 ; $i<count($x) ; $i++ ){
-                $x[$i] = (int)$x[$i] ;
-            }
-            $my_project->semesters()->attach($x);
 
+            $my_project->semesters()->detach($current_semester_array);
         }
-        return back();
+
+        $scs = SemesterCalender::where('project_id',$request->project_id)->get();
+
+        foreach( $scs as $sc ){
+            $sc->delete();
+        }
+
+        $semester1_id = null;
+        $semester2_id = null;
+        $semester3_id = null;
+
+        if( $request->first_semester != "null" ){
+            $s1 = Semester::find($request->first_semester);
+            $my_project->semesters()->attach( $s1->id );
+            $semester1_id = $request->first_semester ;
+        }
+        if( $request->second_semester != "null" ){
+            $s1 = Semester::find($request->second_semester);
+            $my_project->semesters()->attach( $s1->id );
+            $semester2_id = $request-> second_semester;
+        }
+        if( $request->third_semester != "null" ){
+            $s1 = Semester::find($request->third_semester);
+            $my_project->semesters()->attach( $s1->id );
+            $semester3_id = $request->third_semester ;
+        }
+
+        if($semester1_id != null && $semester2_id != null && $semester3_id != null){
+            $sc = SemesterCalender::create([
+                'project_id' => $my_project->id,
+                'semester1_id' => $semester1_id ,
+                'semester2_id' => $semester2_id ,
+                'semester3_id' => $semester3_id ,
+            ]);
+        }elseif($semester1_id != null && $semester2_id != null){
+            $sc = SemesterCalender::create([
+                'project_id' => $my_project->id,
+                'semester1_id' => $semester1_id ,
+                'semester2_id' => $semester2_id ,
+            ]);
+        }elseif($semester1_id != null){
+            $sc = SemesterCalender::create([
+                'project_id' => $my_project->id,
+                'semester1_id' => $semester1_id ,
+            ]);
+        }
+        return back()->with('good_msg',"Semesters Saved Successfully");
+
+        //return $my_project->semester_calender->semester2->duration ;
+
+        // if($request->has('semesters_array')){
+        //     $current_semester_array = [];
+
+        //     if( count($my_project->semesters) > 0){
+        //         foreach( $my_project->semesters as $semester ){
+        //             array_push( $current_semester_array , $semester->id );
+        //         }
+
+        //         $my_project->semesters()->detach($current_semester_array);
+        //     }
+        //     $x = $request->semesters_array;
+        //     for( $i=0 ; $i<count($x) ; $i++ ){
+        //         $x[$i] = (int)$x[$i] ;
+        //     }
+        //     $my_project->semesters()->attach($x);
+
+        // }
+        //return $request;
 
     }
 
@@ -255,9 +313,9 @@ class ProjectController extends Controller
         for($i = 0;$i<=$x-1;$i++){
             array_push($array_of_semesters ,$project_semesters[$i]->id );
         }
-        
+
         //return $array_of_semesters;
-        return view('admin.projects.details')->with(['semesters'=>$all_semesters , 'project'=>$project , 'array_of_semesters'=>$array_of_semesters ]) ;
+        return view('admin.projects.details')->with(['all_semesters'=>$all_semesters , 'project'=>$project , 'array_of_semesters'=>$array_of_semesters ]) ;
 
     }
 

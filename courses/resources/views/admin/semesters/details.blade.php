@@ -10,140 +10,276 @@
         <div class="row mt-3">
             <section class="col">
                 <div class="card p-3">
+
+                    @if(session()->has('good_msg'))
+                    <div class="alert alert-success">
+                        {{ session()->get('good_msg') }}
+                    </div>
+                @endif
                     <h3 class="card-title" >Edit <span style="color:blue;"> {{$semester->name}}   </span>Courses </h3>
-                    <!-- action="{{ route('projects.edit') }}" -->
 
-                    <form id="edit_form"  method="post" action="{{ route('semesters.mass_edit') }}" enctype="multipart/form-data">
+                    <form name="edit_form2"  method="post" action="{{ route('semesters.mass_edit') }}">
                         @csrf
-                        <input type="hidden" name="id" id="idy" value=" {{$semester->id}} ">
-
+                        <input type="hidden" name="semester_id" value="{{$semester->id}}" >
                         <div class="form-group my-4">
-                            <h4>All Courses</h4>
-                            <div class="form-control">
-                                @foreach ( $courses as $course )
-                                    <div class=" m-2 form-check form-switch form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="{{$course->id}}" value= "{{$course->id}}" name=courses_array[]  {{ in_array($course->id, $array_of_courses) ? 'checked' : '' }} >
-                                        <label class="form-check-label" for="{{$course->id}}">{{$course->name}}</label>
-                                    </div>
-                                @endforeach
+                            <div class="form-group">
+                                @if ( $semester->course_calender != null )
+                                    @if ( $semester->course_calender->course1 != null )
+                                    <label>First Course <span style="color:blue;"> {{ $semester->course_calender->course1->name }}   </span></label>
+                                    @else
+                                    <label>First Course</label>
+                                    @endif
+                                @else
+                                <label>First Course</label>
+                                @endif
+                                <select class="form-control" id='first_course' name="first_course">
+                                    @foreach ( $all_courses as $course  )
+                                    <option value="{{$course->id}}"> {{$course->id}} - {{$course->name}} </option>
+                                    @endforeach
+                                    <option selected value = null> No Course </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                @if ( $semester->course_calender != null )
+                                    @if ( $semester->course_calender->course2 != null )
+                                    <label>Second Course <span style="color:blue;"> {{ $semester->course_calender->course2->name }}  </span></label>
+                                    @else
+                                    <label>Second Course</label>
+                                    @endif
+                                @else
+                                <label>Second Course</label>
+                                @endif
+                                <select class="form-control" id='second_course' name="second_course">
+                                    @foreach ( $all_courses as $course  )
+                                    <option value="{{$course->id}}"> {{$course->id}} - {{$course->name}} </option>
+                                    @endforeach
+                                    <option selected value = null> No Course </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                @if ( $semester->course_calender != null )
+                                    @if ( $semester->course_calender->course3 != null )
+                                    <label>Third Course <span style="color:blue;"> {{ $semester->course_calender->course3->name }}  </span></label>
+                                    @else
+                                    <label>Third Course</label>
+                                    @endif
+                                @else
+                                <label>Third Course</label>
+                                @endif
+                                <select class="form-control" id='third_course' name="third_course">
+                                    @foreach ( $all_courses as $course  )
+                                    <option value="{{$course->id}}"> {{$course->id}} - {{$course->name}} </option>
+                                    @endforeach
+                                    <option selected value = null> No Course </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                @if ( $semester->course_calender != null )
+                                    @if ( $semester->course_calender->course4 != null )
+                                    <label>Forth Course <span style="color:blue;"> {{ $semester->course_calender->course4->name }}  </span></label>
+                                    @else
+                                    <label>Forth Course</label>
+                                    @endif
+                                @else
+                                <label>Forth Course</label>
+                                @endif
+                                <select class="form-control" id='forth_course' name="forth_course">
+                                    @foreach ( $all_courses as $course  )
+                                    <option value="{{$course->id}}"> {{$course->id}} - {{$course->name}} </option>
+                                    @endforeach
+                                    <option selected value = null> No Course </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                @if ( $semester->course_calender != null )
+                                    @if ( $semester->course_calender->course5 != null )
+                                    <label>Fifth Course <span style="color:blue;"> {{ $semester->course_calender->course5->name }}  </span></label>
+                                    @else
+                                    <label>Fifth Course</label>
+                                    @endif
+                                @else
+                                <label>Fifth Course</label>
+                                @endif
+                                <select class="form-control" id='fifth_course' name="fifth_course">
+                                    @foreach ( $all_courses as $course  )
+                                    <option value="{{$course->id}}"> {{$course->id}} - {{$course->name}} </option>
+                                    @endforeach
+                                    <option selected value = null> No Course </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                @if ( $semester->course_calender != null )
+                                    @if ( $semester->course_calender->course6 != null )
+                                    <label>Sixth Course <span style="color:blue;"> {{ $semester->course_calender->course6->name }}  </span></label>
+                                    @else
+                                    <label>Sixth Course</label>
+                                    @endif
+                                @else
+                                <label>Sixth Course</label>
+                                @endif
+                                <select class="form-control" id='sixth_course' name="sixth_course">
+                                    @foreach ( $all_courses as $course  )
+                                    <option value="{{$course->id}}"> {{$course->id}} - {{$course->name}} </option>
+                                    @endforeach
+                                    <option selected value = null> No Course </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                @if ( $semester->course_calender != null )
+                                    @if ( $semester->course_calender->course7 != null )
+                                    <label>Seventh Course <span style="color:blue;"> {{ $semester->course_calender->course7->name }}  </span></label>
+                                    @else
+                                    <label>Seventh Course</label>
+                                    @endif
+                                @else
+                                <label>Seventh Course</label>
+                                @endif
+                                <select class="form-control" id='seventh_course' name="seventh_course">
+                                    @foreach ( $all_courses as $course  )
+                                    <option value="{{$course->id}}"> {{$course->id}} - {{$course->name}} </option>
+                                    @endforeach
+                                    <option selected value = null> No Course </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                @if ( $semester->course_calender != null )
+                                    @if ( $semester->course_calender->course8 != null )
+                                    <label>Eighth Course <span style="color:blue;"> {{ $semester->course_calender->course8->name }}  </span></label>
+                                    @else
+                                    <label>Eighth Course</label>
+                                    @endif
+                                @else
+                                <label>Eighth Course</label>
+                                @endif
+                                <select class="form-control" id='eighth_course' name="eighth_course">
+                                    @foreach ( $all_courses as $course  )
+                                    <option value="{{$course->id}}"> {{$course->id}} - {{$course->name}} </option>
+                                    @endforeach
+                                    <option selected value = null> No Course </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                @if ( $semester->course_calender != null )
+                                    @if ( $semester->course_calender->course9 != null )
+                                    <label>Ninth Course <span style="color:blue;"> {{ $semester->course_calender->course9->name }}  </span></label>
+                                    @else
+                                    <label>Ninth Course</label>
+                                    @endif
+                                @else
+                                <label>Ninth Course</label>
+                                @endif
+                                <select class="form-control" id='ninth_course' name="ninth_course">
+                                    @foreach ( $all_courses as $course  )
+                                    <option value="{{$course->id}}"> {{$course->id}} - {{$course->name}} </option>
+                                    @endforeach
+                                    <option selected value = null> No Course </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                @if ( $semester->course_calender != null )
+                                    @if ( $semester->course_calender->course10 != null )
+                                    <label>Tenth Course <span style="color:blue;"> {{ $semester->course_calender->course10->name }}  </span></label>
+                                    @else
+                                    <label>Tenth Course</label>
+                                    @endif
+                                @else
+                                <label>Tenth Course</label>
+                                @endif
+                                <select class="form-control" id='tenth_course' name="tenth_course">
+                                    @foreach ( $all_courses as $course  )
+                                    <option value="{{$course->id}}"> {{$course->id}} - {{$course->name}} </option>
+                                    @endforeach
+                                    <option selected value = null> No Course </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                @if ( $semester->course_calender != null )
+                                    @if ( $semester->course_calender->course11 != null )
+                                    <label>Eleventh Course <span style="color:blue;"> {{ $semester->course_calender->course11->name }}  </span></label>
+                                    @else
+                                    <label>Eleventh Course</label>
+                                    @endif
+                                @else
+                                <label>Eleventh Course</label>
+                                @endif
+                                <select class="form-control" id='eleventh_course' name="eleventh_course">
+                                    @foreach ( $all_courses as $course  )
+                                    <option value="{{$course->id}}"> {{$course->id}} - {{$course->name}} </option>
+                                    @endforeach
+                                    <option selected value = null> No Course </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                @if ( $semester->course_calender != null )
+                                    @if ( $semester->course_calender->course12 != null )
+                                    <label>Twelfth Course <span style="color:blue;"> {{ $semester->course_calender->course12->name }}  </span></label>
+                                    @else
+                                    <label>Twelfth Course</label>
+                                    @endif
+                                @else
+                                <label>Twelfth Course</label>
+                                @endif
+                                <select class="form-control" id='twelfth_course' name="twelfth_course">
+                                    @foreach ( $all_courses as $course  )
+                                    <option value="{{$course->id}}"> {{$course->id}} - {{$course->name}} </option>
+                                    @endforeach
+                                    <option selected value = null> No Course </option>
+                                </select>
                             </div>
                         </div>
 
-                        <input onclick="new_class()" type="submit" class="btn btn-info mx-2" value="Save">
+                        <input onclick="" type="submit" class="btn btn-info mx-2" value="Save">
                     </form>
-
                 </div>
-                <a href="#myModal2" onclick="arrange_courses( '{{$semester->id}}' )" data-toggle="modal" class="btn btn-success text-dark">Arrange Courses After Saving</a>
             </section>
 
         </div>
     </div>
 
-    <div class="modal fade" id="myModal2" data-bs-backdrop="static">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="post" action="{{route('projects.edit')}}" enctype="multipart/form-data" >
-				@csrf
-				<input type="hidden" name="semester_id" value="{{$semester->name}}" >
-				<div class="modal-header">
-					<h4 class="modal-title">Arrange Courses</h4>
-					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
 
-				<div class="modal-body">
-					<div class="form-group">
-
-                        @foreach ( $my_courses as $key => $course )
-
-						<label>Course {{$key}}</label>
-						<select class="form-control" id='edit_course_id' name="course_id">
-							@foreach ( $my_courses as $course  )
-
-								<option value="{{$course->id}}"> {{$course->name}} </option>
-
-							@endforeach
-
-						</select>
-
-                        @endforeach
-
-					</div>
-
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Save">
-				</div>
-
-			</form>
-        </div>
-        </div>
-    </div>
 
     <script>
 
-    function arrange_courses(id){
-        var formData = {
-			semester_id: id,
-		};
-        //alert(formData.semester_id);
-		// $.ajax({
-		// 	headers: {
-     	// 		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-   		// 	},
-		// 	type: "GET",
-		// 	url: "{{ route('projects.data_to_edit') }}" ,
-		// 	data: formData,
-		// 	dataType: "json",
-		// 	encode: true,
-		// 	}).done(function (data) {
-		// 	console.log(data);
-		// 	$("#edit_name").attr("value", data.name);
-		// 	$("#edit_price").attr("value", data.price);
-		// 	$("#edit_type> option[value=" + data.type + "]").prop("selected",true);
-		// 	$("#edit_summery").val( data.summery );
-		// 	$("#edit_image").attr("src", 'http://localhost:8000/'+ data.image);
-		// 	video_url = 'http://localhost:8000/' + data.video  ;
-		// });
-    }
+        function submit_edit_form(){
+            //alert("Alo");
+            var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+            var checkboxes_array = [];
 
-    function new_class(){
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes_array.push( parseInt( checkboxes[i].id ) );
+            }
 
-        // $('#idy').after(
-        // $('<input>')
-        //     .attr("type", "number")
-        // );
+            var myimage = $('#project_image').prop('files')[0];
+            var myvideo = $('#project_video').prop('files')[0];
+            //console.log(myimage);
 
-        //alert("alo");
+            var data = new FormData();
+            data.append('image',myimage);
+            data.append('video',myvideo);
+            data.append('ajax',1);
+            data.append('name', $("#project_name").val() );
+            data.append('type', $("#project_type").val() );
+            data.append('price',$("#project_price").val() );
+            data.append('summery',$("#project_summery").val() );
+            data.append('semesters_array', checkboxes_array );
+            //alert("Alo");
+            $.ajax({
+			headers: {
+     			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   			},
+			type: "POST",
+			url: "{{ route('projects.edit') }}" ,
+			data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+			}).done(function (data) {
+			console.log('server: ',data);
+			    window.location.reload();
+		    });
 
-    }
+            //alert("Alo");
 
-
-	// $("#edit_form").submit(function(e) {
-
-        // e.preventDefault();
-        // alert("From Stopped ..");
-
-        // var formData = {
-        //     id:edit_id,
-        //     name: $("#edit_modal_name").val(),
-        //     start_date: $("#edit_modal_start_date").val(),
-        // };
-
-        // $.ajax({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //     },
-        //     type: "POST",
-        //     url: e.target.action,
-        //     data: formData,
-        //     dataType: "json",
-        //     encode: true,
-        //     }).done(function (data) {
-        //     // console.log(data);
-        //     window.location.reload();
-        // });
-
-    // });
+        }
 
     </script>

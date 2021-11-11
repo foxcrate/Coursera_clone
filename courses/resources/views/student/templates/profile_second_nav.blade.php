@@ -1,5 +1,7 @@
 <div class="container-fluid dash-cat">
+
     <div class="row">
+
         <div class="col-lg-3 ">
             <div class="list-group">
                 <a href="#" class="list-group-item list-group-item-action active cat-active" aria-current="true">
@@ -7,9 +9,11 @@
                 </a>
                 <a href="{{ route('my_courses',['id'=> session()->get('loggedID') ]) }}" class="list-group-item list-group-item-action"><i class="fab fa-discourse"></i> My Cycles</a>
                 <a href="{{ route('my_books') }}" class="list-group-item list-group-item-action"><i class="fas fa-book-reader"></i> My Books</a>
-                
+
                 <!-- <a href="{{ route('my_payments') }}" class="list-group-item list-group-item-action"><i class="fab fa-cc-visa"></i> My Payments</a> -->
                 <a href="{{ route('my_accepted_requests') }}" class="list-group-item list-group-item-action"><i class="fab fa-cc-visa"></i> Accepted Payments</a>
+                <a href="{{ route('my_accepted_requests') }}" class="list-group-item list-group-item-action"><i class="fas fa-exclamation-circle"></i></i> Late Submissions</a>
+
             </div>
         </div>
         <div class="col-lg-3" >

@@ -34,5 +34,9 @@ class Semester extends Model
     public function uploaded_researches(){
         return $this->hasMany( 'UploadedResearch::class');
     }
-    
+
+    public function course_calender(){
+        return $this->hasOne( CourseCalender::class);
+    }
+
 }

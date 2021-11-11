@@ -103,8 +103,8 @@ class TestController extends Controller
 
         //   }
 
-        $p = Project::find(126);
-        return $p->semesters;
+        $s = Semester::find(913);
+        return $s->courses;
 
       return "done";
 
