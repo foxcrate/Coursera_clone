@@ -1,6 +1,6 @@
 @include('student.templates.header')
 @include('student.templates.navbar')
-      
+
 @extends('student.templates.header')
 
 @section('title')
@@ -22,7 +22,7 @@
         @foreach( $chunk as $x )
             <div class="col-lg-4">
                 <div class="card h-100">
-                <a href="{{ route('project_details', [ 'student_id' => session()->get('loggedID') , 'project_id' => $x['cycle']['project']['id'] ] ) }}">
+                <a href="{{ route('profile_project_details', [ 'cycle_id' => $x['cycle']['id'] , 'student_id' => session()->get('loggedID') , 'project_id' => $x['cycle']['project']['id'] ] ) }}">
                     @if ( $x['cycle']['project']['image'] )
                         <img src={{ asset( $x['cycle']['project']['image'] ) }} class="card-img-top card-image-style" alt="...">
                     @endif
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
             @foreach( $chunk as $cycle )
                 <div class="col-lg-4">
                     <div class="card h-100">
-                    <a href="{{ route('project_details', [ 'student_id' => session()->get('loggedID') , 'project_id' => $cycle->project->id ] ) }}">
+                    <a href="{{ route('profile_project_details', [ 'cycle_id'=>$cycle->id ,'student_id' => session()->get('loggedID') , 'project_id' => $cycle->project->id ] ) }}">
                         @if ($cycle->project->image)
                             <img src={{ asset( $cycle->project->image ) }} class="card-img-top card-image-style" alt="...">
                         @endif
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
             <form method="post" action="{{route('pay_cycle')}}" enctype="multipart/form-data">
 				@csrf
                 <input type="hidden" id="cycle_id" name="cycle_id" >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Upload Your Payment File</h4>
 					<button type="button " class="close btn-danger" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>

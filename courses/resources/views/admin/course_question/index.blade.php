@@ -8,7 +8,7 @@
 <div class="container-xl">
 	<div class="table-responsive">
 		<div class="table-wrapper">
-			<div class="table-title">
+			<div class="table-title mb-2">
 				<div class="row">
 					<div class=" col-sm-6 ">
 						<h2>Manage <b>Course Questions</b></h2>
@@ -19,7 +19,7 @@
 				</div>
 			</div>
             <!-- table-layout:fixed; width: 100%; -->
-			<table style="table-layout:fixed; width: 100%; " class="table table_condensed table-striped table-hover">
+			<table id="courses_questions" style="table-layout:fixed; width: 100%; " class="table table_condensed table-striped table-hover">
 				<thead>
 					<tr>
 						<!-- <th>
@@ -55,9 +55,11 @@
 
 				</tbody>
 			</table>
-			<div class="d-flex pages">
+
+			{{-- <div class="d-flex pages">
                 {{ $all_course_question->links() }}
-            </div>
+            </div> --}}
+
 			<!-- <div class="clearfix">
 				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
 				<ul class="pagination">
@@ -203,6 +205,17 @@
 </div>
 
 <script>
+
+    $(document).ready( function () {
+        $('#courses_questions').DataTable({
+
+            "lengthMenu": [
+                    [12, 18, 50,100],
+                    [12, 18, 50,100]
+                ],
+
+        });
+    } );
 
     var edit_id = 0;
 	var delete_id = 0;

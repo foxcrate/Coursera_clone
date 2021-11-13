@@ -16,6 +16,8 @@ use App\Models\Service;
 use App\Models\ServicePayment;
 use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use SebastianBergmann\Timer\Duration;
 
 class StudentController extends Controller
 {
@@ -30,7 +32,7 @@ class StudentController extends Controller
     public function index(){
         $all_students = Student::orderBy('id','desc')->paginate(5);
         //$all_lessons = "Alo";
-        
+
         //return $all_lessons;
         return view('admin.students.index')->with('students',$all_students) ;
     }
@@ -55,7 +57,7 @@ class StudentController extends Controller
             'money_paid'=>$request->money_paid,
             'money_to_pay'=>$request->money_to_pay,
         ]);
-        
+
         return redirect()->back();
 
     }
@@ -160,26 +162,7 @@ class StudentController extends Controller
         return view('student.all_projects')->with('projects',$fellowship_projects) ;
     }
 
-    public function project_details($student_id,$project_id){
-        //return [$student_id,$project_id];
-        $requests_to_projects = RequestToProject::where( 'project_id' , $project_id )->where('student_id',$student_id)->get();
-        //return $requests_to_projects;
-        $the_project = Project::find($project_id);
-        $ids_array=[];
-        if(count($requests_to_projects) > 0){
-            //return "You have Already Requested this project";
-            return view('student.project')->with( ['project'=>$the_project,'already_requested'=>1,'ids_array'=>$ids_array,] );
-        }
-        //$ids_array = [];
-        if($student_id != 0){
-            $the_student = Student::find($student_id);
-            $ids_array = $the_student->all_cycles_array();
-        }
-        //return $ids_array ;
-        //return $ids_array;
-        return view('student.project')->with(['project'=>$the_project, 'ids_array'=>$ids_array,'already_requested'=>0]);
 
-    }
 
     public function my_courses($id){
 
@@ -187,9 +170,9 @@ class StudentController extends Controller
         // return $x[0]['project'];
         $cycles_with_money = Auth::user()->get_cycles_with_money();
         //return $cycles_with_money;
-        $s1 = Student::find($id);
+        // $s1 = Student::find($id);
 
-        $all_cycles = $s1->all_cycles;
+        // $all_cycles = $s1->all_cycles;
 
         $accepted_requests = $this->get_accepted_requests();
 
@@ -198,7 +181,7 @@ class StudentController extends Controller
     }
 
     public function my_books($student_id){
-        
+
         $accepted_requests = $this->get_accepted_requests();
 
         return view('student.my_books')->with('accepted_requests',$accepted_requests);
@@ -207,17 +190,177 @@ class StudentController extends Controller
 
     public function my_payments(){
 
-        
+
 
         return view('student.my_payments');
 
     }
 
-    public function project_view($id){
+    public function project_details($student_id,$project_id){
 
-        $the_project = Project::find($id);
+        //return [$cycle_id,$student_id,$project_id];
+        $requests_to_projects = RequestToProject::where( 'project_id' , $project_id )->where('student_id',$student_id)->get();
+        //return $requests_to_projects;
+        $the_project = Project::find($project_id);
+        $ids_array=[];
+        if(count($requests_to_projects) > 0){
+            //return "You have Already Requested this project";
+            return view('student.project_details')->with( ['project'=>$the_project,'already_requested'=>1,'ids_array'=>$ids_array,'cycle_id'=>0] );
+        }
+        if($student_id != 0){
+            $the_student = Student::find($student_id);
+            $ids_array = $the_student->all_cycles_array();
+        }
+        //return $ids_array ;
+        //return $ids_array;
+        return view('student.project_details')->with(['project'=>$the_project, 'ids_array'=>$ids_array,'already_requested'=>0,'cycle_id'=>0]);
 
-        return view('student.project_view')->with('project',$the_project);
+    }
+
+    public function profile_project_details($cycle_id,$student_id,$project_id){
+        //return [$cycle_id,$student_id,$project_id];
+        $requests_to_projects = RequestToProject::where( 'project_id' , $project_id )->where('student_id',$student_id)->get();
+        //return $requests_to_projects;
+        $the_project = Project::find($project_id);
+        $ids_array=[];
+
+        // if(count($requests_to_projects) > 0){
+        //     //return "You have Already Requested this project";
+        //     return view('student.project_details')->with( ['project'=>$the_project,'already_requested'=>1,'ids_array'=>$ids_array,'cycle_id'=>$cycle_id] );
+        // }
+
+        if($student_id != 0){
+            $the_student = Student::find($student_id);
+            $ids_array = $the_student->all_cycles_array();
+        }
+
+        return view('student.project_details')->with(['project'=>$the_project, 'ids_array'=>$ids_array,'already_requested'=>0,'cycle_id'=>$cycle_id]);
+
+    }
+
+    public function project_view($cycle_id,$project_id){
+        if($cycle_id !=0){
+
+            $the_project = Project::find($project_id);
+            //return $the_project->duration();
+            $the_cycle = Cycle::find($cycle_id);
+            $cycle_start_date = Carbon::create($the_cycle->start_date);
+            $current_date = Carbon::now() ;
+            $cycle_end_date =Carbon::create($cycle_start_date->addWeeks( $the_project->duration()) );
+            //return $cycle_end_date;
+            if($current_date > $cycle_end_date){
+                return back()->with('msg','Cycle Has Ended ..');
+            }
+            elseif($current_date <= $cycle_end_date){
+                $remaining = $current_date->diffInDays($cycle_end_date) ;
+                //return $remaining;
+                if(  $the_project->semester_calender->semester3 != null ){
+                    //return $the_project->semester_calender->semester3->duration ;
+                    if ( $remaining - $the_project->semester_calender->semester3->duration *7 <= 0 ){
+                        return "We Are In Semester Three .." ;
+                    }else{
+                        $remaining = $remaining - $the_project->semester_calender->semester3->duration * 7;
+                    }
+
+                }
+                if(  $the_project->semester_calender->semester2 != null ){
+
+                    if ( $remaining - $the_project->semester_calender->semester2->duration *7 <= 0 ){
+                        return "We Are In Semester Two .." ;
+                    }else{
+                        $remaining = $remaining - $the_project->semester_calender->semester2->duration * 7;
+                    }
+
+                }
+                if(  $the_project->semester_calender->semester1 != null ){
+
+                    if ( $remaining - $the_project->semester_calender->semester1->duration *7 <= 0 ){
+                        //return "We Are In Semester One .." ;
+                        //return $remaining;
+                        if( $the_project->semester_calender->semester1->course_calender->course12 != null ){
+
+                        }
+                        if( $the_project->semester_calender->semester1->course_calender->course11 != null ){
+
+                        }
+                        if( $the_project->semester_calender->semester1->course_calender->course10 != null ){
+
+                        }
+                        if( $the_project->semester_calender->semester1->course_calender->course9 != null ){
+
+                        }
+                        if( $the_project->semester_calender->semester1->course_calender->course8 != null ){
+                            return "we are in course 8" ;
+                        }
+                        if( $the_project->semester_calender->semester1->course_calender->course7 != null ){
+                            if( $remaining - 7 <= 0 ){
+                                return "course 7" ;
+                            }else{
+                                $remaining -= 7;
+                            }
+                        }
+                        if( $the_project->semester_calender->semester1->course_calender->course6 != null ){
+                            if( $remaining - 7 <= 0 ){
+                                return "course 6" ;
+                            }else{
+                                $remaining -= 7;
+                            }
+                        }
+                        if( $the_project->semester_calender->semester1->course_calender->course5 != null ){
+                            if( $remaining - 7 <= 0 ){
+                                return "course 5" ;
+                            }else{
+                                $remaining -= 7;
+                            }
+                        }
+                        if( $the_project->semester_calender->semester1->course_calender->course4 != null ){
+                            if( $remaining - 7 <= 0 ){
+                                return "course 4" ;
+                            }else{
+                                $remaining -= 7;
+                            }
+                        }
+                        if( $the_project->semester_calender->semester1->course_calender->course3 != null ){
+                            if( $remaining - 7 <= 0 ){
+                                return "course 3" ;
+                            }else{
+                                $remaining -= 7;
+                            }
+                        }
+                        if( $the_project->semester_calender->semester1->course_calender->course2 != null ){
+                            if( $remaining - 7 <= 0 ){
+                                return "course 2" ;
+                            }else{
+                                $remaining -= 7;
+                            }
+                        }
+                        if( $the_project->semester_calender->semester1->course_calender->course1 != null ){
+                            //return "Alo";
+                            if( $remaining - 7 <= 0 ){
+                                return "course 1" ;
+                            }else{
+                                $remaining -= 7;
+                            }
+                            return $remaining;
+                        }
+                        //return "alo";
+
+                    }else{
+                        $remaining = $remaining - $the_project->semester_calender->semester1->duration * 7;
+                    }
+
+                }
+
+                return $remaining;
+                return $the_project->semester_calender;
+                return view('student.project_view')->with('project',$the_project);
+            }
+
+            // return view('student.project_view')->with('project',$the_project);
+
+        }elseif($cycle_id == 0){
+            return back()->with('msg','Please Access Your Projects From Your Profile');
+        }
 
     }
 

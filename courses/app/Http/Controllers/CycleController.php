@@ -21,10 +21,11 @@ class CycleController extends Controller
     }
 
     public function add(Request $request){
-
+        //return $request->enabled;
         $new_cycle = Cycle::create([
             'name'=>$request->name,
             'start_date'=>$request->start_date,
+            'enabled'=>$request->enabled,
         ]);
 
         $the_project = Project::find($request->project_id);
@@ -41,6 +42,7 @@ class CycleController extends Controller
         //return $request->name;
         $my_cycle->name = $request->name;
         $my_cycle->start_date = $request->start_date;
+        $my_cycle->enabled = $request->enabled;
         //$my_cycle->project_id = $request->project_id;
         $my_project = Project::find( $request->project_id );
         $my_project->cycle_id = $request->id;
@@ -66,6 +68,7 @@ class CycleController extends Controller
         $my_data[] = [
             'name' => $the_cycle->name ,
             'start_date' =>$the_cycle->start_date  ,
+            'enabled' => $the_cycle->enabled ,
             'project_id' =>$the_project_id ,
         ];
 

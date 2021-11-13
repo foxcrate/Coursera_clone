@@ -3,7 +3,7 @@
 @media (min-width: 768px) {
     .news-input {
       width: 50%;
-      
+
     }
   }
 
@@ -13,6 +13,10 @@ a:focus {
     color: inherit;
     text-decoration: none;
     transition: all 0.3s;
+}
+
+.black_hover:hover{
+    color: black !important;
 }
 
 .fixed-top{
@@ -123,7 +127,7 @@ a:focus {
     background-image:    url(../img/newbackground.jpg);
     background-size:     cover;
     background-repeat:   no-repeat;
-    background-position: auto; 
+    background-position: auto;
     opacity:0.6;
 } */
 
@@ -396,7 +400,7 @@ a:focus {
 }
 .ask{
     background-color: #333;
-    color: #FFF;    
+    color: #FFF;
     border: 1px solid #333;
     border-radius: 10px;
 }

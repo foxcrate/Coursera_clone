@@ -97,6 +97,13 @@
 						<label>Start Date</label>
 						<input type="date" name="start_date" class="form-control" required>
 					</div>
+                    <div class="form-group">
+						<label>Enabled</label>
+						<select class="form-control" id='enabled' name="enabled">
+                            <option value=0> Not Enabled </option>
+                            <option value=1> Enabled </option>
+                        </select>
+					</div>
 					<!-- <div class="form-group">
 						<label>Project ID</label>
 						<input type="number" id="project_id" name="project_id" class="form-control">
@@ -143,6 +150,13 @@
 						<label>Start Date</label>
 						<input type="date" id="edit_start_date" name="start_date" class="form-control" required>
 					</div>
+                    <div class="form-group">
+						<label>Enabled</label>
+						<select class="form-control" id='edit_enabled' name="enabled">
+                            <option value="0"> Not Enabled </option>
+                            <option value="1"> Enabled </option>
+                        </select>
+					</div>
 					<div class="form-group">
 						<label>Project</label>
 						{{-- <input type="number" id="edit_project_id" name="project_id" class="form-control"> --}}
@@ -170,6 +184,7 @@
 		<div class="modal-content">
 			<form id="delete_form" method="post" action="{{route('cycles.delete')}}">
 				@csrf
+                <input type="hidden" id="delete_hidden_id" name="id" >
 				<div class="modal-header">
 					<h4 class="modal-title">Delete Cycle</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -180,7 +195,7 @@
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" value="Delete">
+					<input type="submit" class="btn btn-danger"  value="Delete">
 				</div>
 			</form>
 		</div>
@@ -219,6 +234,7 @@
 			console.log(data);
 			$("#edit_name").attr("value", data.name);
             $("#edit_start_date").attr("value", data.start_date);
+            $("#edit_enabled> option[value=" + data.enabled + "]").prop("selected",true);
 			//$("#edit_project_id").attr("value",  data.project_id);
             document.getElementById('edit_project_id').value = data.project_id;
 		});
@@ -228,6 +244,7 @@
 	function delete_function(id){
 
 		delete_id = id;
+        $("#delete_hidden_id").attr("value", delete_id);
 		// alert(delete_id);
 	}
 
@@ -257,31 +274,31 @@
 
 	// });
 
-	$("#delete_form").submit(function(e) {
+	// $("#delete_form").submit(function(e) {
 
-		//alert(delete_id);
+	// 	//alert(delete_id);
 
-		e.preventDefault(); // avoid to execute the actual submit of the form.
+	// 	e.preventDefault(); // avoid to execute the actual submit of the form.
 
-		var formData = {
-			id: delete_id,
-		};
+	// 	var formData = {
+	// 		id: delete_id,
+	// 	};
 
-		$.ajax({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			},
-			type: "POST",
-			url: e.target.action,
-			data: formData,
-			dataType: "json",
-			encode: true,
-			}).done(function (data) {
-			//console.log(data);
-			window.location.reload();
-		});
+	// 	$.ajax({
+	// 		headers: {
+	// 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	// 		},
+	// 		type: "POST",
+	// 		url: e.target.action,
+	// 		data: formData,
+	// 		dataType: "json",
+	// 		encode: true,
+	// 		}).done(function (data) {
+	// 		//console.log(data);
+	// 		window.location.reload();
+	// 	});
 
-	});
+	// });
 
 </script>
 

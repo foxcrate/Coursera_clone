@@ -96,4 +96,16 @@ class Project extends Model
         return $this->hasOne( SemesterCalender::class);
     }
 
+    public function duration(){
+        $project_semesters = $this->semesters;
+        $duration_sum = 0;
+        foreach( $project_semesters as $semester ){
+
+            $duration_sum += $semester->duration;
+
+        }
+
+        return $duration_sum;
+    }
+
 }

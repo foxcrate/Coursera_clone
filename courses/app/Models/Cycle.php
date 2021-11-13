@@ -10,7 +10,7 @@ class Cycle extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'start_date',
+        'name', 'start_date','enabled',
     ];
 
     protected $table = "cycles";

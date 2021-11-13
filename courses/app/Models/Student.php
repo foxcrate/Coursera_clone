@@ -53,6 +53,10 @@ class Student extends Authenticatable
         return $this->belongsToMany(Cycle::class,'cycle_students')->distinct();
     }
 
+    // public function all_enabled_cycles(){
+    //     return 0;
+    // }
+
     public function all_cycles_array(){
         $all_cycles = $this->all_cycles;
         $all_cycles_array = array();
@@ -67,18 +71,21 @@ class Student extends Authenticatable
         //return $this->id;
         $cycles_with_money = [];
         $student_cycles = $this->all_cycles;
+
         //return $student_cycles;
 
         foreach( $student_cycles as $cycle ){
-            $num_of_semesters = $cycle->project->semesters_num();
-            $num_of_courses = count( $cycle->project->all_courses() );
-            $paid_money= 0 ;
-            $all_cycle_payment = CyclePayment::where('student_id',$this->id)->where( 'cycle_id' , $cycle->id )->where( 'status' , 'accepted' )->get();
-            //return $all_cycle_payment;
-            foreach( $all_cycle_payment as $cycle_payment ){
-                $paid_money += $cycle_payment->amount_paid;
+            if($cycle->enabled == 1){
+                $num_of_semesters = $cycle->project->semesters_num();
+                $num_of_courses = count( $cycle->project->all_courses() );
+                $paid_money= 0 ;
+                $all_cycle_payment = CyclePayment::where('student_id',$this->id)->where( 'cycle_id' , $cycle->id )->where( 'status' , 'accepted' )->get();
+                //return $all_cycle_payment;
+                foreach( $all_cycle_payment as $cycle_payment ){
+                    $paid_money += $cycle_payment->amount_paid;
+                }
+                array_push( $cycles_with_money , [ 'cycle' => $cycle , 'money_paid' => $paid_money , 'num_of_semesters' => $num_of_semesters , 'num_of_courses' => $num_of_courses ] );
             }
-            array_push( $cycles_with_money , [ 'cycle' => $cycle , 'money_paid' => $paid_money , 'num_of_semesters' => $num_of_semesters , 'num_of_courses' => $num_of_courses ] );
         }
         return $cycles_with_money;
     }

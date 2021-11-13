@@ -36,7 +36,7 @@
                 </div>
             </div> --}}
 
-            <table id="course_questions_table" style="table-layout:fixed; width: 100%; " class="table table_condensed table-striped table-hover">
+            <table id="course_questions_table" style="table-layout:fixed; width: 98%; " class="table table_condensed table-striped table-hover">
 
 
             </table>
@@ -189,14 +189,14 @@
                 },
                 "pagingType": "simple_numbers",
                 "paging": true,
-                "bLengthChange": false,
+                // "bLengthChange": false,
                 "lengthMenu": [
-                    [10, 25, 50],
-                    [10, 25, 50]
+                    [12, 18, 50,100],
+                    [12, 18, 50,100]
                 ],
                 "processing": true,
                 "serverSide": true,
-                "ordering": false,
+                "ordering": true,
                 "ajax": {
                     "type": "GET",
                     "url": "{{ url('course_question/index2') }}",
@@ -229,6 +229,7 @@
                         }
                     },
                 ],
+
             });
         }
     );

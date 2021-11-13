@@ -8,30 +8,30 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav click ">
             <li class="nav-item ">
-                <a class="nav-link  active" aria-current="page" href="{{ route('index') }}">Home</a>
+                <a class="nav-link  active black_hover" aria-current="page" href="{{ route('index') }}">Home</a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link " href="{{ route('all_projects') }}">Projects</a>
+                <a class="nav-link  black_hover" href="{{ route('all_projects') }}">Projects</a>
             </li>
             @if(Session::has('loggedID'))
             <li class="nav-item ">
-                <a class="nav-link  active" aria-current="page" href="{{ route('all_books', ['student_id'=> session()->get('loggedID') ] ) }}">Books</a>
-            </li> 
+                <a class="nav-link  active black_hover" aria-current="page" href="{{ route('all_books', ['student_id'=> session()->get('loggedID') ] ) }}">Books</a>
+            </li>
             <li class="nav-item ">
-                <a class="nav-link  active" aria-current="page" href="{{ route('all_services') }}">Services</a>
+                <a class="nav-link  active black_hover" aria-current="page" href="{{ route('all_services') }}">Services</a>
             </li>
             @endif
             <!-- <li class="nav-item ">
                 <a class="nav-link  " href="#">How it Works</a>
             </li> -->
-            
+
             <li class="nav-item  ">
-                <a class="nav-link" href="{{ route('about') }}">About Us</a>
+                <a class="nav-link black_hover" href="{{ route('about') }}">About Us</a>
             </li>
             <li class="nav-item  ">
-                <a class="nav-link" href="{{ route('contact') }}">Contact</a>
+                <a class="nav-link black_hover" href="{{ route('contact') }}">Contact</a>
             </li>
-        
+
             <!-- <form class="d-flex log-bot">
             <a class="btn btn-dark " href="{{ route('student_login') }}"  type="submit">Login</a>
             </form> -->
@@ -41,9 +41,9 @@
             <!-- <form class="d-flex log-bot">
 
                 @guest
-                
+
                     <a class="btn btn-dark m-1"  href="{{ route('student_login') }}">{{ __('Login') }}</a>
-                @else 
+                @else
                     <a class="btn btn-dark "  href="{{ route('logout') }}">
                         {{ __('Logout') }}
                     </a>
@@ -58,7 +58,7 @@
                             </a>
                     @else
                     <a class="btn btn-dark m-1"  href="{{ route('student_login') }}">{{ __('Login') }}</a>
-                @endauth 
+                @endauth
             </form> -->
 
             <!-- <form class="d-flex log-bot">
@@ -67,7 +67,7 @@
                 <a class="btn btn-dark "  href="{{ route('logout') }}">
                     {{ __('Logout') }}
                 </a>
-            @else 
+            @else
 
             <a class="btn btn-dark m-1"  href="{{ route('student_login') }}">{{ __('Login') }}</a>
             @endif
@@ -100,7 +100,7 @@
                         </a>
                     </div>
                 </div>
-            @else 
+            @else
             <a class="btn btn-dark m-1"  href="{{ route('student_login') }}">{{ __('Login') }}</a>
             @endif
             </form>

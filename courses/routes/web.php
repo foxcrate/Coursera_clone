@@ -87,13 +87,16 @@ Route::group(['middleware' => 'auth:student'], function () {
     Route::get('/my_courses/{id}', [StudentController::class,'my_courses'])->name('my_courses');
     Route::get('/my_books', [StudentController::class,'my_books'])->name('my_books');
     Route::get('/my_payments', [StudentController::class,'my_payments'])->name('my_payments');
-    Route::get('/project_view/{id}', [StudentController::class,'project_view'])->name('project_view');
+    Route::get('/project_view/{cycle_id}/{project_id}', [StudentController::class,'project_view'])->name('project_view');
     Route::get('/ask', [StudentController::class,'ask'])->name('ask');
     Route::post('/project_enroll', [CyclePaymentController::class,'project_enroll'])->name('project_enroll');
     Route::get('/request_to_join/{student_id}/{project_id}', [ProjectsRequestsController::class,'request_to_join'])->name('request_to_join');
     Route::post('/buy_book', [BookController::class,'buy_book'])->name('buy_book');
     Route::post('/buy_service', [ServiceController::class,'buy_service'])->name('buy_service');
     Route::post('/pay_cycle', [CyclePaymentController::class,'pay_cycle'])->name('pay_cycle');
+    Route::get('/profile_project_details/{cycle_id}/{student_id}/{project_id}', [StudentController::class,'profile_project_details'])->name('profile_project_details');
+
+
 
     Route::get('/my_accepted_requests', [StudentController::class,'my_accepted_requests'])->name('my_accepted_requests');
 

@@ -9,16 +9,18 @@ use App\Models\CourseQuestion;
 class CourseQuestionController extends Controller
 {
 
-    public function index3(){
+    public function index(){
         $all_courses = Course::all();
-        $all_course_question= CourseQuestion::orderBy('id','desc')->paginate(11);
+        // $all_course_question= CourseQuestion::orderBy('id','desc')->paginate(11);
+        $all_course_question= CourseQuestion::orderBy('id','desc')->get();
+
         //$all_lessons = "Alo";
 
         //return $all_lessons;
         return view('admin.course_question.index')->with([ 'all_course_question'=>$all_course_question , 'all_courses'=>$all_courses ]) ;
     }
 
-    public function index(Request $request){
+    public function index2(Request $request){
         // $info = [
         //     "draw"=> $request->draw,
         //     "data"=> [],
@@ -30,7 +32,7 @@ class CourseQuestionController extends Controller
         return view('admin.course_question.index2')->with([ 'all_courses'=>$all_courses ]);
     }
 
-    public function index2(Request $request){
+    public function index3(Request $request){
         //return $request->start;
         $info = [
             'draw' => $request->draw,

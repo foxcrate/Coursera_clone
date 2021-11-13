@@ -1,10 +1,10 @@
 @include('student.templates.header')
 @include('student.templates.navbar')
-      
+
 @extends('student.templates.header')
 
 @section('title')
-  <title>Project</title>
+  <title>Project Details</title>
 @endsection
 
 
@@ -13,31 +13,36 @@
     </div>
 </div>
 <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 icon-head-master">
-                <p class="icon-head"><i class="fa fa-calendar"></i><span class="les-spa"> {{ count( $project->semesters ) }}</span> Semesters</p>
-                <p class="icon-head"><i class="fa fa-book"></i><span class="les-spa"> {{ count( $project->all_courses() ) }}</span> Courses</p>
-                <p class="icon-head"><i class="far fa-money-bill-alt"></i><span class="les-spa"> $</span> {{ $project->price }}</p>
-            </div>
+    <div class="row">
+        <div class="col-12 icon-head-master">
+            <p class="icon-head"><i class="fa fa-calendar"></i><span class="les-spa"> {{ count( $project->semesters ) }}</span> Semesters</p>
+            <p class="icon-head"><i class="fa fa-book"></i><span class="les-spa"> {{ count( $project->all_courses() ) }}</span> Courses</p>
+            <p class="icon-head"><i class="far fa-money-bill-alt"></i><span class="les-spa"> $</span> {{ $project->price }}</p>
         </div>
     </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 video-intro">
-                <video width="70%" height="90%" controls>
-                    <source src="http://localhost:8000/{{ $project->video }}" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
+</div>
+@if(session()->has('msg'))
+<div class="alert alert-danger text-center">
+    {{ session()->get('msg') }}
+</div>
+@endif
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 video-intro">
+            <video width="70%" height="90%" controls>
+                <source src="http://localhost:8000/{{ $project->video }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
     </div>
+</div>
 <div class="container-fluid Course-title">
     <h2 class="course-text-title">Project <span class="course-span">{{$project->name}}</span></h2>
-    <!-- <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'id' => $project->id ]) }}" >Enrol Now</a> -->
-    <!-- <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'id' => $project->id ]) }}" >Enrol Now</a> -->
+    <!-- <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'cycle_id'=>$cycle_id,'project_id' => $project->id ]) }}" >Enrol Now</a> -->
+    <!-- <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'cycle_id'=>$cycle_id,'project_id' => $project->id ]) }}" >Enrol Now</a> -->
     @if(Session::has('loggedID'))
         @if( in_array( $project->id ,$ids_array)  )
-        <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'id' => $project->id ]) }}" >Go To Course</a>
+        <a class="btn btn-outline-dark btn-lg btn-block" href="{{ route('project_view',[ 'cycle_id'=>$cycle_id,'project_id' => $project->id ]) }}" >Go To Course</a>
         @else
         <!-- <a class="btn btn-outline-dark btn-lg btn-block" href="" data-bs-toggle="modal" data-bs-target="#enrolModal">Enroll Now</a> -->
             @if ($already_requested == 1)
@@ -55,7 +60,7 @@
             <p class="pro-desc1">{{ $project->summery }}</p>
         </div>
         <div class="col-6">
-            <h5 class="pro-inst"><i class="fas fa-user-graduate icon-s"></i> Project instructors</h5> 
+            <h5 class="pro-inst"><i class="fas fa-user-graduate icon-s"></i> Project instructors</h5>
             <ul class="pro-desc1">
                 @foreach($project->teachers_count() as $teacher)
                     <li class="inst-li"><span class="inst-span">Doctor</span> {{ $teacher->name }} </li>
@@ -97,7 +102,7 @@
 						<label>Payment File</label>
 						<input id="payment" name="payment" type="file" class="form-control" required>
 					</div>
-                    
+
                 <button type="submit" class="btn btn-primary mt-2">Submit</button>
 			</form>
       </div>
@@ -116,7 +121,7 @@
         // edit_id = id;
         // //alert(edit_id);
         // $("#edit_hidden_id").attr("value", edit_id);
-        
+
         // var formData = {
         //     id:edit_id,
         // };
