@@ -27,7 +27,7 @@
 					</div>
 				</div>
 			</div>
-			<table style="table-layout:fixed; width: 100%;" class="table table_condensed table-striped table-hover">
+			<table style="table-layout:fixed; width: 100%;" class="table table_condensed table-striped table-hover" >
 				<thead>
 					<tr>
 						<!-- <th>
@@ -65,7 +65,7 @@
                         @else
                         <td>No Image</td>
                         @endif
-                        <td style="word-wrap: break-word"> {{$project->type}} </td>
+                        <td style="word-wrap: break-word; color:red;"> {{$project->type}} </td>
                         <!-- <td> {{$project->video}} </td> -->
                         <td style="word-wrap: break-word"> {{$project->price}} </td>
                         <!-- <td> {{$project->summery}} </td> -->
@@ -100,6 +100,7 @@
 		</div>
 	</div>
 </div>
+
 
 
 <div id="addCycleModal" class="modal fade">

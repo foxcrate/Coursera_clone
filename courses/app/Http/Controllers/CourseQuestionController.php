@@ -8,14 +8,58 @@ use App\Models\CourseQuestion;
 
 class CourseQuestionController extends Controller
 {
-    
-    public function index(){
+
+    public function index3(){
         $all_courses = Course::all();
         $all_course_question= CourseQuestion::orderBy('id','desc')->paginate(11);
         //$all_lessons = "Alo";
-        
+
         //return $all_lessons;
         return view('admin.course_question.index')->with([ 'all_course_question'=>$all_course_question , 'all_courses'=>$all_courses ]) ;
+    }
+
+    public function index(Request $request){
+        // $info = [
+        //     "draw"=> $request->draw,
+        //     "data"=> [],
+        //     "total" => 0,
+        // ];
+        // return $info;
+        $all_courses = Course::all();
+
+        return view('admin.course_question.index2')->with([ 'all_courses'=>$all_courses ]);
+    }
+
+    public function index2(Request $request){
+        //return $request->start;
+        $info = [
+            'draw' => $request->draw,
+            'data' => [],
+            'total' => 0,
+        ];
+
+        $search = $request->input('search.value');
+
+        $course_questions = CourseQuestion::where( function($query) use ( $search ) {
+            $query->where( "question", "LIKE", "%".$search."%" );
+        } )->take( $request->length )->skip( $request->start )->get();
+
+        $info['total'] = CourseQuestion::where( function($query) use ( $search ) {
+            $query->where( "question", "LIKE", "%".$search."%" );
+        } )->count();
+
+        $sl_no_counter = ( $request->start == 0 )? 1 : $request->start+1;
+
+        foreach( $course_questions as $course_question ){
+            $course_question->sl_no = $sl_no_counter;
+            $sl_no_counter++;
+        }
+
+        $info['data'] = $course_questions;
+
+        return $info;
+
+        //return view('admin.course_question.index2');
     }
 
     public function add(Request $request){
@@ -26,7 +70,7 @@ class CourseQuestionController extends Controller
         }else{
             $third_answer = $request->third_answer;
         }
-        
+
         if( !$request->has('fourth_answer') ){
             $fourth_answer = null;
         }else{
@@ -42,7 +86,7 @@ class CourseQuestionController extends Controller
             'correct_answer'=>$request->correct_answer,
             'course_id'=>$request->course_id,
         ]);
-        
+
         return redirect()->back();
 
     }
@@ -55,7 +99,7 @@ class CourseQuestionController extends Controller
         }else{
             $third_answer = $request->third_answer;
         }
-        
+
         if( !$request->has('fourth_answer') ){
             $fourth_answer = null;
         }else{

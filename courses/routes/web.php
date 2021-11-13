@@ -39,6 +39,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/datatable', function () {
+
+    return view('admin.test_datatable');
+});
+
 Route::get('/refresh_routes', function () {
 
     Artisan::call('route:clear');
@@ -236,6 +241,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::group(['prefix'=>'course_question','as'=>'course_question.'], function(){
 
         Route::get('/', [CourseQuestionController::class,'index'])->name('index');
+        Route::get('/index2', [CourseQuestionController::class,'index2'])->name('index2');
         Route::post('/add', [CourseQuestionController::class,'add'])->name('add');
         Route::post('/edit', [CourseQuestionController::class,'edit'])->name('edit');
         Route::post('/delete', [CourseQuestionController::class,'delete'])->name('delete');

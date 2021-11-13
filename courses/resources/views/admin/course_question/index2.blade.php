@@ -7,8 +7,9 @@
 
 <div class="container-xl">
 	<div class="table-responsive">
+
 		<div class="table-wrapper">
-			<div class="table-title">
+            <div class="table-title mb-2">
 				<div class="row">
 					<div class=" col-sm-6 ">
 						<h2>Manage <b>Course Questions</b></h2>
@@ -18,61 +19,32 @@
 					</div>
 				</div>
 			</div>
-            <!-- table-layout:fixed; width: 100%; -->
-			<table style="table-layout:fixed; width: 100%; " class="table table_condensed table-striped table-hover">
-				<thead>
-					<tr>
-						<!-- <th>
-							<span class="custom-checkbox">
-								<input type="checkbox" id="selectAll">
-								<label for="selectAll"></label>
-							</span>
-						</th> -->
-						<th>ID</th>
-                        <th>Question</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-				@foreach ($all_course_question as $course_question)
 
-					<tr>
-						<!-- <td style="word-wrap: break-word">
-							<span class="custom-checkbox">
-								<input type="checkbox" id="checkbox1" name="options[]" value="1">
-								<label for="checkbox1"></label>
-							</span>
-						</td> -->
-						<td style="word-wrap: break-word"> {{$course_question->id}} </td>
-						<td style="word-wrap: break-word"> {{$course_question->question}} </td>
-						<td style="word-wrap: break-word">
-							<a onClick="edit_function({{$course_question->id}})" href="#editCourseQuestionModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
-							<a onClick="delete_function({{$course_question->id}})" href="#deleteCourseQuestionModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
-						</td>
-					</tr>
+            {{-- <div class="row ">
+                <div class="col-2">
+                    <label for="">From Date</label>
+                    <input type="date" id="from_date" value="" >
+                </div>
 
-				@endforeach
+                <div class="col-2">
+                    <label for="">To Date</label>
+                    <input type="date" id="to_date" value="" >
+                </div>
 
-				</tbody>
-			</table>
-			<div class="d-flex pages">
-                {{ $all_course_question->links() }}
-            </div>
-			<!-- <div class="clearfix">
-				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-				<ul class="pagination">
-					<li class="page-item disabled"><a href="#">Previous</a></li>
-					<li class="page-item"><a href="#" class="page-link">1</a></li>
-					<li class="page-item"><a href="#" class="page-link">2</a></li>
-					<li class="page-item active"><a href="#" class="page-link">3</a></li>
-					<li class="page-item"><a href="#" class="page-link">4</a></li>
-					<li class="page-item"><a href="#" class="page-link">5</a></li>
-					<li class="page-item"><a href="#" class="page-link">Next</a></li>
-				</ul>
-			</div> -->
-		</div>
-	</div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-info" onclick="reload_table()" >Filter</button>
+                </div>
+            </div> --}}
+
+            <table id="course_questions_table" style="table-layout:fixed; width: 100%; " class="table table_condensed table-striped table-hover">
+
+
+            </table>
+
+        </div>
+    </div>
 </div>
+
 <!-- Add Modal HTML -->
 <div id="addCourseQuestionModal" class="modal fade">
 	<div class="modal-dialog">
@@ -125,6 +97,7 @@
 		</div>
 	</div>
 </div>
+
 <!-- Edit Modal HTML -->
 <div id="editCourseQuestionModal" class="modal fade">
 	<div class="modal-dialog">
@@ -178,6 +151,7 @@
 		</div>
 	</div>
 </div>
+
 <!-- Delete Modal HTML -->
 <div id="deleteCourseQuestionModal" class="modal fade">
 	<div class="modal-dialog">
@@ -202,7 +176,66 @@
 	</div>
 </div>
 
+
 <script>
+
+    $(
+        function() {
+            var drawer_count = 1;
+
+            $('#course_questions_table').DataTable({
+                "oLanguage": {
+                    "sProcessing": '<span>Please wait ...</span>'
+                },
+                "pagingType": "simple_numbers",
+                "paging": true,
+                "bLengthChange": false,
+                "lengthMenu": [
+                    [10, 25, 50],
+                    [10, 25, 50]
+                ],
+                "processing": true,
+                "serverSide": true,
+                "ordering": false,
+                "ajax": {
+                    "type": "GET",
+                    "url": "{{ url('course_question/index2') }}",
+                    "data": function(d) {
+                        // d.from_date = document.getElementById('from_date').value;
+                        // d.to_date = document.getElementById('to_date').value;
+                    },
+                    "dataFilter": function(data) {
+                        drawer_count++;
+                        var json = jQuery.parseJSON(data);
+                        json.draw = json.draw;
+                        json.recordsTotal = json.total;
+                        json.recordsFiltered = json.total;
+                        json.data = json.data;
+
+                        $('#list_table_processing').css('display', 'none');
+                        return JSON.stringify(json); // return JSON string
+                    }
+                },
+                "columns": [
+                    {"title": "#", "data": "id", "name": "id", "visible": true, "searchable": true },
+                    {"title": "Question", "data": "question", "name": "question", "visible": true, "searchable": true},
+                    {"title": "Course ID", "data": "course_id", render:function(data,type,row){ return '<p style="word-wrap: break-word;">'+data+'</p>' ; },
+                    "name": "course_id", "visible": true, "searchable": true},
+                    {"title": "Actions", "data": "",
+                        render:function(data,type,row){
+                            //console.log(row);
+                            // return ' <a href="#">'+row+'</a> ';
+                            return ' <a onClick="edit_function(' + row.id + ')"href="#editCourseQuestionModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a> <a onClick="delete_function(' +row.id+ ')"href="#deleteCourseQuestionModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a> ' ;
+                        }
+                    },
+                ],
+            });
+        }
+    );
+
+    function reload_table() {
+        $('#course_questions_table').DataTable().ajax.reload();
+    }
 
     var edit_id = 0;
 	var delete_id = 0;
@@ -246,5 +279,3 @@
 	}
 
 </script>
-
-
