@@ -33,16 +33,108 @@ class Project extends Model
         return count($this->semesters);
     }
 
-    // public function courses_count(){
+    public function current_course( $remaining){
 
-    //     $all_semesters = $this->semesters;
-    //     $courses_count = 0;
-    //     foreach($all_semesters as $semester){
-    //         $courses_count = $courses_count + count( $semester->courses );
-    //     }
+        if( $this->semester_calender->semester1->course_calender->course12 != null ){
+            if( $remaining - 7 <= 0 ){
+                // return "course 12" ;
+                return $this->semester_calender->semester1->course_calender->course12;
+            }else{
+                $remaining -= 7;
+            }
+        }
+        if( $this->semester_calender->semester1->course_calender->course11 != null ){
+            if( $remaining - 7 <= 0 ){
+                // return "course 11" ;
+                return $this->semester_calender->semester1->course_calender->course11;
+            }else{
+                $remaining -= 7;
+            }
+        }
+        if( $this->semester_calender->semester1->course_calender->course10 != null ){
+            if( $remaining - 7 <= 0 ){
+                // return "course 10" ;
+                return $this->semester_calender->semester1->course_calender->course10;
+            }else{
+                $remaining -= 7;
+            }
+        }
+        if( $this->semester_calender->semester1->course_calender->course9 != null ){
+            if( $remaining - 7 <= 0 ){
+                // return "course 9" ;
+                return $this->semester_calender->semester1->course_calender->course9;
+            }else{
+                $remaining -= 7;
+            }
+        }
+        if( $this->semester_calender->semester1->course_calender->course8 != null ){
+            if( $remaining - 7 <= 0 ){
+                // return "course 8" ;
+                return $this->semester_calender->semester1->course_calender->course8;
+            }else{
+                $remaining -= 7;
+            }
+        }
+        if( $this->semester_calender->semester1->course_calender->course7 != null ){
+            if( $remaining - 7 <= 0 ){
+                // return "course 7" ;
+                return $this->semester_calender->semester1->course_calender->course7;
+            }else{
+                $remaining -= 7;
+            }
+        }
+        if( $this->semester_calender->semester1->course_calender->course6 != null ){
+            if( $remaining - 7 <= 0 ){
+                // return "course 6" ;
+                return $this->semester_calender->semester1->course_calender->course6;
+            }else{
+                $remaining -= 7;
+            }
+        }
+        if( $this->semester_calender->semester1->course_calender->course5 != null ){
+            if( $remaining - 7 <= 0 ){
+                // return "course 5" ;
+                return $this->semester_calender->semester1->course_calender->course5;
+            }else{
+                $remaining -= 7;
+            }
+        }
+        if( $this->semester_calender->semester1->course_calender->course4 != null ){
+            if( $remaining - 7 <= 0 ){
+                // return "course 4" ;
+                return $this->semester_calender->semester1->course_calender->course4;
+            }else{
+                $remaining -= 7;
+            }
+        }
+        if( $this->semester_calender->semester1->course_calender->course3 != null ){
+            if( $remaining - 7 <= 0 ){
+                // return "course 3" ;
+                return $this->semester_calender->semester1->course_calender->course3;
+            }else{
+                $remaining -= 7;
+            }
+        }
+        if( $this->semester_calender->semester1->course_calender->course2 != null ){
+            if( $remaining - 7 <= 0 ){
+                // return "course 2" ;
+                return $this->semester_calender->semester1->course_calender->course2;
+            }else{
+                $remaining -= 7;
+            }
+        }
+        if( $this->semester_calender->semester1->course_calender->course1 != null ){
+            //return "Alo";
+            if( $remaining - 7 <= 0 ){
+                return $this->semester_calender->semester1->course_calender->course1;
+                return "course 1" ;
+            }else{
+                $remaining -= 7;
+            }
+            return $remaining;
+        }
 
-    //     return $courses_count;
-    // }
+    }
 
     public function all_courses(){
 

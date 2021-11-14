@@ -24,7 +24,7 @@ use SebastianBergmann\CodeCoverage\Report\Xml\Project as XmlProject;
 
 class TestController extends Controller
 {
-    public function test1(){
+    public function test(){
 
         //$s1 = Student::find(6);
         // $s2 = Student::find(3);
@@ -54,7 +54,55 @@ class TestController extends Controller
 
         $s1->all_cycles()->sync(1);
         // $c1->all_students()->attach($s1->id);
-        return $s1->all_cycles;
+        //return $s1->all_cycles;
+        $all_semesters = Semester::all();
+
+        foreach($all_semesters as $semester){
+            //return $semester;
+            if($semester->course_calender->course12 != null){
+                $semester->duration = 12;
+                $semester->save();
+            }elseif($semester->course_calender->course11 != null){
+                $semester->duration = 11;
+                $semester->save();
+            }elseif($semester->course_calender->course10 != null){
+                $semester->duration = 10;
+                $semester->save();
+            }elseif($semester->course_calender->course9 != null){
+                $semester->duration = 9;
+                $semester->save();
+            }elseif($semester->course_calender->course8 != null){
+                $semester->duration = 8;
+                $semester->save();
+            }elseif($semester->course_calender->course7 != null){
+                $semester->duration = 7;
+                $semester->save();
+            }elseif($semester->course_calender->course6 != null){
+                $semester->duration = 6;
+                $semester->save();
+            }elseif($semester->course_calender->course5 != null){
+                $semester->duration = 5;
+                $semester->save();
+            }elseif($semester->course_calender->course4 != null){
+                $semester->duration = 4;
+                $semester->save();
+            }elseif($semester->course_calender->course3 != null){
+                $semester->duration = 3;
+                $semester->save();
+            }elseif($semester->course_calender->course2 != null){
+                $semester->duration = 2;
+                $semester->save();
+            }elseif($semester->course_calender->course1 != null){
+                $semester->duration = 1;
+                $semester->save();
+            }
+            else{
+                $semester->duration = 0;
+                $semester->save();
+            }
+
+        }
+        return "Done";
 
         // $u1 = User::create([
         //     'name'=>'aaa',
@@ -74,7 +122,7 @@ class TestController extends Controller
 
     }
 
-    public function test(){
+    public function test1(){
 
         /////////////////////////////////////////////////////////////////////////////
         //   $services = array(

@@ -246,6 +246,7 @@ class StudentController extends Controller
             $the_cycle = Cycle::find($cycle_id);
             $cycle_start_date = Carbon::create($the_cycle->start_date);
             $current_date = Carbon::now() ;
+            //$current_date = Carbon::create(2021, 11, 30, 0);
             $cycle_end_date =Carbon::create($cycle_start_date->addWeeks( $the_project->duration()) );
             //return $cycle_end_date;
             if($current_date > $cycle_end_date){
@@ -257,7 +258,10 @@ class StudentController extends Controller
                 if(  $the_project->semester_calender->semester3 != null ){
                     //return $the_project->semester_calender->semester3->duration ;
                     if ( $remaining - $the_project->semester_calender->semester3->duration *7 <= 0 ){
-                        return "We Are In Semester Three .." ;
+                        //return "We Are In Semester Three .." ;
+                        $course = $the_project->current_course($remaining);
+                        $current = " Semester: 3 , Course: " . $course->name;
+                        return view('student.project_view')->with(['course'=>$course,'current'=>$current]);
                     }else{
                         $remaining = $remaining - $the_project->semester_calender->semester3->duration * 7;
                     }
@@ -266,7 +270,10 @@ class StudentController extends Controller
                 if(  $the_project->semester_calender->semester2 != null ){
 
                     if ( $remaining - $the_project->semester_calender->semester2->duration *7 <= 0 ){
-                        return "We Are In Semester Two .." ;
+                        //return "We Are In Semester Two .." ;
+                        $course = $the_project->current_course($remaining);
+                        $current = " Semester: 2 , Course: ". $course->name;
+                        return view('student.project_view')->with(['course'=>$course,'current'=>$current]);
                     }else{
                         $remaining = $remaining - $the_project->semester_calender->semester2->duration * 7;
                     }
@@ -276,79 +283,20 @@ class StudentController extends Controller
 
                     if ( $remaining - $the_project->semester_calender->semester1->duration *7 <= 0 ){
                         //return "We Are In Semester One .." ;
+                        $course = $the_project->current_course($remaining);
+                        $current = " Semester: 1 , Course: ". $course->name;
+                        return view('student.project_view')->with(['course'=>$course,'current'=>$current]);
                         //return $remaining;
-                        if( $the_project->semester_calender->semester1->course_calender->course12 != null ){
 
-                        }
-                        if( $the_project->semester_calender->semester1->course_calender->course11 != null ){
-
-                        }
-                        if( $the_project->semester_calender->semester1->course_calender->course10 != null ){
-
-                        }
-                        if( $the_project->semester_calender->semester1->course_calender->course9 != null ){
-
-                        }
-                        if( $the_project->semester_calender->semester1->course_calender->course8 != null ){
-                            return "we are in course 8" ;
-                        }
-                        if( $the_project->semester_calender->semester1->course_calender->course7 != null ){
-                            if( $remaining - 7 <= 0 ){
-                                return "course 7" ;
-                            }else{
-                                $remaining -= 7;
-                            }
-                        }
-                        if( $the_project->semester_calender->semester1->course_calender->course6 != null ){
-                            if( $remaining - 7 <= 0 ){
-                                return "course 6" ;
-                            }else{
-                                $remaining -= 7;
-                            }
-                        }
-                        if( $the_project->semester_calender->semester1->course_calender->course5 != null ){
-                            if( $remaining - 7 <= 0 ){
-                                return "course 5" ;
-                            }else{
-                                $remaining -= 7;
-                            }
-                        }
-                        if( $the_project->semester_calender->semester1->course_calender->course4 != null ){
-                            if( $remaining - 7 <= 0 ){
-                                return "course 4" ;
-                            }else{
-                                $remaining -= 7;
-                            }
-                        }
-                        if( $the_project->semester_calender->semester1->course_calender->course3 != null ){
-                            if( $remaining - 7 <= 0 ){
-                                return "course 3" ;
-                            }else{
-                                $remaining -= 7;
-                            }
-                        }
-                        if( $the_project->semester_calender->semester1->course_calender->course2 != null ){
-                            if( $remaining - 7 <= 0 ){
-                                return "course 2" ;
-                            }else{
-                                $remaining -= 7;
-                            }
-                        }
-                        if( $the_project->semester_calender->semester1->course_calender->course1 != null ){
-                            //return "Alo";
-                            if( $remaining - 7 <= 0 ){
-                                return "course 1" ;
-                            }else{
-                                $remaining -= 7;
-                            }
-                            return $remaining;
-                        }
                         //return "alo";
 
                     }else{
                         $remaining = $remaining - $the_project->semester_calender->semester1->duration * 7;
                     }
 
+                }
+                else{
+                    return "Error";
                 }
 
                 return $remaining;
@@ -363,6 +311,8 @@ class StudentController extends Controller
         }
 
     }
+
+
 
     public function ask(){
 
