@@ -36,4 +36,8 @@ class Course extends Model
         return $this->hasMany('App\Models\CourseQuestion');
     }
 
+    public function assignments(){
+        return $this->hasMany( 'App\Models\Assignment');
+    }
+
 }

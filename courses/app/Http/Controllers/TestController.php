@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assigment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Calender;
@@ -16,6 +17,7 @@ use App\Models\Lesson;
 use App\Models\LessonQuestion;
 use App\Models\Semester;
 use App\Models\Teacher;
+use App\Models\Assignment;
 use App\Models\Project;
 use App\Models\Service;
 use App\Models\ServicePayment;
@@ -24,7 +26,7 @@ use SebastianBergmann\CodeCoverage\Report\Xml\Project as XmlProject;
 
 class TestController extends Controller
 {
-    public function test(){
+    public function test1(){
 
         //$s1 = Student::find(6);
         // $s2 = Student::find(3);
@@ -122,7 +124,7 @@ class TestController extends Controller
 
     }
 
-    public function test1(){
+    public function test(){
 
         /////////////////////////////////////////////////////////////////////////////
         //   $services = array(
@@ -151,10 +153,20 @@ class TestController extends Controller
 
         //   }
 
-        $p = Project::find(124);
-        return $p->semesters[0]->courses;
+        // $as = Assignment::create([
+        //     'start_date'=> '2020-3-3' ,
+        //     'end_date'=> '2020-3-3' ,
+        //     'grade'=> 80 ,
+        //     'semester_or_course'=> 'semester' ,
+        //     'student_id'=> 2 ,
+        //     'cycle_id'=> 1 ,
+        //     'project_id'=> 116 ,
+        //     'semester_id'=> 898 ,
+        //     'course_id'=> 41 ,
+        // ]);
+        // return $as ;
 
-      return "done";
+        return "done";
 
     }
 

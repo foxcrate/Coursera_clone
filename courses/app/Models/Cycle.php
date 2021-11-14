@@ -31,4 +31,8 @@ class Cycle extends Model
         return $this->hasMany( 'App\Models\Student');
     }
 
+    public function assignments(){
+        return $this->hasMany( 'App\Models\Assignment');
+    }
+
 }

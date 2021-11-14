@@ -259,7 +259,9 @@ class StudentController extends Controller
                     //return $the_project->semester_calender->semester3->duration ;
                     if ( $remaining - $the_project->semester_calender->semester3->duration *7 <= 0 ){
                         //return "We Are In Semester Three .." ;
-                        $course = $the_project->current_course($remaining);
+                        $course = $the_project->current_course($remaining,3);
+                        //return $course;
+                        //return $the_project->semester_calender->semester3->course_calender;
                         $current = " Semester: 3 , Course: " . $course->name;
                         return view('student.project_view')->with(['course'=>$course,'current'=>$current]);
                     }else{
@@ -271,7 +273,7 @@ class StudentController extends Controller
 
                     if ( $remaining - $the_project->semester_calender->semester2->duration *7 <= 0 ){
                         //return "We Are In Semester Two .." ;
-                        $course = $the_project->current_course($remaining);
+                        $course = $the_project->current_course($remaining,2);
                         $current = " Semester: 2 , Course: ". $course->name;
                         return view('student.project_view')->with(['course'=>$course,'current'=>$current]);
                     }else{
@@ -283,7 +285,7 @@ class StudentController extends Controller
 
                     if ( $remaining - $the_project->semester_calender->semester1->duration *7 <= 0 ){
                         //return "We Are In Semester One .." ;
-                        $course = $the_project->current_course($remaining);
+                        $course = $the_project->current_course($remaining,1);
                         $current = " Semester: 1 , Course: ". $course->name;
                         return view('student.project_view')->with(['course'=>$course,'current'=>$current]);
                         //return $remaining;

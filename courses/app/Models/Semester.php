@@ -39,4 +39,8 @@ class Semester extends Model
         return $this->hasOne( CourseCalender::class);
     }
 
+    public function assignments(){
+        return $this->hasMany( 'App\Models\Assignment');
+    }
+
 }
