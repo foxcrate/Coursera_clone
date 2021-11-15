@@ -29,6 +29,14 @@ a:focus {
     color: #FFF !important;
 }
 
+.late_submissions_card{
+    background-color: #0a60ab !important;
+}
+
+.late_submissions_button{
+    background-color: #fb8500 !important;
+}
+
 .our_footer{
     background-color: #333;
     color: #FFF;

@@ -1,6 +1,6 @@
-<!-- @include('student.templates.header') -->
+@include('student.templates.header')
 @include('student.templates.navbar')
-      
+
 @extends('student.templates.header')
 
 @section('title')
@@ -10,7 +10,7 @@
 
     <div class="col-12 project-header">
         <div class="row">
-            
+
         </div>
     </div>
 

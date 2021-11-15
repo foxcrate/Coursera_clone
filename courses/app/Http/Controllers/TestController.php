@@ -23,6 +23,7 @@ use App\Models\Service;
 use App\Models\ServicePayment;
 use App\Models\UploadedResearch;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project as XmlProject;
+use Carbon\Carbon ;
 
 class TestController extends Controller
 {
@@ -165,6 +166,14 @@ class TestController extends Controller
         //     'course_id'=> 41 ,
         // ]);
         // return $as ;
+        $now  = Carbon::create("2021-3-1");
+        $now2  = Carbon::create("2021-3-1");
+
+        $now->addMonth();
+        $now2->addWeeks(4);
+
+        return [$now , $now2 ] ;
+
 
         return "done";
 

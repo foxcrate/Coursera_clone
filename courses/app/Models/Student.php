@@ -58,43 +58,60 @@ class Student extends Authenticatable
         return $this->belongsToMany(Cycle::class,'cycle_students')->distinct();
     }
 
+    public function accepted_requests(){
+
+        $accepted_cycles = CyclePayment::where('id',$this->id)->where('status','accepted')-> orderBy('id', 'desc')->get();
+        return $accepted_cycles;
+
+    }
+
     public function make_assignments($cycle_id){
+        //return "Alo";
         $the_cycle = Cycle::find($cycle_id) ;
         $cycle_start_date = Carbon::create($the_cycle->start_date);
-        //return $cycle_start_date ;
+        $courses_start_date = Carbon::create($the_cycle->start_date) ;
+        //return $courses_start_date ;
         $the_project = $the_cycle->project;
 
         if(  $the_project->semester_calender->semester1 != null ){
-
-            $start_date = Carbon::create($cycle_start_date) ;
-            $end_date = Carbon::create($cycle_start_date) ;
+            //return $cycle_start_date ;
+            $start_date = Carbon::create ($cycle_start_date->addWeeks( $the_project->semester_calender->semester1->duration ) ) ;
+            $end_date =   Carbon::create ( $start_date ) ;
             $research_days = $the_project->semester_calender->semester1->research_days;
             $end_date = $end_date->addDays($research_days);
+            //return [ $start_date , $end_date ];
 
             $this->create_semester_assignment($start_date , $end_date , $this->id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->id );
-            $this->make_courses_assignments( $start_date , $this->id , $cycle_id , $the_project , 1 );
+            $this->make_courses_assignments( $courses_start_date , $this->id , $cycle_id , $the_project , 1 );
 
 
 
             if(  $the_project->semester_calender->semester2 != null ){
-                $start_date = Carbon::create( $start_date->addWeeks( $the_project->semester_calender->semester1->duration ) );
-                $end_date = Carbon::create( $start_date->addWeeks( $the_project->semester_calender->semester1->duration ) );
+                //return "Alo";
+                $start_date = Carbon::create( $start_date->addWeeks( $the_project->semester_calender->semester2->duration + 4 ) );
+                $end_date =   Carbon::create ( $start_date ) ;
                 $research_days = $the_project->semester_calender->semester2->research_days;
                 $end_date = $end_date->addDays($research_days);
-
+                //return $courses_start_date;
+                $courses_start_date = Carbon::create($the_cycle->start_date) ;
+                $courses_start_date = $courses_start_date->addWeeks( $the_project->semester_calender->semester1->duration + 4 );
+                //return $courses_start_date;
                 $this->create_semester_assignment($start_date , $end_date , $this->id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->id );
-                $this->make_courses_assignments( $start_date , $this->id , $cycle_id , $the_project , 2 );
+                $this->make_courses_assignments( $courses_start_date , $this->id , $cycle_id , $the_project , 2 );
 
 
 
                 if(  $the_project->semester_calender->semester3 != null ){
-                    $start_date = Carbon::create( $start_date->addWeeks( $the_project->semester_calender->semester2->duration ) );
-                    $end_date = Carbon::create( $start_date->addWeeks( $the_project->semester_calender->semester2->duration ) );
+                    //return "Alo";
+                    $start_date = Carbon::create( $start_date->addWeeks( $the_project->semester_calender->semester3->duration + 4 ) );
+                    $end_date =   Carbon::create ( $start_date ) ;
                     $research_days = $the_project->semester_calender->semester3->research_days;
                     $end_date = $end_date->addDays($research_days);
+                    $courses_start_date = Carbon::create($the_cycle->start_date) ;
+                    $courses_start_date = $courses_start_date->addWeeks( $the_project->semester_calender->semester2->duration +  $the_project->semester_calender->semester1->duration + 8 );
 
                     $this->create_semester_assignment($start_date , $end_date , $this->id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->id );
-                    $this->make_courses_assignments( $start_date , $this->id , $cycle_id , $the_project , 3 );
+                    $this->make_courses_assignments( $courses_start_date , $this->id , $cycle_id , $the_project , 3 );
 
 
                 }
@@ -134,147 +151,124 @@ class Student extends Authenticatable
     }
 
     public function make_courses_assignments( $start_date, $student_id , $cycle_id , $the_project , $sem_num ){
+        //return "Alo From make_courses_assignments";
 
         if($sem_num == 1){
             if( $the_project->semester_calender->semester1->course_calender->course1 != null ){
 
-                $start_date = Carbon::create($start_date) ;
-                $end_date = Carbon::create($start_date) ;
-                $end_date_1 = Carbon::create($start_date) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester1->course_calender->course1->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
-                $this->create_course_assignment($start_date , $end_date_1 , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->course_calender->course1->id );
+                $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->course_calender->course1->id );
 
             }
             if( $the_project->semester_calender->semester1->course_calender->course2 != null ){
 
-                $start_date = Carbon::create( $end_date ) ;
-                $end_date = Carbon::create( $end_date ) ;
-                $end_date_1 = Carbon::create( $end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester1->course_calender->course2->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
-                $this->create_course_assignment($start_date , $end_date_1 , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->course_calender->course2->id );
+                $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->course_calender->course2->id );
 
             }
             if( $the_project->semester_calender->semester1->course_calender->course3 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester1->course_calender->course3->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->course_calender->course3->id );
 
             } if( $the_project->semester_calender->semester1->course_calender->course4 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester1->course_calender->course4->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->course_calender->course4->id );
 
             }
             if( $the_project->semester_calender->semester1->course_calender->course5 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester1->course_calender->course5->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->course_calender->course5->id );
 
             }
             if( $the_project->semester_calender->semester1->course_calender->course6 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester1->course_calender->course6->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->course_calender->course6->id );
 
             }
             if( $the_project->semester_calender->semester1->course_calender->course7 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester1->course_calender->course7->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->course_calender->course7->id );
 
             }
             if( $the_project->semester_calender->semester1->course_calender->course8 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester1->course_calender->course8->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->course_calender->course8->id );
 
             }
             if( $the_project->semester_calender->semester1->course_calender->course9 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester1->course_calender->course9->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->course_calender->course9->id );
 
             }
             if( $the_project->semester_calender->semester1->course_calender->course10 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester1->course_calender->course10->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->course_calender->course10->id );
 
             }
             if( $the_project->semester_calender->semester1->course_calender->course11 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester1->course_calender->course11->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->course_calender->course11->id );
 
             }
             if( $the_project->semester_calender->semester1->course_calender->course12 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester1->course_calender->course12->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester1->course_calender->course12->id );
 
@@ -283,145 +277,124 @@ class Student extends Authenticatable
         }
 
         if($sem_num == 2){
+            //return "Alo From make_courses_assignments .. 2";
             if( $the_project->semester_calender->semester2->course_calender->course1 != null ){
 
-                $start_date = Carbon::create($start_date) ;
-                $end_date = Carbon::create($start_date) ;
-                $end_date_1 = Carbon::create($start_date) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date );
+                //return [ $start_date , $end_date ];
                 $exam_days = $the_project->semester_calender->semester2->course_calender->course1->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
+                //return [ $start_date , $end_date ];
 
-                $this->create_course_assignment($start_date , $end_date_1 , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->course_calender->course1->id );
+                $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->course_calender->course1->id );
 
             }
             if( $the_project->semester_calender->semester2->course_calender->course2 != null ){
 
-                $start_date = Carbon::create( $end_date ) ;
-                $end_date = Carbon::create( $end_date ) ;
-                $end_date_1 = Carbon::create( $end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester2->course_calender->course2->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
-                $this->create_course_assignment($start_date , $end_date_1 , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->course_calender->course2->id );
+                $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->course_calender->course2->id );
 
             }
             if( $the_project->semester_calender->semester2->course_calender->course3 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester2->course_calender->course3->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->course_calender->course3->id );
 
             } if( $the_project->semester_calender->semester2->course_calender->course4 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester2->course_calender->course4->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->course_calender->course4->id );
 
             }
             if( $the_project->semester_calender->semester2->course_calender->course5 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester2->course_calender->course5->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->course_calender->course5->id );
 
             }
             if( $the_project->semester_calender->semester2->course_calender->course6 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester2->course_calender->course6->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->course_calender->course6->id );
 
             }
             if( $the_project->semester_calender->semester2->course_calender->course7 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester2->course_calender->course7->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->course_calender->course7->id );
 
             }
             if( $the_project->semester_calender->semester2->course_calender->course8 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester2->course_calender->course8->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->course_calender->course8->id );
 
             }
             if( $the_project->semester_calender->semester2->course_calender->course9 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester2->course_calender->course9->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->course_calender->course9->id );
 
             }
             if( $the_project->semester_calender->semester2->course_calender->course10 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester2->course_calender->course10->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->course_calender->course10->id );
 
             }
             if( $the_project->semester_calender->semester2->course_calender->course11 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester2->course_calender->course11->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->course_calender->course11->id );
 
             }
             if( $the_project->semester_calender->semester2->course_calender->course12 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester2->course_calender->course12->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester2->course_calender->course12->id );
 
@@ -429,146 +402,122 @@ class Student extends Authenticatable
 
         }
 
-        if($sem_num == 3){
+       if($sem_num == 3){
             if( $the_project->semester_calender->semester3->course_calender->course1 != null ){
 
-                $start_date = Carbon::create($start_date) ;
-                $end_date = Carbon::create($start_date) ;
-                $end_date_1 = Carbon::create($start_date) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester3->course_calender->course1->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
-                $this->create_course_assignment($start_date , $end_date_1 , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->course_calender->course1->id );
+                $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->course_calender->course1->id );
 
             }
             if( $the_project->semester_calender->semester3->course_calender->course2 != null ){
 
-                $start_date = Carbon::create( $end_date ) ;
-                $end_date = Carbon::create( $end_date ) ;
-                $end_date_1 = Carbon::create( $end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester3->course_calender->course2->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
-                $this->create_course_assignment($start_date , $end_date_1 , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->course_calender->course2->id );
+                $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->course_calender->course2->id );
 
             }
             if( $the_project->semester_calender->semester3->course_calender->course3 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester3->course_calender->course3->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->course_calender->course3->id );
 
             } if( $the_project->semester_calender->semester3->course_calender->course4 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester3->course_calender->course4->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->course_calender->course4->id );
 
             }
             if( $the_project->semester_calender->semester3->course_calender->course5 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester3->course_calender->course5->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->course_calender->course5->id );
 
             }
             if( $the_project->semester_calender->semester3->course_calender->course6 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester3->course_calender->course6->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->course_calender->course6->id );
 
             }
             if( $the_project->semester_calender->semester3->course_calender->course7 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester3->course_calender->course7->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->course_calender->course7->id );
 
             }
             if( $the_project->semester_calender->semester3->course_calender->course8 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester3->course_calender->course8->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->course_calender->course8->id );
 
             }
             if( $the_project->semester_calender->semester3->course_calender->course9 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester3->course_calender->course9->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->course_calender->course9->id );
 
             }
             if( $the_project->semester_calender->semester3->course_calender->course10 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester3->course_calender->course10->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->course_calender->course10->id );
 
             }
             if( $the_project->semester_calender->semester3->course_calender->course11 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester3->course_calender->course11->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->course_calender->course11->id );
 
             }
             if( $the_project->semester_calender->semester3->course_calender->course12 != null ){
 
-                $start_date = Carbon::create(  $end_date  ) ;
-                $end_date = Carbon::create(  $end_date  ) ;
-                $end_date_1 = Carbon::create ($end_date ) ;
+                $start_date = Carbon::create( $start_date->addDays(7) ) ;
+                $end_date = Carbon::create( $start_date ) ;
                 $exam_days = $the_project->semester_calender->semester3->course_calender->course12->exam_days;
-                $end_date = Carbon::create($end_date->addDays( 7 ) );
-                $end_date_1 = Carbon::create($end_date_1->addDays( 7 + $exam_days ) );
+                $end_date = Carbon::create($end_date->addDays( $exam_days ) );
 
                 $this->create_course_assignment($start_date , $end_date , $student_id , $cycle_id , $the_project->id , $the_project->semester_calender->semester3->course_calender->course12->id );
 

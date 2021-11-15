@@ -17,6 +17,7 @@ use App\Models\ServicePayment;
 use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Models\Assignment ;
 use SebastianBergmann\Timer\Duration;
 
 class StudentController extends Controller
@@ -180,7 +181,7 @@ class StudentController extends Controller
 
     }
 
-    public function my_books($student_id){
+    public function my_books(){
 
         $accepted_requests = $this->get_accepted_requests();
 
@@ -323,9 +324,9 @@ class StudentController extends Controller
                     return "Error";
                 }
 
-                return $remaining;
-                return $the_project->semester_calender;
-                return view('student.project_view')->with('project',$the_project);
+                // return $remaining;
+                // return $the_project->semester_calender;
+                // return view('student.project_view')->with('project',$the_project);
             }
 
             // return view('student.project_view')->with('project',$the_project);
@@ -337,10 +338,12 @@ class StudentController extends Controller
     }
 
 
+    public function late_submissions(){
+        $now = Carbon::now();
 
-    public function ask(){
+        $late_submissions = Assignment::where('student_id',Auth::user()->id)->where('start_date', '<=', $now)->where('end_date', '>=', $now)->orderBy('created_at','desc')->get();
 
-        return view('student.ask');
+        return view('student.late_submissions')->with([ 'late_submissions'=>$late_submissions , 'now'=>$now ]);
 
     }
 
