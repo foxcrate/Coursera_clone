@@ -247,7 +247,15 @@ class StudentController extends Controller
             $cycle_start_date = Carbon::create($the_cycle->start_date);
             $current_date = Carbon::now() ;
             //$current_date = Carbon::create(2021, 11, 30, 0);
-            $cycle_end_date =Carbon::create($cycle_start_date->addWeeks( $the_project->duration()) );
+
+            if($the_project->semester_calender->semester3 != null){
+                $cycle_end_date =Carbon::create($cycle_start_date->addWeeks( $the_project->duration() + 8 ) );
+            }elseif($the_project->semester_calender->semester2 != null){
+                $cycle_end_date =Carbon::create($cycle_start_date->addWeeks( $the_project->duration() + 4 ) );
+            }else{
+                $cycle_end_date =Carbon::create($cycle_start_date->addWeeks( $the_project->duration() ) );
+            }
+
             //return $cycle_end_date;
             if($current_date > $cycle_end_date){
                 return back()->with('msg','Cycle Has Ended ..');
@@ -269,6 +277,13 @@ class StudentController extends Controller
                     }
 
                 }
+
+                if( $remaining - 30 <= 0 ){
+                    return back()->with('msg','Break Between Semesters ..');
+                }else{
+                    $remaining = $remaining - 30;
+                }
+
                 if(  $the_project->semester_calender->semester2 != null ){
 
                     if ( $remaining - $the_project->semester_calender->semester2->duration *7 <= 0 ){
@@ -281,6 +296,13 @@ class StudentController extends Controller
                     }
 
                 }
+
+                if( $remaining - 30 <= 0 ){
+                    return back()->with('msg','Break Between Semesters ..');
+                }else{
+                    $remaining = $remaining - 30;
+                }
+
                 if(  $the_project->semester_calender->semester1 != null ){
 
                     if ( $remaining - $the_project->semester_calender->semester1->duration *7 <= 0 ){
