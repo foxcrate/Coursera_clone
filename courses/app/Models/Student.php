@@ -65,6 +65,36 @@ class Student extends Authenticatable
 
     }
 
+    public function count_late_submissions(){
+        $now = Carbon::now();
+
+        $late_submissions = Assignment::where('submitted',0)->where('student_id',$this->id)->where('start_date', '<=', $now)->where('end_date', '>=', $now)->orderBy('created_at','desc')->get();
+
+        return count($late_submissions);
+
+    }
+
+    public function get_accepted_requests(){
+
+        $accepted_cycles = CyclePayment::where('student_id',$this->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
+        $accepted_services = ServicePayment::where('student_id',$this->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
+        $accepted_books = BookPayment::where('student_id',$this->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
+
+        $accepted_requests = [];
+        foreach( $accepted_cycles as $x ){
+            array_push($accepted_requests, ['data' => $x,'kind' => 'Cycle' , 'money_paid' => $x->amount_paid ]);
+        }
+        foreach( $accepted_services as $x ){
+            array_push($accepted_requests, ['data' => $x,'kind' => 'Service' , 'money_paid' => $x->money_paid ]);
+        }
+        foreach( $accepted_books as $x ){
+            array_push($accepted_requests, ['data' => $x,'kind' => 'Book' , 'money_paid' => $x->money_paid ]);
+        }
+
+        return $accepted_requests;
+
+    }
+
     public function make_assignments($cycle_id){
         //return "Alo";
         $the_cycle = Cycle::find($cycle_id) ;

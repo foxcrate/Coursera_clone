@@ -12,7 +12,19 @@
 
                 <!-- <a href="{{ route('my_payments') }}" class="list-group-item list-group-item-action"><i class="fab fa-cc-visa"></i> My Payments</a> -->
                 <a href="{{ route('my_accepted_requests') }}" class="list-group-item list-group-item-action"><i class="fab fa-cc-visa"></i> Accepted Payments</a>
-                <a href="{{ route('late_submissions') }}" class="list-group-item list-group-item-action"><i class="fas fa-exclamation-circle"></i></i> Late Submissions</a>
+                @if ( Auth::user()->count_late_submissions() > 0 )
+
+                <a href="{{ route('late_submissions') }}" class="list-group-item list-group-item-action"><i class="fas fa-exclamation-circle"></i> Late Submissions
+                    <span class="fa-stack">
+                        <!-- The icon that will wrap the number -->
+                        <span class="fa fa-circle-o fa-stack-2x"></span>
+                        <!-- a strong element with the custom content, in this case a number -->
+                        <strong class="fa-stack-1x">
+                            {{ Auth::user()->count_late_submissions() }}
+                        </strong>
+                    </span>
+                </a>
+                @endif
 
             </div>
         </div>
@@ -39,7 +51,7 @@
                 <div class="card-header"><i class="fab fa-cc-visa"></i>Accepted Payment</div>
                     <div class="card-body">
                         <!-- <h5 class="card-title"><span class="card-h-sp">{{ count( Auth::user()->cycles_payment ) }}</span> Invoices</h5> -->
-                        <h5 class="card-title"><span class="card-h-sp">{{ count( Auth::user()->accepted_requests() ) }}</span> Invoices</h5>
+                        <h5 class="card-title"><span class="card-h-sp">{{ count( Auth::user()->get_accepted_requests() ) }}</span> Invoices</h5>
                         {{-- <h5 class="card-title"><span class="card-h-sp">{{ count( $accepted_requests ) }}</span> Invoices</h5> --}}
                         <p class="card-text">You Have These Invoices.</p>
                     </div>

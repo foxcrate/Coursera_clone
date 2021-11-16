@@ -340,12 +340,33 @@ class StudentController extends Controller
 
     public function late_submissions(){
         $now = Carbon::now();
+        $late_submissions = Assignment::where('submitted',0)->where('student_id',Auth::user()->id)->where('start_date', '<=', $now)->where('end_date', '>=', $now)->orderBy('created_at','desc')->get();
 
-        $late_submissions = Assignment::where('student_id',Auth::user()->id)->where('start_date', '<=', $now)->where('end_date', '>=', $now)->orderBy('created_at','desc')->get();
 
         return view('student.late_submissions')->with([ 'late_submissions'=>$late_submissions , 'now'=>$now ]);
 
     }
+
+    public function late_submissions_submit(Request $request){
+
+        if ($request->hasFile('file')) {
+            //$destinationPath = 'path/th/save/file/';
+            $extension = $request->file('file')->extension();
+            $file = $request->file;
+            $code = rand(1111111, 9999999);
+            $file_new_name=time().$code ."rf".'.'.$extension;
+            $file->move('uploads/researches/', $file_new_name);
+        }else{
+            return back()->with('error','File Not Submitted');
+        }
+
+        $assignment =Assignment::find($request->id);
+        $assignment->submitted = 1;
+        $assignment->file ='uploads/projects/' . $file_new_name;
+        $assignment->save();
+        return back()->with('msg','File had been Submitted Successfully');
+    }
+
 
     public function all_books($student_id){
         //return $student_id;
@@ -370,31 +391,16 @@ class StudentController extends Controller
 
     public function my_accepted_requests(){
 
-        $accepted_requests = $this->get_accepted_requests();
+        $accepted_requests = Auth::user()->get_accepted_requests();
         //return $accepted_requests;
 
         return view('student.accepted_requests')->with('accepted_requests',$accepted_requests);
 
     }
 
-    public function get_accepted_requests(){
+    public function take_course_exam( $course_id ){
 
-        $accepted_cycles = CyclePayment::where('student_id',Auth::user()->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
-        $accepted_services = ServicePayment::where('student_id',Auth::user()->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
-        $accepted_books = BookPayment::where('student_id',Auth::user()->id)->where('status','accepted')->orderBy('updated_at','desc')->get();
-
-        $accepted_requests = [];
-        foreach( $accepted_cycles as $x ){
-            array_push($accepted_requests, ['data' => $x,'kind' => 'Cycle' , 'money_paid' => $x->amount_paid ]);
-        }
-        foreach( $accepted_services as $x ){
-            array_push($accepted_requests, ['data' => $x,'kind' => 'Service' , 'money_paid' => $x->money_paid ]);
-        }
-        foreach( $accepted_books as $x ){
-            array_push($accepted_requests, ['data' => $x,'kind' => 'Book' , 'money_paid' => $x->money_paid ]);
-        }
-
-        return $accepted_requests;
+        return $course_id ;
 
     }
 
