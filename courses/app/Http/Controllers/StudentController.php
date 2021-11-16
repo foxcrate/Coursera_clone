@@ -18,6 +18,7 @@ use App\Models\Course;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Assignment ;
+use App\Models\CourseQuestion;
 use SebastianBergmann\Timer\Duration;
 
 class StudentController extends Controller
@@ -175,7 +176,7 @@ class StudentController extends Controller
 
         // $all_cycles = $s1->all_cycles;
 
-        $accepted_requests = $this->get_accepted_requests();
+        $accepted_requests = Auth::user()->get_accepted_requests();
 
         return view('student.my_courses')->with([ 'accepted_requests' => $accepted_requests , 'cycles_with_money' => $cycles_with_money ] );
 
@@ -183,7 +184,7 @@ class StudentController extends Controller
 
     public function my_books(){
 
-        $accepted_requests = $this->get_accepted_requests();
+        $accepted_requests = Auth::user()->get_accepted_requests();
 
         return view('student.my_books')->with('accepted_requests',$accepted_requests);
 
@@ -362,8 +363,9 @@ class StudentController extends Controller
 
         $assignment =Assignment::find($request->id);
         $assignment->submitted = 1;
-        $assignment->file ='uploads/projects/' . $file_new_name;
+        $assignment->file ='uploads/researches/' . $file_new_name;
         $assignment->save();
+
         return back()->with('msg','File had been Submitted Successfully');
     }
 
@@ -400,7 +402,39 @@ class StudentController extends Controller
 
     public function take_course_exam( $course_id ){
 
+        $all_course_questions = CourseQuestion::where( 'course_id' , $course_id )->inRandomOrder()->limit(10)->get();
+        $number_of_questions = count( $all_course_questions );
+        $ids_array =[];
+        foreach( $all_course_questions as $course_question ){
+            array_push( $ids_array , $course_question->id );
+        }
+        $ids_array = implode(",",$ids_array);
+        //return $all_course_questions;
+        return view('student.ask')->with(['all_course_questions'=>$all_course_questions , 'number_of_questions'=>$number_of_questions , 'ids_array'=>$ids_array]);
+
         return $course_id ;
+
+    }
+
+    public function submit_course_exam(Request $request){
+        $ids_array = explode(',',$request->ids_array);
+        // return $ids_array ;
+        $mark_per_question = 100 / $request->number_of_questions;
+        $right_answers = 0;
+
+        foreach($ids_array as $id) {
+            $question = CourseQuestion::find($id);
+            if($request->$id == $question->correct_answer ){
+                $right_answers ++;
+            }
+        }
+
+        $course_exam = Assignment::where('student_id',Auth::user()->id)->where('course_id',$request->course_id)->get();
+        //return $course_exam;
+        $course_exam[0]->grade = $right_answers * $mark_per_question ;
+        $course_exam[0]->submitted = 1;
+        $course_exam[0]->save();
+        return redirect()->route('my_courses',0)->with('msg','Exam Submitted Successfully');
 
     }
 

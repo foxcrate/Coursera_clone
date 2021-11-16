@@ -21,6 +21,7 @@ use App\Http\Controllers\ProjectsRequestsController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\ServicePaymentController;
 use App\Http\Controllers\CourseQuestionController;
+use App\Http\Controllers\ResearchController;
 
 use Illuminate\Support\Facades\Artisan;
 /*
@@ -98,6 +99,8 @@ Route::group(['middleware' => 'auth:student'], function () {
     Route::get('/late_submissions', [StudentController::class,'late_submissions'])->name('late_submissions');
     Route::post('/late_submissions_submit', [StudentController::class,'late_submissions_submit'])->name('late_submissions_submit');
     Route::get('/take_course_exam/{course_id}', [StudentController::class,'take_course_exam'])->name('take_course_exam');
+    Route::post('/submit_course_exam', [StudentController::class,'submit_course_exam'])->name('submit_course_exam');
+
     Route::get('/my_accepted_requests', [StudentController::class,'my_accepted_requests'])->name('my_accepted_requests');
 
 });
@@ -249,6 +252,19 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/edit', [CourseQuestionController::class,'edit'])->name('edit');
         Route::post('/delete', [CourseQuestionController::class,'delete'])->name('delete');
         Route::get('/data_to_edit', [CourseQuestionController::class,'data_to_edit'])->name('data_to_edit');
+
+    });
+
+    Route::group(['prefix'=>'researches','as'=>'researches.'], function(){
+
+        Route::get('/', [ResearchController::class,'index'])->name('index');
+        Route::get('/submitted', [ResearchController::class,'submitted'])->name('submitted');
+        Route::post('/add', [ResearchController::class,'add'])->name('add');
+        Route::post('/edit', [ResearchController::class,'edit'])->name('edit');
+        Route::post('/submitted_research_edit', [ResearchController::class,'submitted_research_edit'])->name('submitted_research_edit');
+        Route::post('/delete', [ResearchController::class,'delete'])->name('delete');
+        Route::get('/data_to_edit', [ResearchController::class,'data_to_edit'])->name('data_to_edit');
+        Route::get('/submitted_research_data', [ResearchController::class,'submitted_research_data'])->name('submitted_research_data');
 
     });
 

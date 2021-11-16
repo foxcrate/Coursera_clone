@@ -12,6 +12,11 @@
         <div class="row">
         </div>
     </div>
+    @if(session()->has('msg'))
+    <div class="alert alert-success text-center">
+        {{ session()->get('msg') }}
+    </div>
+    @endif
 
 @include('student.templates.profile_second_nav')
 <div class="conntainer last-courses">

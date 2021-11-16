@@ -6,11 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\Cycle;
 use App\Models\Semester;
 use App\Models\Project;
+use Illuminate\Support\Facades\Auth;
 
 class CycleController extends Controller
 {
 
     public function index(){
+
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
+
         $all_cycles = Cycle::orderBy('id','desc')->paginate(11);
 
         $projects_ids = Project::where('id' ,'>' ,0)->pluck('id');

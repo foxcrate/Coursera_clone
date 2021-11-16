@@ -12,6 +12,7 @@ class Research extends Model
     protected $fillable = [
         'name',
         'description',
+        'semester_id',
     ];
 
     public function semester(){

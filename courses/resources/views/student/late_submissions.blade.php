@@ -55,7 +55,10 @@
                     {{$late_submission->course->name}}
                     @endif
                   </h5>
-                  {{-- <p class="card-text text-white">With supporting text below as a natural lead-in to additional content.</p> --}}
+
+                  @if ( $late_submission->semester_or_course == "semester" )
+                  <p class="card-text text-white">{{$late_submission->semester->research->description}}</p>
+                    @endif
 
                     @if ( $late_submission->semester_or_course == "semester" )
                     <a href="#submitResearchModal" onClick="assignment({{$late_submission->id}})" data-bs-toggle="modal"  class="btn btn-primary late_submissions_button">Submit Research</a>

@@ -50,6 +50,10 @@ class TestController extends Controller
         // ]);
 
         //return Cycle::all();
+        $q = CourseQuestion::find(20);
+
+        return $q;
+
 
         $s1 = Student::find(2);
         // $c2 = Cycle::find(2);
@@ -166,8 +170,14 @@ class TestController extends Controller
         //     'course_id'=> 41 ,
         // ]);
         // return $as ;
-        $cq = CourseQuestion::where('course_id',300)->get();
-        return count($cq);
+        $q = CourseQuestion::find(20);
+
+        if($q->fourth_answer == ''){
+            return "empty";
+        }else{
+            return 'not empty';
+        }
+
 
         return "done";
 

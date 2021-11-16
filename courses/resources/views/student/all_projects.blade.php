@@ -1,6 +1,6 @@
 @include('student.templates.header')
 @include('student.templates.navbar')
-      
+
 @extends('student.templates.header')
 
 @section('title')
@@ -15,7 +15,7 @@
     <section class="p-5">
         <h2 class="text-center mb-5">All Project </h2>
             @foreach( $projects->chunk(3) as $chunk)
-                <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
                     @foreach($chunk as $project)
                         <div class="col">
                             <div class="card h-100">
