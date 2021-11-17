@@ -4,21 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ServicePayment;
+use Illuminate\Support\Facades\Auth;
 
 class ServicePaymentController extends Controller
 {
-    
+
     public function index(){
+        if( Auth::user()->level != 0 && Auth::user()->level != 2 ){
+            return redirect()->route('dashboard');
+        }
         $all_service_payments= ServicePayment::orderBy('id','desc')->paginate(8);
         //$all_lessons = "Alo";
-        
+
         //return $all_lessons;
         return view('admin.service_payments.index')->with('service_payments',$all_service_payments) ;
     }
 
     public function add(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 2 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
-        
+
         if($request->has('file')){
             $extension = $request->file('file')->extension();
             $full_file = $request->full_file;
@@ -35,12 +42,15 @@ class ServicePaymentController extends Controller
             'student_id'=>$request->student_id,
             'service_id'=>$request->service_id,
         ]);
-        
+
         return redirect()->back();
 
     }
 
     public function edit(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 2 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
         $my_service_payment = ServicePayment::find($request->id);
         if($request->has('file')){
@@ -64,6 +74,9 @@ class ServicePaymentController extends Controller
     }
 
     public function data_to_edit(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 2 ){
+            return redirect()->route('dashboard');
+        }
 
         $the_service_payment = ServicePayment::find($request->id);
 
@@ -72,6 +85,9 @@ class ServicePaymentController extends Controller
     }
 
     public function delete(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 2 ){
+            return redirect()->route('dashboard');
+        }
         $my_service_payment = ServicePayment::find($request->id);
         // $my_course = Semester::destroy($request->id);
         // return $my_course;

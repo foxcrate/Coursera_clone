@@ -6,13 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\RequestToProject;
 use App\Models\Cycle;
 use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectsRequestsController extends Controller
 {
 
     public function index(){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
         $all_requests = RequestToProject::where('status','pending')->orderBy('id','desc')->paginate(11);
-        $all_requests = RequestToProject::whereIn('status',['pending','accepted'])->orderBy('id','desc')->paginate(11);
+        //$all_requests = RequestToProject::whereIn('status',['pending','accepted'])->orderBy('id','desc')->paginate(11);
         $all_cycles = Cycle::all();
         //$all_lessons = "Alo";
 
@@ -21,6 +25,7 @@ class ProjectsRequestsController extends Controller
     }
 
     public function request_to_join($student_id,$project_id){
+
         //return [$student_id,$project_id] ;
 
         $rp = RequestToProject::create([
@@ -34,6 +39,9 @@ class ProjectsRequestsController extends Controller
     }
 
     public function edit(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
         $the_student = Student::find($request->student_id);
         //$the_student->cycle_id = $request->cycle_id;

@@ -7,11 +7,15 @@ use App\Models\Semester;
 use App\Models\Project;
 use App\Models\Course;
 use App\Models\CourseCalender;
+use Illuminate\Support\Facades\Auth;
 
 class SemesterController extends Controller
 {
 
     public function index(){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $all_semesters = Semester::orderBy('id','desc')->paginate(11);
 
         //return $all_semesters;
@@ -19,6 +23,9 @@ class SemesterController extends Controller
     }
 
     public function add(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
 
         $new_semester = Semester::create([
@@ -31,6 +38,9 @@ class SemesterController extends Controller
     }
 
     public function edit(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
         //echo $request;
         $my_semester = Semester::find($request->id);
@@ -43,6 +53,9 @@ class SemesterController extends Controller
     }
 
     public function mass_edit(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
         $my_semester = Semester::find($request->semester_id);
         $current_courses_array = [];
@@ -297,6 +310,9 @@ class SemesterController extends Controller
     }
 
     public function details($id){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
 
         $semester = Semester::find($id);
         $semester_courses = $semester->courses ;
@@ -314,6 +330,9 @@ class SemesterController extends Controller
     }
 
     public function delete(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $my_semester = Semester::find($request->id);
         // $my_semester = Semester::destroy($request->id);
         // return $my_semester;
@@ -324,6 +343,9 @@ class SemesterController extends Controller
     }
 
     public function data_to_edit(Request $req){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $project = Semester::find($req->id);
         return $project;
     }

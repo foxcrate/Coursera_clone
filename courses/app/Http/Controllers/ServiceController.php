@@ -9,11 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
-    
+
     public function index(){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $all_services = Service::orderBy('id','desc')->paginate(10);
         //$all_lessons = "Alo";
-        
+
         //return $all_lessons;
         return view('admin.services.index')->with('services',$all_services) ;
     }
@@ -37,6 +40,9 @@ class ServiceController extends Controller
     }
 
     public function add(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
         if($request->has('photo')){
             $image = $request->photo;
@@ -52,12 +58,15 @@ class ServiceController extends Controller
             'summery'=>$request->summery,
             'details'=>$request->details,
         ]);
-        
+
         return redirect()->back();
 
     }
 
     public function edit(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
         //echo $request;
         $my_service = Service::find($request->id);
@@ -80,6 +89,9 @@ class ServiceController extends Controller
     }
 
     public function data_to_edit(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
 
         $the_service = Service::find($request->id);
 
@@ -88,6 +100,9 @@ class ServiceController extends Controller
     }
 
     public function delete(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $my_service = Service::find($request->id);
         // $my_course = Semester::destroy($request->id);
         // return $my_course;

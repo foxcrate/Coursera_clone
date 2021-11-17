@@ -28,13 +28,14 @@
 						<th>Student Name</th>
 						<th>Student Email</th>
                         <th>Student Phone</th>
+                        <th>Project Name</th>
 						<th>status</th>
-						<th>Actions</th> 
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 				@foreach ($all_requests as $request)
-     
+
 					<tr>
 						<!-- <td style="word-wrap: break-word">
 							<span class="custom-checkbox">
@@ -46,6 +47,7 @@
 						<td style="word-wrap: break-word"> {{$request->student->name}} </td>
 						<td style="word-wrap: break-word"> {{$request->student->email}} </td>
 						<td style="word-wrap: break-word"> {{$request->student->phone}} </td>
+                        <td style="word-wrap: break-word"> {{$request->project->name}} </td>
 						@if ($request->status == 'accepted')
 							<td style="word-wrap: break-word"> <i class="bi bi-check2-all"></i> </td>
 						@elseif($request->status == 'pending')
@@ -76,7 +78,7 @@
 				</ul>
 			</div> -->
 		</div>
-	</div>        
+	</div>
 </div>
 
 <!-- Edit Modal HTML -->
@@ -87,11 +89,11 @@
 				@csrf
                 <input type="hidden" id="edit_hidden_id_1" name="request_id" >
 				<input type="hidden" id="edit_hidden_id_2" name="student_id" >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Edit Cyle Payment</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<!-- <div class="form-group">
 						<label>Comfirmed Payment Amount</label>
 						<input type="number" name="amount_paid" id="edit_amount_paid" class="form-control" required>
@@ -118,7 +120,7 @@
 	</div>
 </div>
 
-<script> 
+<script>
 
     var edit_id = 0;
 
@@ -132,7 +134,7 @@
 	// 	edit_id = id;
 	// 	//alert(edit_id);
     //     $("#edit_hidden_id").attr("value", edit_id);
-		
+
 	// 	var formData = {
 	// 		id:edit_id,
 	// 	};

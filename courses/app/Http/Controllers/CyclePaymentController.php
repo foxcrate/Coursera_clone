@@ -13,7 +13,7 @@ class CyclePaymentController extends Controller
 {
     public function project_enroll(Request $request){
         //return $request;
-        
+
         // $payment = $request->payment;
         // $code = rand(1111111, 9999999);
         // $payment_new_name=time().$code ."pf";
@@ -49,12 +49,18 @@ class CyclePaymentController extends Controller
     }
 
     public function index(){
+        if( Auth::user()->level != 0 && Auth::user()->level != 2 ){
+            return redirect()->route('dashboard');
+        }
         $all_cycles_payments = CyclePayment::orderBy('id','desc')->paginate(9);
 
         return view('admin.cycle_payments.index')->with('all_cycles_payments',$all_cycles_payments);
     }
 
     public function edit(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 2 ){
+            return redirect()->route('dashboard');
+        }
         $the_cycles_payments = CyclePayment::find($request->id);
 
         $the_cycles_payments->amount_paid = $request-> amount_paid ;
@@ -67,6 +73,9 @@ class CyclePaymentController extends Controller
     }
 
     public function data_to_edit(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 2 ){
+            return redirect()->route('dashboard');
+        }
         $the_cycles_payments = CyclePayment::find($request->id);
         //return "Alo";
         return $the_cycles_payments;

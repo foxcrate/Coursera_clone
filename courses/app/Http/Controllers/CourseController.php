@@ -7,31 +7,41 @@ use App\Models\Semester;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Teacher;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
-    
+
     public function index(){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         // $all_courses = Course::all();
         $all_courses = Course::orderBy('id','desc')->paginate(11);
         //$all_courses = "Alo";
-        
+
         //return $all_courses;
         return view('admin.courses.index')->with('courses',$all_courses) ;
     }
 
     public function add(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
 
         $new_course = Course::create([
             'name'=>$request->name,
         ]);
-        
+
         return redirect()->back();
 
     }
 
     public function edit(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
         //echo $request;
         $my_course = Course::find($request->id);
@@ -47,7 +57,7 @@ class CourseController extends Controller
                 foreach( $my_course->teachers as $teacher ){
                     array_push( $current_teachers_array , $teacher->id );
                 }
-                
+
                 $my_course->teachers()->detach($current_teachers_array);
             }
             //return $request->semesters_array;
@@ -66,7 +76,7 @@ class CourseController extends Controller
                 foreach( $my_course->teachers as $teacher ){
                     array_push( $current_teachers_array , $teacher->id );
                 }
-                
+
                 $my_course->teachers()->detach($current_teachers_array);
             }
         }
@@ -77,6 +87,9 @@ class CourseController extends Controller
     }
 
     public function details($id){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
 
         $course = Course::find($id);
         $course_lessons = $course->lessons ;
@@ -89,20 +102,23 @@ class CourseController extends Controller
         for($i = 0;$i<=$y-1;$i++){
             array_push($array_of_teachers ,$course_teachers[$i]->id );
         }
-        
+
         $array_of_lessons = array();
         $x=count($course_lessons);
         for($i = 0;$i<=$x-1;$i++){
             array_push($array_of_lessons ,$course_lessons[$i]->id );
         }
         $elequent_lessons = Lesson::whereIn('id', $array_of_lessons)->orderBy('order','ASC')->get();
-        
+
         //return $elequent_lessons;
         return view('admin.courses.details')->with(['lessons'=>$all_lessons , 'course'=>$course , 'array_of_lessons'=>$array_of_lessons, 'elequent_lessons'=>$elequent_lessons, 'all_teachers'=>$all_teachers, 'array_of_teachers'=>$array_of_teachers ]) ;
 
     }
 
     public function delete(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $my_course = Course::find($request->id);
         // $my_course = Semester::destroy($request->id);
         // return $my_course;

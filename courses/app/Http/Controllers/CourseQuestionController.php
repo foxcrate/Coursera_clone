@@ -6,10 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\CourseQuestion;
 
+use Illuminate\Support\Facades\Auth;
+
 class CourseQuestionController extends Controller
 {
 
     public function index(){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
         $all_courses = Course::all();
         // $all_course_question= CourseQuestion::orderBy('id','desc')->paginate(11);
         $all_course_question= CourseQuestion::orderBy('id','desc')->get();
@@ -21,6 +26,7 @@ class CourseQuestionController extends Controller
     }
 
     public function index2(Request $request){
+
         // $info = [
         //     "draw"=> $request->draw,
         //     "data"=> [],
@@ -65,6 +71,9 @@ class CourseQuestionController extends Controller
     }
 
     public function add(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
 
         if( !$request->has('third_answer') ){
@@ -94,6 +103,9 @@ class CourseQuestionController extends Controller
     }
 
     public function edit(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
 
         if( !$request->has('third_answer') ){
@@ -124,6 +136,9 @@ class CourseQuestionController extends Controller
     }
 
     public function data_to_edit(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
 
         $my_course_question = CourseQuestion::find($request->id);
 
@@ -132,6 +147,9 @@ class CourseQuestionController extends Controller
     }
 
     public function delete(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
         $my_course_question = CourseQuestion::find($request->id);
         // $my_course = Semester::destroy($request->id);
         // return $my_course;

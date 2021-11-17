@@ -32,6 +32,9 @@ class StudentController extends Controller
     // }
 
     public function index(){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $all_students = Student::orderBy('id','desc')->paginate(5);
         //$all_lessons = "Alo";
 
@@ -40,6 +43,9 @@ class StudentController extends Controller
     }
 
     public function add(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
 
         $new_student = Student::create([
@@ -65,6 +71,9 @@ class StudentController extends Controller
     }
 
     public function edit(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
         //echo $request;
         $my_student = Student::find($request->id);
@@ -96,7 +105,9 @@ class StudentController extends Controller
     }
 
     public function data_to_edit(Request $request){
-
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $the_student = Student::find($request->id);
 
 
@@ -125,6 +136,9 @@ class StudentController extends Controller
     }
 
     public function delete(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $my_student = Student::find($request->id);
         // $my_course = Semester::destroy($request->id);
         // return $my_course;
@@ -134,6 +148,8 @@ class StudentController extends Controller
         return redirect()->back();
     }
 
+
+    //////////////////////////////////// Student Part ///////////////////////////////////////////
     public function all_projects(){
         $all_projects = Project::all();
         //return $all_projects;

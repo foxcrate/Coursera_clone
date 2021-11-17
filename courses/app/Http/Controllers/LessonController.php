@@ -6,19 +6,26 @@ use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\LessonQuestion;
+use Illuminate\Support\Facades\Auth;
 
 class LessonController extends Controller
 {
 
     public function index(){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $all_lessons = Lesson::all();
         //$all_lessons = "Alo";
-        
+
         //return $all_lessons;
         return view('admin.lessons.index')->with('lessons',$all_lessons) ;
     }
 
     public function add(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
 
         if ($request->hasFile('video')) {
@@ -45,12 +52,15 @@ class LessonController extends Controller
             'second_answer' => $request->second_answer ,
             'correct_answer' => $request->correct_answer ,
         ]);
-        
+
         return redirect()->back();
 
     }
 
     public function edit(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
         //echo $request;
         $my_lesson = Lesson::find($request->id);
@@ -73,6 +83,9 @@ class LessonController extends Controller
     }
 
     public function data_to_edit(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
 
         $the_lesson = Lesson::find($request->id);
 
@@ -88,6 +101,9 @@ class LessonController extends Controller
     }
 
     public function delete(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $my_lesson = Lesson::find($request->id);
         // $my_course = Semester::destroy($request->id);
         // return $my_course;

@@ -12,6 +12,9 @@ class ResearchController extends Controller
 {
 
     public function index(){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
         $all_researches= Research::orderBy('id','desc')->paginate(12);
         $all_semesters = Semester::all();
 
@@ -20,6 +23,9 @@ class ResearchController extends Controller
     }
 
     public function submitted(){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
 
         $all_submitted_researches = Assignment::where('submitted',1)->whereNull('grade')->where('semester_or_course','semester')->orderBy('created_at','desc')->paginate(8);
 
@@ -28,6 +34,9 @@ class ResearchController extends Controller
     }
 
     public function submitted_research_edit(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
 
         $the_research = Assignment::find($request->id);
         $the_research->grade = $request->grade ;
@@ -38,6 +47,9 @@ class ResearchController extends Controller
     }
 
     public function edit(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
         //echo $request;
         $my_research = Research::find($request->id);
@@ -51,6 +63,9 @@ class ResearchController extends Controller
     }
 
     public function add(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
 
         $new_research = Research::create([
             'name'=>$request->name,
@@ -63,6 +78,9 @@ class ResearchController extends Controller
     }
 
     public function data_to_edit(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
 
         $the_research = Research::find($request->id);
 
@@ -71,6 +89,9 @@ class ResearchController extends Controller
     }
 
     public function submitted_research_data(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
         $the_research = Assignment::find($request->id);
 
         $array[] = [
@@ -82,6 +103,9 @@ class ResearchController extends Controller
     }
 
     public function delete(Request $request){
+        if( Auth::user()->level != 0 && Auth::user()->level != 1 ){
+            return redirect()->route('dashboard');
+        }
         $my_research = Research::find($request->id);
         // $my_cycle = Cycle::destroy($request->id);
         // return $my_cycle;

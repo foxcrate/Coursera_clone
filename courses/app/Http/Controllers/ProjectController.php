@@ -9,10 +9,15 @@ use App\Models\SemesterCalender;
 use phpDocumentor\Reflection\PseudoTypes\True_;
 use App\Services\PayUService\Exception;
 use SebastianBergmann\Environment\Console;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
+
     public function index(){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //$all_projects = Project::all();
         $all_projects = Project::orderBy('id','desc')->paginate(8);
 
@@ -22,6 +27,9 @@ class ProjectController extends Controller
 
     public function add(Request $request){
 
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         // $new_project = Project::create([
         //     'name'=>$request->name,
         //     'image'=>$request->image,
@@ -77,6 +85,9 @@ class ProjectController extends Controller
     }
 
     public function edit(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
         // try{
         // $array = array("image" => $_FILES['image'], "video" => $_FILES['video']);
@@ -208,6 +219,9 @@ class ProjectController extends Controller
 
     public function mass_edit(Request $request){
         //return $request;
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
 
         $my_project = Project::find($request->project_id);
         //return $my_project;
@@ -293,6 +307,9 @@ class ProjectController extends Controller
     }
 
     public function delete(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $my_project = Project::find($request->id);
         // $my_cycle = Cycle::destroy($request->id);
         // return $my_cycle;
@@ -303,6 +320,9 @@ class ProjectController extends Controller
     }
 
     public function details($id){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
 
         $project = Project::find($id);
         $project_semesters = $project->semesters ;
@@ -320,6 +340,9 @@ class ProjectController extends Controller
     }
 
     public function data_to_edit(Request $req){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $project = Project::find($req->id);
         return $project;
     }

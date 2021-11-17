@@ -9,11 +9,14 @@ use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
-    
+
     public function index(){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $all_books= Book::orderBy('id','desc')->paginate(12);
         //$all_lessons = "Alo";
-        
+
         //return $all_lessons;
         return view('admin.books.index')->with('books',$all_books) ;
     }
@@ -46,6 +49,9 @@ class BookController extends Controller
     }
 
     public function add(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
         if($request->has('cover')){
             $extension = $request->file('cover')->extension();
@@ -76,18 +82,21 @@ class BookController extends Controller
             'full_file'=> 'uploads/books/' . $full_new_name,
             'cost'=>$request->cost,
         ]);
-        
+
         return redirect()->back();
 
     }
 
     public function edit(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         //return $request;
         //echo $request;
         $my_book = Book::find($request->id);
         //return $request->name;
         //$my_service->photo = $request->photo ;
-        
+
         //sreturn $extension;
         if($request->has('cover')){
             $extension = $request->file('cover')->extension();
@@ -121,6 +130,9 @@ class BookController extends Controller
     }
 
     public function data_to_edit(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
 
         $the_book = Book::find($request->id);
 
@@ -129,6 +141,9 @@ class BookController extends Controller
     }
 
     public function delete(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
         $my_book = Book::find($request->id);
         // $my_course = Semester::destroy($request->id);
         // return $my_course;
