@@ -10,6 +10,7 @@ class CyclePayment extends Model
     use HasFactory;
 
      protected $fillable = [
+        'id',
         'due_date',
         'amount_paid',
         'amount_left',

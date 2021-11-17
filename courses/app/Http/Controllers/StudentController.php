@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Assignment ;
 use App\Models\CourseQuestion;
+use App\Models\Lesson;
+use App\Models\LessonQuestion;
 use SebastianBergmann\Timer\Duration;
 
 class StudentController extends Controller
@@ -31,11 +33,19 @@ class StudentController extends Controller
     //       $this->middleware('auth:student');
     // }
 
+    public function get_lesson_question(Request $request){
+        //return $request->lesson_id;
+        $l = Lesson::find($request->lesson_id);
+
+        return $l->question;
+
+    }
+
     public function index(){
         if(Auth::user()->level != 0 ){
             return redirect()->route('dashboard');
         }
-        $all_students = Student::orderBy('id','desc')->paginate(5);
+        $all_students = Student::orderBy('id','desc')->paginate(10);
         //$all_lessons = "Alo";
 
         //return $all_lessons;

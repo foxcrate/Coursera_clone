@@ -100,7 +100,7 @@ Route::group(['middleware' => 'auth:student'], function () {
     Route::post('/late_submissions_submit', [StudentController::class,'late_submissions_submit'])->name('late_submissions_submit');
     Route::get('/take_course_exam/{course_id}', [StudentController::class,'take_course_exam'])->name('take_course_exam');
     Route::post('/submit_course_exam', [StudentController::class,'submit_course_exam'])->name('submit_course_exam');
-
+    Route::get('/get_lesson_question', [StudentController::class,'get_lesson_question'])->name('get_lesson_question');
     Route::get('/my_accepted_requests', [StudentController::class,'my_accepted_requests'])->name('my_accepted_requests');
 
 });

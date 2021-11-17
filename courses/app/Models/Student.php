@@ -17,13 +17,16 @@ class Student extends Authenticatable
     protected $guard = 'student';
 
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
         'password2',
         'case',
+        'bio',
         'phone1',
         'phone2',
+        'status',
         'passport',
         'job',
         'country',
@@ -33,6 +36,7 @@ class Student extends Authenticatable
         'money_paid',
         'money_to_pay',
         'remaining_free_books',
+        'image',
     ];
 
     // protected $hidden = [

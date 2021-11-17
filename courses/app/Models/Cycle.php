@@ -10,7 +10,7 @@ class Cycle extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'start_date','enabled',
+        'name', 'start_date','enabled','id','project_id',
     ];
 
     protected $table = "cycles";
@@ -19,9 +19,16 @@ class Cycle extends Model
         return $this->belongsToMany(Student::class,'cycle_students');
     }
 
+    // public function project(){
+    //     return $this->hasOne(Project::class);
+    // }
+
+
     public function project(){
-        return $this->hasOne(Project::class);
+        return $this->belongsTo(Project::class);
     }
+
+
 
     public function cycle_payments(){
         return $this->hasMany(CyclePayment::class);

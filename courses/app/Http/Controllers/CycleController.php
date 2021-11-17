@@ -32,11 +32,12 @@ class CycleController extends Controller
             'name'=>$request->name,
             'start_date'=>$request->start_date,
             'enabled'=>$request->enabled,
+            'project_id'=>$request->project_id,
         ]);
 
-        $the_project = Project::find($request->project_id);
-        $the_project->cycle_id = $new_cycle->id;
-        $the_project->save();
+        // $the_project = Project::find($request->project_id);
+        // $the_project->cycle_id = $new_cycle->id;
+        // $the_project->save();
 
         return redirect()->back();
 
@@ -49,10 +50,11 @@ class CycleController extends Controller
         $my_cycle->name = $request->name;
         $my_cycle->start_date = $request->start_date;
         $my_cycle->enabled = $request->enabled;
+        $my_cycle->project_id = $request->project_id;
         //$my_cycle->project_id = $request->project_id;
-        $my_project = Project::find( $request->project_id );
-        $my_project->cycle_id = $request->id;
-        $my_project->save();
+        // $my_project = Project::find( $request->project_id );
+        // $my_project->cycle_id = $request->id;
+        // $my_project->save();
         $my_cycle->save();
 
         return redirect()->back();
@@ -72,6 +74,7 @@ class CycleController extends Controller
         //dd($the_cycle , $the_project);
 
         $my_data[] = [
+            'id'=> $the_cycle->id ,
             'name' => $the_cycle->name ,
             'start_date' =>$the_cycle->start_date  ,
             'enabled' => $the_cycle->enabled ,

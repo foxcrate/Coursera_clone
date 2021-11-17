@@ -25,8 +25,7 @@ class CreateProjectsTable extends Migration
 
             // $table->bigInteger('semester_id')->default(0);
             
-            $table->unsignedBigInteger('cycle_id')->nullable();
-            $table->foreign('cycle_id')->references('id')->on('cycles')->onDelete('cascade');
+           
 
             $table->timestamps();
         });
