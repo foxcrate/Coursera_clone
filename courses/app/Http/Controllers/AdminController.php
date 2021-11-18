@@ -13,6 +13,7 @@ use App\Models\CourseQuestion;
 use App\Models\Student;
 use App\Models\Book;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use App\Models\CyclePayment;
 use App\Models\Lesson;
 use App\Models\LessonQuestion;
@@ -22,6 +23,7 @@ use App\Models\Project;
 use App\Models\Service;
 use App\Models\Discussion;
 use App\Models\ServicePayment;
+use App\Models\Admin;
 use App\Models\UploadedResearch;
 
 class AdminController extends Controller
@@ -31,15 +33,81 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
     }
-    
-    public function divideAdmins()
-    {
 
-        if(Auth::user()->level == 0){
-            return view('admin/dashboard');
+    public function index(){
+
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
         }
-    }  
-    
+        $all_admins= Admin::orderBy('id','desc')->paginate(10);
+        //$all_lessons = "Alo";
+
+        //return $all_lessons;
+        return view('admin.admins.index')->with('all_admins',$all_admins) ;
+
+    }
+
+    public function add(Request $request){
+
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+
+        }
+        $new_admin = Admin::create([
+            'name'=>$request->name,
+            'password'=>Hash::make($request->password),
+            'password2'=>$request->password,
+            'email'=>$request->email,
+            'level'=>$request->role,
+        ]);
+
+        return redirect()->back();
+
+    }
+
+    public function edit(Request $request){
+
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
+        //return $request;
+        //echo $request;
+        $my_admin = Admin::find($request->id);
+        $my_admin->name = $request->name ;
+        $my_admin->email = $request->email ;
+        $my_admin->level = $request->role ;
+        $my_admin->password = Hash::make($request->password);
+        $my_admin->password2 = $request->password;
+
+        $my_admin->save();
+
+        return redirect()->back();
+
+    }
+
+    public function data_to_edit(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
+
+        $the_admin = Admin::find($request->id);
+
+        return $the_admin;
+    }
+
+    public function delete(Request $request){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
+        $my_admin = Admin::find($request->id);
+        // $my_course = Semester::destroy($request->id);
+        // return $my_course;
+        $c = $my_admin->delete();
+        //return $c;
+
+        return redirect()->back();
+    }
+
     public function dashboard(){
         $all_courses = Course::all();
         $num_of_courses = $all_courses->count();
@@ -85,7 +153,7 @@ class AdminController extends Controller
         $num_of_uploaded_researches = $all_uploaded_researches->count();
 
 
-        return view('admin/dashboard')->with([ 'num_of_courses'=>$num_of_courses , 'num_of_students'=>$num_of_students , 'num_of_projects'=>$num_of_projects 
+        return view('admin/dashboard')->with([ 'num_of_courses'=>$num_of_courses , 'num_of_students'=>$num_of_students , 'num_of_projects'=>$num_of_projects
                                             , 'num_of_teachers'=>$num_of_teachers
                                             , 'num_of_cycles'=>$num_of_cycles , 'num_of_cycle_payments'=>$num_of_cycle_payments
                                              , 'num_of_service_payments'=>$num_of_service_payments , 'num_of_services'=>$num_of_services

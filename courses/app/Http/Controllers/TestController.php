@@ -141,47 +141,47 @@ class TestController extends Controller
           to satisfy the requirements of graduation and accreditation.<o:p></o:p></p><p class="MsoNormal" style="direction: ltr; unicode-bidi: embed;">The system of study of Professional Master of Management of
           Human Resources is based on the virtual classes, which is follow up of lectures
           online.</p><p class="MsoNormal" dir="RTL" style="text-align:center" align="center"><span style="font-family:" arial","sans-serif";="" mso-ascii-font-family:calibri;mso-ascii-theme-font:minor-latin;mso-hansi-font-family:="" calibri;mso-hansi-theme-font:minor-latin;mso-bidi-font-family:arial;mso-bidi-theme-font:="" minor-bidi"="" lang="AR-SA"><o:p></o:p></span></p>
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                   ','project_pic' => 'Master Human Resources03-30-36-no.2. HR.png','project_video' => '','project_material' => NULL,'project_price' => '3600','project_type' => '1','created_at' => '2017-01-13 10:24:32','updated_at' => '2021-11-04 17:57:20'),
             array('id' => '112','project_title' => 'Master of Business Administration (MBA)','project_desc' => '                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <h3><span style="color: rgb(85, 85, 85); font-family: Arial, Verdana, Helvetica, sans-serif; font-size: 18px;">The MBA is designed to prepare students who have completed undergraduate work in any academic discipline and intend to pursue a management career. The primary objective of the program is to provide candidates with a general and versatile business acumen, skills and technical competencies, which have become essential for the success of today’s business professional. While the curriculum meets international standards, it also addresses local and regional business peculiarities.</span></h3>
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
+
+
+
+
+
+
+
+
+
+
+
+
+
                                   ','project_pic' => 'Master of Business Administration (MBA)04-57-42-IB.jpg','project_video' => '8evYwRDPMQg','project_material' => NULL,'project_price' => '3600','project_type' => '1','created_at' => '2017-01-14 02:41:48','updated_at' => '2021-11-04 17:18:05'),
             array('id' => '116','project_title' => 'Master of International Arbitration ','project_desc' => '                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <h3 style="text-align: left;"><span style="font-weight: bold;"><span dir="LTR"><span style="font-size: 18px;"><span style="font-size: 14px;">Your
           study of Professional International Arbitration includes three main chapters as
@@ -203,66 +203,66 @@ class TestController extends Controller
           International College – England</span></span></h3><p class="MsoNormal" dir="RTL" align="right"></p><span lang="AR-SA"><span style="font-size: 18px;">
           </span><!--[if !supportLineBreakNewLine]--><span style="font-size: 18px;">
           </span><!--[endif]--></span><span dir="LTR"><o:p></o:p></span><p></p>
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                   ','project_pic' => 'International Arbitration 03-17-32-international arbitration 4.jpg','project_video' => '','project_material' => NULL,'project_price' => '3600','project_type' => '1','created_at' => '2017-02-16 20:41:26','updated_at' => '2018-02-26 01:07:08'),
             array('id' => '117','project_title' => 'Doctoral of Business Administration (DBA)','project_desc' => '                                                                                                                                                                                                                                                                                                                                                                                                      &nbsp; &nbsp; Business Administration will be taken throughout 3 months, each month will contain four lectures, so the total number of lectures will be 12 lectures. The main content of these lectures will be mainly as following: An overview about Entrepreneurship (DBA), Strategic Management Overview (DBA), Human Resources Management Overview (DBA), Advanced Studies in Strategic Management, International Management DBA and some applications from real life. So, the main aim of our courses is being more realistic.
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                   ','project_pic' => 'P.H.D of Business Administration (MBA)04-35-55-Home 12 copy.jpg','project_video' => '#','project_material' => NULL,'project_price' => '3600','project_type' => '2','created_at' => '2017-03-15 01:35:55','updated_at' => '2020-06-14 21:08:33'),
             array('id' => '119','project_title' => 'Master of Diplomatic and Consular Relations','project_desc' => '                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <h3 style="text-align: left; "><span style="font-size:16.0pt;line-height:
           115%;font-family:" arial","sans-serif";mso-ascii-theme-font:minor-bidi;="" mso-hansi-theme-font:minor-bidi;mso-bidi-font-family:arial;mso-bidi-theme-font:="" minor-bidi;mso-bidi-language:ar-eg"=""><span style="font-size: 18px;">Through your study of the Master of
@@ -279,151 +279,151 @@ class TestController extends Controller
           online.<br></span></span><span style="font-size: 18px; line-height: 115%; font-family: Arial, sans-serif;">The
           program is presented by Gate Training Establishing under sponsorship of
           International College – England<br></span><span style="font-family: Arial, sans-serif; font-size: 18px;" lang="AR-EG">&nbsp;</span></h3><span style="font-size: 18px;">
-          
+
           </span><span style="font-size: 18px;">
-          
+
           </span><span style="font-size: 18px;">
-          
+
           </span><span style="font-size: 18px;">
-          
+
           </span><span style="font-size: 18px;">
-          
+
           </span><span style="font-size: 18px;">
-          
+
           </span>
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                   ','project_pic' => 'Master of Diplomatic and Consular Relations09-03-18-Diplomatic-Service.jpg','project_video' => '#','project_material' => NULL,'project_price' => '3600','project_type' => '1','created_at' => '2017-04-20 23:07:53','updated_at' => '2018-02-25 23:09:31'),
             array('id' => '120','project_title' => 'Doctral of Human Resources (DHR)','project_desc' => '                                                                                                                                                                                                                                          <p class="MsoNormal" style="text-align:justify"><b><span style="font-size:14.0pt;
           line-height:107%"><span style="font-size: 12px;">&nbsp; &nbsp; &nbsp; &nbsp;Human Resources
           Management will be taken throughout 3 months, each month will contain four
           lectures, so the total number of lectures will be 12 lectures. The main content
           of these lectures will be mainly as following: </span><o:p></o:p></span></b></p><span style="font-size: 12px;">
-          
+
           </span><p class="MsoNormal" style="text-align:justify"><b><span style="font-size:14.0pt;
           line-height:107%"><span style="font-size: 12px;">&nbsp;&nbsp;&nbsp; An overview about Theories
           and advanced studies in the management of wages and benefits, Recruitment,
           training and development of human resources skills DHR, Applications: Case
           study on Human Resources Management DHR, and some applications from real life.
-          So, the main aim of our courses is being more reality.</span><o:p></o:p></span></b></p>                                                                                                                                                                                                                                                                                                                                                                                                      
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
+          So, the main aim of our courses is being more reality.</span><o:p></o:p></span></b></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                   ','project_pic' => 'Doctral of Human Resources (DHR)10-19-55-hr-only-service.jpg','project_video' => '','project_material' => NULL,'project_price' => '3600','project_type' => '2','created_at' => '2017-04-29 17:01:29','updated_at' => '2020-06-14 21:08:46'),
-            array('id' => '121','project_title' => 'Doctorate of International Arbitration','project_desc' => '                                                                                                        <div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">The Doctoral Program at IMCT Group offers specialization in Arbitration. In order to complete the doctoral program, the student should Make:</div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">- A Completion of Coursework</div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">- Successful Completion of the Comprehensive exams&nbsp;</div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">- Preparation of a research study</div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;"><br></div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">At the end of our program, the student will be able to specialize in&nbsp;the following topics:</div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">- International Commercial Arbitration</div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">- Arbitration Proceedings</div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">- Arbitration Agreements&nbsp;</div><div><br></div>                          
-                                  
-                                  
-                                  
-                                  
+            array('id' => '121','project_title' => 'Doctorate of International Arbitration','project_desc' => '                                                                                                        <div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">The Doctoral Program at IMCT Group offers specialization in Arbitration. In order to complete the doctoral program, the student should Make:</div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">- A Completion of Coursework</div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">- Successful Completion of the Comprehensive exams&nbsp;</div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">- Preparation of a research study</div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;"><br></div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">At the end of our program, the student will be able to specialize in&nbsp;the following topics:</div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">- International Commercial Arbitration</div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">- Arbitration Proceedings</div><div dir="ltr" style="color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: 14px;">- Arbitration Agreements&nbsp;</div><div><br></div>
+
+
+
+
                                   ','project_pic' => 'Doctral of International Arbitration08-44-41-arbitration.jpg','project_video' => '','project_material' => NULL,'project_price' => '3600','project_type' => '1','created_at' => '2017-06-10 17:44:41','updated_at' => '2021-10-06 23:00:53'),
             array('id' => '123','project_title' => 'Doctoral of Diplomatic and Consular Relations','project_desc' => '                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <p class="MsoNormal" style="margin: 15pt 0in 7.5pt; line-height: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-size: 18px;">&nbsp;Rules regulating the various aspect of diplomatic relations are the result of centuries of States practice.&nbsp; They constitute one of the earliest expressions of International Law. Whenever in history there have been independent States coexisting, special customs have developed on how the representatives of one State would be treated by other State.</span></p><p class="MsoNormal" style="margin: 15pt 0in 7.5pt; line-height: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;"><span style="font-size: 18px;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Today, diplomats and consuls perform useful functions in the host states.&nbsp; They provide permanent presence in host States, pursue friendly relations between their States and the host States, and promote the various interests of their States in the host states.</span><br></p>
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
-                                  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                   ','project_pic' => 'Doctoral of Diplomatic and Consular Relations09-11-14-estado-nacion.jpg','project_video' => '#','project_material' => NULL,'project_price' => '3600','project_type' => '2','created_at' => '2017-06-10 18:11:14','updated_at' => '2020-06-14 21:08:39'),
             array('id' => '124','project_title' => 'test-project','project_desc' => '                          Start typing...
                                   ','project_pic' => '','project_video' => '11111','project_material' => NULL,'project_price' => '1888','project_type' => '2','created_at' => '2021-10-10 21:56:52','updated_at' => '2021-10-10 21:56:52'),
@@ -451,7 +451,7 @@ class TestController extends Controller
         }
 
         return "Done";
-        
+
     }
 
     public function test22(){
@@ -16806,11 +16806,11 @@ class TestController extends Controller
             array('id' => '44703','course_id' => '195','student_id' => '793','examscore' => '90','created_at' => '2021-11-06 19:24:51','updated_at' => '2021-11-06 19:24:51','semester_id' => '903','project_id' => '116','exam_type' => 'course'),
             array('id' => '44704','course_id' => '224','student_id' => '2066','examscore' => '90','created_at' => '2021-11-06 21:28:09','updated_at' => '2021-11-06 21:28:09','semester_id' => '900','project_id' => '119','exam_type' => 'course')
           );
-        
+
         //////////////////////////////////////////////////////////////////////////
-        
+
         foreach($examscores as $examscore){
-        
+
             if ( Student::find( $examscore['student_id'] ) && Course::find( $examscore['course_id']) &&  Semester::find( $examscore['semester_id'] ) ){
                 $a = Assignment::create([
                     'grade'=> $examscore['examscore'] ,
@@ -16822,13 +16822,22 @@ class TestController extends Controller
                     'course_id'=> $examscore['course_id'] ,
                 ]);
             }
-        
+
         }
-        
-        
+
+
         return "done";
-        
+
     }
-        
+
+    public function test(){
+        $now = Carbon::now();
+        //return $now->subYear();
+        $all_cycles = Cycle::where('start_date','>', $now->subYear())->get();
+        return $all_cycles;
+
+
+    }
+
 
 }

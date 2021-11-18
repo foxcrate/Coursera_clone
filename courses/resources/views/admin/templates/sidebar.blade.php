@@ -110,7 +110,7 @@
 
                 @if (Auth::user()->level == 0)
                 <li>
-                    <a href="#">Users</a>
+                    <a href="{{ route('admins.index') }}" >Users</a>
                 </li>
                 @endif
 

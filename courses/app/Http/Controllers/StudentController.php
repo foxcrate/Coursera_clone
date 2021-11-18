@@ -61,7 +61,8 @@ class StudentController extends Controller
         $new_student = Student::create([
             'name'=>$request->name,
             'email'=>$request->email,
-            'password'=>json_encode($request->password),
+            'password'=>Hash::make($request->password),
+            'password2'=>$request->password2,
             'phone1'=>$request->phone1,
             'phone2'=>$request->phone2,
             'case'=>$request->case,

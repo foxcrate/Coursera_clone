@@ -255,6 +255,16 @@ Route::group(['middleware' => 'auth:admin'], function () {
 
     });
 
+    Route::group(['prefix'=>'admins','as'=>'admins.'], function(){
+
+        Route::get('/', [AdminController::class,'index'])->name('index');
+        Route::post('/add', [AdminController::class,'add'])->name('add');
+        Route::post('/edit', [AdminController::class,'edit'])->name('edit');
+        Route::post('/delete', [AdminController::class,'delete'])->name('delete');
+        Route::get('/data_to_edit', [AdminController::class,'data_to_edit'])->name('data_to_edit');
+
+    });
+
     Route::group(['prefix'=>'researches','as'=>'researches.'], function(){
 
         Route::get('/', [ResearchController::class,'index'])->name('index');

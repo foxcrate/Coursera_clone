@@ -13,7 +13,7 @@
                         {{ session()->get('error') }}
                     </div>
                 @endif
-
+                    {{-- <h1>{{ $url }}</h1> --}}
                 <div class="card-body">
                     <!-- <form method="POST" action="{{ route('login') }}">
                         @csrf -->

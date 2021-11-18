@@ -76,31 +76,36 @@
         </div>
         <div class="modal-body">
 
-          
-            <div style='margin-top:30px ;transform: scale(0.65); position: relative; top: -100px;'>
-                <h3 id="the_question">What fraction of a day is 6 hours?</h3>
+
+            {{-- <div style='margin-top:30px ;transform: scale(0.65); position: relative; top: -100px;'> --}}
+            <div >
+                <h6 id="the_question">What fraction of a day is 6 hours?</h6>
                 <hr />
-              
-                <div id='b1' style='padding: 10px;'>
-                  <p for='option-11' id="first_answer_p" style=' padding: 5px; font-size: 2.5rem;'>6/24</p>
-                    <input onclick="marking(this)" type='checkbox' name='option' value='1' id='1' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
-                  
+
+                {{-- <div id='b1' > --}}
+
+                  {{-- <p for='option-11' id="first_answer_p" style=' padding: 5px; font-size: 2.5rem;'>6/24</p>
+                    <input onclick="marking(this)" type='checkbox' name='option' value='1' id='1' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' /> --}}
+                    <a href="#" onclick="marking(this)" id="first_answer_p" style='font-size: 1.5rem;' name='1' ></a>
+
                   {{-- <span id='result-11'></span> --}}
-                </div>
-                <hr />
-              
-                <div id='b2' style='padding: 10px;'>
-                  <p id="second_answer_p" for='option-12' style=' padding: 5px; font-size: 2.5rem;'>6</p>
-                    <input onclick="marking(this)" type='checkbox' name='option' value='2' id='2' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' />
-                  
+
+                {{-- </div> --}}
+
+                {{-- <div id='b2' > --}}
+
+                  {{-- <p id="second_answer_p" for='option-12' style=' padding: 5px; font-size: 2.5rem;'>6</p> --}}
+                    {{-- <input  onclick="marking(this)" type='checkbox' name='option' value='2' id='2' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' /> --}}
+                    <a href="#" id="second_answer_p" style='margin-left: 50px; font-size: 1.5rem;' onclick="marking(this)" name='2'></a>
+
                   {{-- <span id='result-12'></span> --}}
-                </div>
-                <hr />
+
+                {{-- </div> --}}
 
                 {{-- <button type='button' onclick='displayAnswer1()' style='width: 100px; height: 40px; border-radius: 3px; background-color: lightblue; font-weight: 700;'>Submit</button> --}}
             </div>
-            <a id='showanswer1'></a>
-            <span id='result-12'></span>
+            {{-- <a id='showanswer1'></a> --}}
+            <h3 id='result-12' style="margin-top: 10px;"></h3>
 
 
         </div>
@@ -137,7 +142,7 @@
 
     function marking(e){
         //alert(e.id);
-        if( e.value == correct_answer ){
+        if( e.name == correct_answer ){
             //document.getElementById('b1').style.border = '3px solid limegreen'
             document.getElementById(e.id).style.color = 'limegreen'
             document.getElementById('result-12').innerHTML = 'Correct!'
@@ -194,7 +199,7 @@
         if (document.getElementById('false_answer').checked) {
             document.getElementById('block-12').style.border = '3px solid red'
             document.getElementById('result-12').style.color = 'red'
-            document.getElementById('result-12').innerHTML = 'Incorrect!'
+            document.getElementById('result-11').innerHTML = 'Incorrect!'
             showCorrectAnswer1()
         }
     }

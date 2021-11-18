@@ -52,7 +52,7 @@ class LoginController extends Controller
     public function adminLogin(Request $request)
     {
         //return 'alo2';
-        
+
         $this->validate($request, [
             'email'   => 'required|email',
             'password' => 'required|min:6'
@@ -61,8 +61,8 @@ class LoginController extends Controller
         // $the_admin = Admin::where( 'email', $request->email ) -> first();
         //     return $the_admin->password;
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-            
-            
+
+
 
             // if($request->level == 0){
             //     return redirect()->intended('/admin0');
@@ -81,7 +81,10 @@ class LoginController extends Controller
 
             return redirect()->intended('/dashboard');
         }
+
         return back()->withInput($request->only('email', 'remember'))->with('error', 'You are not registered !');
+        //return redirect()->route('admin_login')->withInput($request->only('email', 'remember'))->with(['error'=> 'You are not registered !']);
+        //return view('auth.login', ['url' => 'admin'])->with(['error'=> 'You are not registered !']);
     }
 
     public function showStudentLoginForm()
@@ -91,7 +94,7 @@ class LoginController extends Controller
 
     public function studentLogin(Request $request)
     {
-        
+
         // Add values to the session.
 
         $this->validate($request, [
@@ -102,7 +105,7 @@ class LoginController extends Controller
         //     return $the_student->password;
 
         if (Auth::guard('student')->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-            
+
             $the_student = Student::where( 'email', $request->email ) -> first();
             //return $the_student;
             session(['loggedID' => $the_student->id ]);
@@ -116,14 +119,14 @@ class LoginController extends Controller
 
                 return back()->with('error', 'You are blocked !');
             }
-            
+
         }
         return back()->withInput($request->only('email', 'remember'))->with('error', 'You are not registered !');
 
 
     }
 
-    
+
 
     public function logout(Request $request)
     {
@@ -133,6 +136,6 @@ class LoginController extends Controller
 
         return $this->loggedOut($request) ?: redirect('/index');
     }
-    
+
 
 }

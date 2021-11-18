@@ -39,11 +39,8 @@ class Student extends Authenticatable
         'image',
     ];
 
-    // protected $hidden = [
-    //     'password', 'remember_token',
-    // ];
     protected $hidden = [
-        'remember_token',
+        'password', 'remember_token',
     ];
 
     public function calenders(){

@@ -33,12 +33,12 @@
                         <th>Case</th>
                         <th>Status</th>
                         <th>country</th>
-						<th>Actions</th> 
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 				@foreach ($students as $student)
-     
+
 					<tr>
 						<!-- <td style="word-wrap: break-word">
 							<span class="custom-checkbox">
@@ -77,7 +77,7 @@
 				</ul>
 			</div> -->
 		</div>
-	</div>        
+	</div>
 </div>
 <!-- Add Modal HTML -->
 <div id="addStudentModal" class="modal fade">
@@ -85,11 +85,11 @@
 		<div class="modal-content">
 			<form method="post" action="{{route('students.add')}}">
 				@csrf
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Add Student</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<div class="form-group">
 						<label>Name</label>
 						<input type="text" name="name" class="form-control" required>
@@ -299,12 +299,12 @@
 							<option value="Romania">Romania</option>
 							<option value="Russia">Russian Federation</option>
 							<option value="Rwanda">Rwanda</option>
-							<option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option> 
+							<option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
 							<option value="Saint LUCIA">Saint LUCIA</option>
 							<option value="Saint Vincent">Saint Vincent and the Grenadines</option>
 							<option value="Samoa">Samoa</option>
 							<option value="San Marino">San Marino</option>
-							<option value="Sao Tome and Principe">Sao Tome and Principe</option> 
+							<option value="Sao Tome and Principe">Sao Tome and Principe</option>
 							<option value="Saudi Arabia">Saudi Arabia</option>
 							<option value="Senegal">Senegal</option>
 							<option value="Seychelles">Seychelles</option>
@@ -408,12 +408,12 @@
             <form method="post" action="{{route('students.edit')}}"">
 				@csrf
                 <input type="hidden" id="edit_hidden_id" name="id" >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Edit Student</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				
-				<div class="modal-body">					
+
+				<div class="modal-body">
 					<div class="form-group">
 						<label>Name</label>
 						<input type="text" id="edit_name" name="name" class="form-control" required>
@@ -623,12 +623,12 @@
 							<option value="Romania">Romania</option>
 							<option value="Russia">Russian Federation</option>
 							<option value="Rwanda">Rwanda</option>
-							<option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option> 
+							<option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
 							<option value="Saint LUCIA">Saint LUCIA</option>
 							<option value="Saint Vincent">Saint Vincent and the Grenadines</option>
 							<option value="Samoa">Samoa</option>
 							<option value="San Marino">San Marino</option>
-							<option value="Sao Tome and Principe">Sao Tome and Principe</option> 
+							<option value="Sao Tome and Principe">Sao Tome and Principe</option>
 							<option value="Saudi Arabia">Saudi Arabia</option>
 							<option value="Senegal">Senegal</option>
 							<option value="Seychelles">Seychelles</option>
@@ -736,11 +736,11 @@
 			<form id="delete_form" method="post" action="{{route('students.delete')}}">
 				@csrf
                 <input type="hidden" id="delete_hidden_id" name="id" >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Delete Teacher</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<p>Are you sure you want to delete these Records?</p>
 					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
@@ -753,13 +753,13 @@
 	</div>
 </div>
 
-<script> 
+<script>
 
     var edit_id = 0;
 	var delete_id = 0;
 
 	function delete_function(id){
-		
+
 		var x = $("option[value='Egypt']") ;
 		console.log(x);
 
@@ -772,7 +772,7 @@
 		edit_id = id;
 		//alert(edit_id);
         $("#edit_hidden_id").attr("value", edit_id);
-		
+
 		var formData = {
 			id:edit_id,
 		};
