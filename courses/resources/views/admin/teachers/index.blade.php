@@ -32,12 +32,12 @@
 						<th>Name</th>
 						<th>image</th>
                         <!-- <th>bio</th> -->
-						<th>Actions</th> 
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 				@foreach ($teachers as $teacher)
-     
+
 					<tr>
 						<!-- <td style="word-wrap: break-word">
 							<span class="custom-checkbox">
@@ -62,7 +62,7 @@
                 {{ $teachers->links() }}
             </div>
 		</div>
-	</div>        
+	</div>
 </div>
 <!-- Add Modal HTML -->
 <div id="addTeacherModal" class="modal fade">
@@ -70,11 +70,11 @@
 		<div class="modal-content">
 			<form method="post" action="{{route('teachers.add')}}" enctype="multipart/form-data">
 				@csrf
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Add Teacher</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<div class="form-group">
 						<label>Name</label>
 						<input type="text" name="name" class="form-control" required>
@@ -103,11 +103,11 @@
             <form method="post" action="{{route('teachers.edit')}}" enctype="multipart/form-data">
 				@csrf
                 <input type="hidden" id="edit_hidden_id" name="id" >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Edit Teacher</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<div class="form-group">
 						<label>Name</label>
 						<input type="text" name="name" id="edit_name" class="form-control" required>
@@ -115,7 +115,7 @@
 					<div class="form-group">
                         <img id="edit_image" style="height: 40px; width: 40px; margin-bottom: 15px; border-radius:2em;" src="">
 						<label>image</label>
-						<input type="file" name="image"  class="form-control" name="image" required>
+						<input type="file" name="image"  class="form-control" name="image" >
 					</div>
                     <div class="form-group">
 						<label>Bio</label>
@@ -137,11 +137,11 @@
 			<form id="delete_form" method="post" action="{{route('teachers.delete')}}">
 				@csrf
                 <input type="hidden" id="delete_hidden_id" name="id" >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Delete Teacher</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<p>Are you sure you want to delete these Records?</p>
 					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
@@ -154,13 +154,13 @@
 	</div>
 </div>
 
-<script> 
+<script>
 
     var edit_id = 0;
 	var delete_id = 0;
 
 	function delete_function(id){
-		
+
 		delete_id = id;
         $("#delete_hidden_id").attr("value", delete_id);
 		// alert(delete_id);
@@ -170,7 +170,7 @@
 		edit_id = id;
 		//alert(edit_id);
         $("#edit_hidden_id").attr("value", edit_id);
-		
+
 		var formData = {
 			id:edit_id,
 		};

@@ -316,7 +316,7 @@ class ProjectController extends Controller
         $p = $my_project->delete();
         //return $c;
 
-        return response(200);;
+        return redirect()->back();
     }
 
     public function details($id){

@@ -30,7 +30,9 @@
     <div class="row">
         <div class="col-12 video-intro">
             <video width="70%" height="90%" controls>
-                <source src="http://localhost:8000/{{ $project->video }}" type="video/mp4">
+                {{-- <source src="http://localhost:8000/{{ $project->video }}" type="video/mp4"> --}}
+                    <source src="{{ asset('$project->video') }}" type="video/mp4">
+
                 Your browser does not support the video tag.
             </video>
         </div>

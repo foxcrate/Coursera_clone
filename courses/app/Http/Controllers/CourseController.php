@@ -125,7 +125,7 @@ class CourseController extends Controller
         $c = $my_course->delete();
         //return $c;
 
-        return redirect()->back();
+        return true;
     }
 
 }

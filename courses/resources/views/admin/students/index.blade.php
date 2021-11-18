@@ -108,7 +108,7 @@
 					</div>
                     <div class="form-group">
 						<label>Secondary Phone</label>
-						<input type="number" name="phone2" class="form-control" required>
+						<input type="number" name="phone2" class="form-control">
 					</div>
                     <div class="form-group">
 						<label>Case</label>
@@ -370,27 +370,27 @@
 					</div>
                     <div class="form-group">
 						<label>Passport</label>
-						<input type="text" name="passport" class="form-control" required>
+						<input type="text" name="passport" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>Job</label>
-						<input type="text" name="job" class="form-control" required>
+						<input type="text" name="job" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>General Note</label>
-						<input type="text" name="general_note" class="form-control" required>
+						<input type="text" name="general_note" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>Payment Note</label>
-						<input type="text" name="payment_note" class="form-control" required>
+						<input type="text" name="payment_note" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>Money Paid</label>
-						<input type="number" name="money_paid" class="form-control" required>
+						<input type="number" name="money_paid" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>Money To Pay</label>
-						<input type="number" name="money_to_pay" class="form-control" required>
+						<input type="number" name="money_to_pay" class="form-control" >
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -424,7 +424,7 @@
 					</div>
                     <div class="form-group">
 						<label>Password</label>
-						<input type="text" id="edit_password" name="password" class="form-control" >
+						<input type="text" id="edit_password" name="password" class="form-control" required>
 					</div>
                     <div class="form-group">
 						<label>Primary Phone</label>
@@ -432,7 +432,7 @@
 					</div>
                     <div class="form-group">
 						<label>Secondary Phone</label>
-						<input type="number" id="edit_phone2" name="phone2" class="form-control" required>
+						<input type="number" id="edit_phone2" name="phone2" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>Case</label>
@@ -694,27 +694,27 @@
 					</div>
                     <div class="form-group">
 						<label>Passport</label>
-						<input type="text" id="edit_passport" name="passport" class="form-control" required>
+						<input type="text" id="edit_passport" name="passport" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>Job</label>
-						<input type="text" id="edit_job" name="job" class="form-control" required>
+						<input type="text" id="edit_job" name="job" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>General Note</label>
-						<input type="text" id="edit_general_note" name="general_note" class="form-control" required>
+						<input type="text" id="edit_general_note" name="general_note" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>Payment Note</label>
-						<input type="text" id="edit_payment_note" name="payment_note" class="form-control" required>
+						<input type="text" id="edit_payment_note" name="payment_note" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>Money Paid</label>
-						<input type="number" id="edit_money_paid" name="money_paid" class="form-control" required>
+						<input type="number" id="edit_money_paid" name="money_paid" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>Money To Pay</label>
-						<input type="number" id="edit_money_to_pay" name="money_to_pay" class="form-control" required>
+						<input type="number" id="edit_money_to_pay" name="money_to_pay" class="form-control" >
 					</div>
 					<!-- <div class="form-group">
 						<label>Cycle ID</label>

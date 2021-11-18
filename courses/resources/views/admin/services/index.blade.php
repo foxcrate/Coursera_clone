@@ -31,12 +31,12 @@
 						<th>ID</th>
 						<th>Name</th>
 						<th>Cost</th>
-						<th>Actions</th> 
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 				@foreach ($services as $service)
-     
+
 					<tr>
 						<!-- <td style="word-wrap: break-word">
 							<span class="custom-checkbox">
@@ -73,7 +73,7 @@
 				</ul>
 			</div> -->
 		</div>
-	</div>        
+	</div>
 </div>
 <!-- Add Modal HTML -->
 <div id="addServiceModal" class="modal fade">
@@ -81,15 +81,15 @@
 		<div class="modal-content">
 			<form method="post" action="{{route('services.add')}}" enctype="multipart/form-data">
 				@csrf
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Add Service</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">
-                    <div class="form-group">		
+                    <div class="form-group">
                         <label>Photo</label>
 						<input type="file" name="photo" class="form-control" name="photo" required>
-                        </div>		
+                        </div>
 					<div class="form-group">
 						<label>Name</label>
 						<input type="text" name="name" class="form-control" required>
@@ -122,16 +122,16 @@
             <form method="post" action="{{route('services.edit')}}" enctype="multipart/form-data">
 				@csrf
                 <input type="hidden" id="edit_hidden_id" name="id" >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Edit Service</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">	
+				<div class="modal-body">
                 <div class="form-group">
                         <img style="height: 150px; width: 300px; margin-bottom: 15px; border-radius:2em;" id="edit_photo">
 						<label>Photo</label>
-						<input type="file" name="photo" class="form-control" required>
-					</div>				
+						<input type="file" name="photo" class="form-control" >
+					</div>
 					<div class="form-group">
 						<label>Name</label>
 						<input type="text" name="name" id="edit_name" class="form-control" required>
@@ -164,11 +164,11 @@
 			<form id="delete_form" method="post" action="{{route('services.delete')}}">
 				@csrf
                 <input type="hidden" id="delete_hidden_id" name="id" >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Delete Service</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<p>Are you sure you want to delete these Records?</p>
 					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
@@ -181,13 +181,13 @@
 	</div>
 </div>
 
-<script> 
+<script>
 
     var edit_id = 0;
 	var delete_id = 0;
 
 	function delete_function(id){
-		
+
 		delete_id = id;
         $("#delete_hidden_id").attr("value", delete_id);
 		// alert(delete_id);
@@ -197,7 +197,7 @@
 		edit_id = id;
 		//alert(edit_id);
         $("#edit_hidden_id").attr("value", edit_id);
-		
+
 		var formData = {
 			id:edit_id,
 		};

@@ -339,7 +339,7 @@ class SemesterController extends Controller
         $c = $my_semester->delete();
         //return $c;
 
-        return response(200);;
+        return response(200);
     }
 
     public function data_to_edit(Request $req){

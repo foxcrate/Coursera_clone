@@ -31,6 +31,7 @@
 						<th>ID</th>
 						<th>Name</th>
 						<th>Start Date</th>
+                        <th>State</th>
 						<!-- <th>Email</th>
 						<th>Address</th>
 						<th>Phone</th>-->
@@ -50,6 +51,14 @@
 						<td> {{$cycle->id}} </td>
 						<td> {{$cycle->name}} </td>
 						<td> {{$cycle->start_date}} </td>
+                        @if ($cycle->enabled == 1)
+                        <td> Enabled </td>
+                        @elseif ($cycle->enabled == 0)
+                        <td> Disabled </td>
+                        @endif
+
+
+
 						<td>
 							<a onClick="edit_function({{$cycle->id}})" href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
 							<a onClick="delete_function({{$cycle->id}})" href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>

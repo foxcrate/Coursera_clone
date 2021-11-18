@@ -105,7 +105,7 @@ class AdminController extends Controller
         $c = $my_admin->delete();
         //return $c;
 
-        return redirect()->back();
+        return true;
     }
 
     public function dashboard(){

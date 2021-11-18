@@ -86,7 +86,7 @@
 
                   {{-- <p for='option-11' id="first_answer_p" style=' padding: 5px; font-size: 2.5rem;'>6/24</p>
                     <input onclick="marking(this)" type='checkbox' name='option' value='1' id='1' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' /> --}}
-                    <a href="#" onclick="marking(this)" id="first_answer_p" style='font-size: 1.5rem;' name='1' ></a>
+                    <a href="#" onclick="marking(this)" id="first_answer_p" style='margin-left: 20px; margin-right: 20px; font-size: 1.5rem;' name='1' ></a>
 
                   {{-- <span id='result-11'></span> --}}
 
@@ -96,7 +96,7 @@
 
                   {{-- <p id="second_answer_p" for='option-12' style=' padding: 5px; font-size: 2.5rem;'>6</p> --}}
                     {{-- <input  onclick="marking(this)" type='checkbox' name='option' value='2' id='2' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' /> --}}
-                    <a href="#" id="second_answer_p" style='margin-left: 50px; font-size: 1.5rem;' onclick="marking(this)" name='2'></a>
+                    <a href="#" id="second_answer_p" style='margin-left: 20px; margin-right: 20px; font-size: 1.5rem;' onclick="marking(this)" name='2'></a>
 
                   {{-- <span id='result-12'></span> --}}
 

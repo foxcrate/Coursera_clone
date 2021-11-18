@@ -85,9 +85,9 @@
                 @endif
 
                 @if (Auth::user()->level == 0 || Auth::user()->level==1)
-                <li>
+                {{-- <li>
                     <a href="#">Discussion</a>
-                </li>
+                </li> --}}
                 @endif
 
                 @if (Auth::user()->level == 0 || Auth::user()->level==1)

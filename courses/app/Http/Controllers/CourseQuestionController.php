@@ -16,8 +16,8 @@ class CourseQuestionController extends Controller
             return redirect()->route('dashboard');
         }
         $all_courses = Course::all();
-        // $all_course_question= CourseQuestion::orderBy('id','desc')->paginate(11);
-        $all_course_question= CourseQuestion::orderBy('id','desc')->get();
+        $all_course_question= CourseQuestion::orderBy('id','desc')->paginate(11);
+        // $all_course_question= CourseQuestion::orderBy('id','desc')->get();
 
         //$all_lessons = "Alo";
 

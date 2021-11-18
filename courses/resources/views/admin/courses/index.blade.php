@@ -30,12 +30,12 @@
 						<th>ID</th>
 						<th>Name</th>
 						<th>Num Of Lessons</th>
-						<th>Actions</th> 
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 				@foreach ($courses as $course)
-     
+
 					<tr>
 						<!-- <td style="word-wrap: break-word">
 							<span class="custom-checkbox">
@@ -50,7 +50,7 @@
 							<!-- <a onClick="edit_function({{$course->id}})" href="#editSemesterModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a> -->
 							<a href="{{ route('courses.details',['id'=>$course->id]) }}" title="Lessons" class="details"><i class="bi bi-eye-fill"></i></a>
                             <a onClick="delete_function({{$course->id}})" href="#deleteSemesterModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
-                            
+
 						</td>
 					</tr>
 
@@ -74,7 +74,7 @@
 				</ul>
 			</div> -->
 		</div>
-	</div>        
+	</div>
 </div>
 <!-- Add Modal HTML -->
 <div id="addSemesterModal" class="modal fade">
@@ -82,15 +82,15 @@
 		<div class="modal-content">
 			<form method="post" action="{{route('courses.add')}}">
 				@csrf
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Add Course</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<div class="form-group">
 						<label>Name</label>
 						<input type="text" name="name" class="form-control" required>
-					</div>					
+					</div>
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -106,11 +106,11 @@
 		<div class="modal-content">
 			<form id="edit_form" name="alo" method="post" action="{{route('courses.edit')}}">
 				@csrf
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Edit Course</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<div class="form-group">
 						<label>Name</label>
 						<input id="edit_modal_name" name="name" type="text" class="form-control" required>
@@ -131,11 +131,11 @@
 		<div class="modal-content">
 			<form id="delete_form" method="post" action="{{route('courses.delete')}}">
 				@csrf
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Delete Course</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<p>Are you sure you want to delete these Records?</p>
 					<p class="text-warning"><small>This action cannot be undone.</small></p>
 				</div>
@@ -148,7 +148,7 @@
 	</div>
 </div>
 
-<script> 
+<script>
 
 	// $(document).ready(function(){
 	// 	// $("#edit_button").click(function(){
@@ -164,7 +164,7 @@
 	}
 
 	function delete_function(id){
-		
+
 		delete_id = id;
 		// alert(delete_id);
 	}
@@ -216,7 +216,10 @@
 			encode: true,
 			}).done(function (data) {
 			//console.log(data);
-			window.location.reload();
+            if(data == true){
+
+                window.location.reload();
+            }
 		});
 
 	});

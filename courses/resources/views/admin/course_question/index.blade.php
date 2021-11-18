@@ -56,9 +56,9 @@
 				</tbody>
 			</table>
 
-			{{-- <div class="d-flex pages">
+			<div class="d-flex pages">
                 {{ $all_course_question->links() }}
-            </div> --}}
+            </div>
 
 			<!-- <div class="clearfix">
 				<div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
@@ -206,16 +206,16 @@
 
 <script>
 
-    $(document).ready( function () {
-        $('#courses_questions').DataTable({
+    // $(document).ready( function () {
+    //     $('#courses_questions').DataTable({
 
-            "lengthMenu": [
-                    [12, 18, 50,100],
-                    [12, 18, 50,100]
-                ],
+    //         "lengthMenu": [
+    //                 [12, 18, 50,100],
+    //                 [12, 18, 50,100]
+    //             ],
 
-        });
-    } );
+    //     });
+    // } );
 
     var edit_id = 0;
 	var delete_id = 0;

@@ -195,7 +195,7 @@
 					</div>
                     <div class="form-group">
 						<label>Price</label>
-						<input type="number" id="edit_price" name="price" class="form-control" required >
+						<input type="number" id="edit_price" name="price" class="form-control"  >
 					</div>
 
 					<div class="form-group">
@@ -219,6 +219,7 @@
 		<div class="modal-content">
 			<form id="delete_form" method="post" action="{{route('projects.delete')}}">
 				@csrf
+                <input type="hidden" id="delete_hidden_id" name="id" >
 				<div class="modal-header">
 					<h4 class="modal-title">Delete Project</h4>
 					<button type="button" class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -281,60 +282,62 @@
 	function delete_function(id){
 
 		delete_id = id;
+        $("#delete_hidden_id").attr("value", id);
+
 		// alert(delete_id);
 	}
 
-	$("#edit_form").submit(function(e) {
+	// $("#edit_form").submit(function(e) {
 
-		e.preventDefault(); // avoid to execute the actual submit of the form.
+	// 	e.preventDefault(); // avoid to execute the actual submit of the form.
 
-		var formData = {
-			id:edit_id,
-			name: $("#edit_modal_name").val(),
-			start_date: $("#edit_modal_start_date").val(),
-		};
+	// 	var formData = {
+	// 		id:edit_id,
+	// 		name: $("#edit_modal_name").val(),
+	// 		start_date: $("#edit_modal_start_date").val(),
+	// 	};
 
-		$.ajax({
-			headers: {
-     			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-   			},
-			type: "POST",
-			url: e.target.action,
-			data: formData,
-			dataType: "json",
-			encode: true,
-			}).done(function (data) {
-			// console.log(data);
-			window.location.reload();
-		});
+	// 	$.ajax({
+	// 		headers: {
+    //  			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   	// 		},
+	// 		type: "POST",
+	// 		url: e.target.action,
+	// 		data: formData,
+	// 		dataType: "json",
+	// 		encode: true,
+	// 		}).done(function (data) {
+	// 		// console.log(data);
+	// 		window.location.reload();
+	// 	});
 
-	});
+	// });
 
-	$("#delete_form").submit(function(e) {
+	// $("#delete_form").submit(function(e) {
 
-		//alert(delete_id);
+	// 	//alert(delete_id);
 
-		e.preventDefault(); // avoid to execute the actual submit of the form.
+	// 	e.preventDefault(); // avoid to execute the actual submit of the form.
 
-		var formData = {
-			id: delete_id,
-		};
+	// 	var formData = {
+	// 		id: delete_id,
+	// 	};
 
-		$.ajax({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			},
-			type: "POST",
-			url: e.target.action,
-			data: formData,
-			dataType: "json",
-			encode: true,
-			}).done(function (data) {
-			//console.log(data);
-			window.location.reload();
-		});
+	// 	$.ajax({
+	// 		headers: {
+	// 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	// 		},
+	// 		type: "POST",
+	// 		url: e.target.action,
+	// 		data: formData,
+	// 		dataType: "json",
+	// 		encode: true,
+	// 		}).done(function (data) {
+	// 		//console.log(data);
+	// 		window.location.reload();
+	// 	});
 
-	});
+	// });
 
 	function video_tab(){
 		//alert("Alo");

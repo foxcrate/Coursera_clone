@@ -412,4 +412,28 @@ class Project extends Model
         return $duration_sum;
     }
 
+    public function duration_with_breaks(){
+        $project_semesters = $this->semester_calender;
+        $duration_sum = 0;
+
+        if($this->semester_calender->semester1 != null){
+            $duration_sum += $this->semester_calender->semester1->duration;
+
+            if($this->semester_calender->semester2 != null){
+                $duration_sum += 4;
+                $duration_sum += $this->semester_calender->semester2->duration;
+
+                if($this->semester_calender->semester3 != null){
+                    $duration_sum += 4;
+                    $duration_sum += $this->semester_calender->semester3->duration;
+                }
+
+            }
+
+        }
+
+
+        return $duration_sum;
+    }
+
 }

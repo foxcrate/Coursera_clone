@@ -57,7 +57,7 @@
                         @endif
 						<td style="word-wrap: break-word">
 							<a onClick="edit_function({{$admin->id}})" href="#editAdminModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
-                            <a onClick="delete_function({{$admin->id}})" href="#deleteAdminModal"  class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
+
 						</td>
 					</tr>
 
@@ -159,8 +159,10 @@
 					</div>
 				</div>
 				<div class="modal-footer">
+                    {{-- <a onClick="delete_function(edit_hidden_id)"   class="delete" ><i class="bi bi-trash"></i> Delete This Admin</a> --}}
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-success" value="Add">
+                    <input onClick="delete_function()" type="button" class="btn btn-danger" value="Delete This Admin" >
+					<input type="submit" class="btn btn-success" value="Save">
 				</div>
 			</form>
 		</div>
@@ -198,10 +200,33 @@
     //$('#editAdminModal').modal('show');
 
 	function delete_function(id){
+        //alert("Delete Done");
+		//delete_id = id;
+        //$("#delete_hidden_id").attr("value", delete_id);
+		//alert(edit_id);
 
-		delete_id = id;
-        $("#delete_hidden_id").attr("value", delete_id);
-		// alert(delete_id);
+        var formData = {
+			id:edit_id,
+		};
+
+		$.ajax({
+			headers: {
+     			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   			},
+			type: "POST",
+			url: "{{ route('admins.delete') }}" ,
+			data: formData,
+			dataType: "json",
+			encode: true,
+			}).done(function (data) {
+                if(data == true){
+                    window.location.reload();
+                }
+
+		});
+
+
+
 	}
 
 	function edit_function(id){

@@ -31,12 +31,12 @@
 						<th>Status</th>
 						<th>Note</th>
 						<th>Date</th>
-						<th>Actions</th> 
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 				@foreach ($book_payments as $book_payment)
-     
+
 					<tr>
 						<!-- <td style="word-wrap: break-word">
 							<span class="custom-checkbox">
@@ -77,7 +77,7 @@
 				</ul>
 			</div> -->
 		</div>
-	</div>        
+	</div>
 </div>
 
 <!-- Edit Modal HTML -->
@@ -87,12 +87,12 @@
             <form method="post" action="{{route('book_payments.edit')}}" enctype="multipart/form-data">
 				@csrf
                 <input type="hidden" id="edit_hidden_id" name="id" >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Edit Book Payment</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">	
-                <div class="form-group">				
+				<div class="modal-body">
+                <div class="form-group">
 					<div class="form-group">
 						<label>Status</label>
 						<select class="form-control" id='edit_status' name="status">
@@ -115,7 +115,7 @@
 	</div>
 </div>
 
-<script> 
+<script>
 
     //var url = "" ;
 
@@ -127,9 +127,11 @@
 
 	function view_file(x){
 		//url = x.file;
-		var url = 'http://localhost:8000/' + x.file ;
+		 var url = 'http://localhost:8000/' + x.file ;
+
+        //<source src="{{ asset('$project->video') }}" type="video/mp4">
 		window.open(url, '_blank').focus();
-		
+
 
 	}
 
@@ -140,7 +142,7 @@
     }
 
 	function delete_function(id){
-		
+
 		delete_id = id;
         $("#delete_hidden_id").attr("value", delete_id);
 		// alert(delete_id);
@@ -150,7 +152,7 @@
 		var edit_id = id;
 		//alert(edit_id);
         $("#edit_hidden_id").attr("value", edit_id);
-		
+
 		var formData = {
 			id:edit_id,
 		};

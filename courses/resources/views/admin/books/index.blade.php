@@ -134,7 +134,7 @@
                     </div>
                         <img style="height: 150px; width: 300px; margin-bottom: 15px; border-radius:2em;" id="edit_cover">
                         <label>Cover</label>
-                        <input type="file" name="cover" class="form-control" required>
+                        <input type="file" name="cover" class="form-control" >
                     </div>
                     <div class="form-group">
                         <label>Cost</label>
@@ -148,7 +148,7 @@
                     <div class="form-group">
                     <label>Full File</label>
                     <button onclick="full_tab()" class="btn btn-primary my-2">View Full File</button>
-                        <input type="file" name="full_file" class="form-control">>
+                        <input type="file" name="full_file" class="form-control">
                     </div>
                 </div>
 				<div class="modal-footer">

@@ -1,6 +1,6 @@
 @include('student.templates.header')
 @include('student.templates.navbar')
-      
+
 @extends('student.templates.header')
 
 @section('title')
@@ -22,7 +22,7 @@
                         <div class="card" style="width:200px">
                             <!-- <a href="{{ route('buy_book', [ 'student_id' => session()->get('loggedID') , 'book_id' => $book->id ] ) }}"><img src="{{ asset( $book->cover ) }}" class="card-img-top card-image-style" alt="..."></a>     -->
                             <img src="{{ asset( $book->cover ) }}" class="card-img-top card-image-style" alt="...">
-                            
+
                             <button onclick="abstract_tab( '{{ $book->abstract_file }}' )" class="btn btn-primary my-2">View Abstract File</button>
 
                             <div class="card-body">
@@ -33,7 +33,7 @@
                             <div class="card-footer">
                                 <!-- <i class="fas fa-book-open icon-s"></i> -->
                                 @if( ! in_array($book->id, $books_ids) )
-                                    @if ($remaining_free_books >0)    
+                                    @if ($remaining_free_books >0)
                                     <button type="button"  onclick="prepare_free( {{$book->id}} , {{session()->get('loggedID')}} )"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#free_book">Take For Free</button>
                                     @else
                                         <button type="button"  onclick="prepare_buy( {{$book->id}} , {{session()->get('loggedID')}} )"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buy_book">Buy Book</button>
@@ -56,7 +56,7 @@
 				@csrf
                 <input type="hidden" id="book_id" name="book_id" >
                 <input type="hidden" id="student_id" name="student_id" >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Upload Your Payment File</h4>
 					<button type="button " class="close btn-danger" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
@@ -82,7 +82,7 @@
 				@csrf
                 <input type="hidden" id="book_id_2" name="book_id" >
                 <input type="hidden" id="student_id_2" name="student_id" >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Are You Sure?</h4>
 					<button type="button " class="close btn-danger" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
@@ -102,6 +102,8 @@
     function abstract_tab(url){
         //alert("Alo");
         abstract_url = 'http://localhost:8000/' +  url;
+        // var abstract_url = '{{asset(' + url + ')}}' ;
+        // var abstract_url =  url  ;
         window.open(abstract_url, '_blank').focus();
 
     }
