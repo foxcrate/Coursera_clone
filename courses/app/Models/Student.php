@@ -75,6 +75,21 @@ class Student extends Authenticatable
 
     }
 
+    public function get_late_submissions_courses(){
+        $now = Carbon::now();
+
+        $late_submissions = Assignment::where('submitted',0)->where('student_id',$this->id)->where( 'semester_or_course', 'course' )->where('start_date', '<=', $now)->where('end_date', '>=', $now)->orderBy('created_at','desc')->get();
+
+        $ids_array = [];
+
+        foreach( $late_submissions as $late_submission ){
+            array_push( $ids_array , $late_submission->course_id );
+        }
+
+        return $ids_array;
+
+    }
+
     public function get_accepted_requests(){
 
         $accepted_cycles = CyclePayment::where('student_id',$this->id)->where('status','accepted')->orderBy('updated_at','desc')->get();

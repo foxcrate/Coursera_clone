@@ -42,6 +42,7 @@ class LessonController extends Controller
             'order'=>$request->order,
             'description'=>$request->description,
             'video'=> 'uploads/lessons/' . $video_new_name,
+            'youtube_link'=> $request->youtube_link,
             'course_id'=>$request->id,
         ]);
 
@@ -77,6 +78,7 @@ class LessonController extends Controller
             $video->move('uploads/lessons/', $video_new_name);
             $my_lesson->video ='uploads/lessons/' . $video_new_name;
         }
+        $my_lesson->youtube_link = $request->youtube_link ;
         $my_lesson->save();
 
         return redirect()->back();

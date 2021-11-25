@@ -128,6 +128,10 @@
 						<label>Video</label>
 						<input type="file" id="edit_modal_duration" name="video" class="form-control" required>
 					</div>
+                    <div class="form-group">
+						<label>Youtube Link</label>
+						<input  name="youtube_link" type="text" class="form-control" required>
+					</div>
                     <div class="form-group mt-2">
 						<label>Lesson Question</label>
 						<!-- <input type="text" id="lesson_question" name="lesson_question" class="form-control" required> -->
@@ -188,6 +192,10 @@
                         <button onclick="video_tab()" class="btn btn-primary mb-2">View Video</button>
 						<label>Video</label>
 						<input type="file" id="edit_modal_video69" name="video" class="form-control" placeholder="Please upload the video again" >
+					</div>
+                    <div class="form-group">
+						<label>Youtube Link</label>
+						<input  name="youtube_link" id="edit_youtube_link" type="text" class="form-control" required>
 					</div>
                     <div class="form-group">
 						<label>Lesson Question</label>
@@ -297,6 +305,9 @@
                     $("#edit_modal_first_choice").attr("value", data.lesson_question.first_answer);
                     $("#edit_modal_second_choice").attr("value", data.lesson_question.second_answer);
                     $("#edit_modal_correct_answer").attr("value", data.lesson_question.correct_answer);
+                    $("#edit_youtube_link").attr("value", data.lesson.youtube_link);
+
+
 
                     //alert("Alo");
                     // $('#editSemesterModal').modal('toggle');

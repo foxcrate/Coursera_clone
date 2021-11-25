@@ -248,6 +248,10 @@ class StudentController extends Controller
 
     public function profile_project_details($cycle_id,$student_id,$project_id){
         //return [$cycle_id,$student_id,$project_id];
+        $student = Student::find($student_id);
+        $late_submissions_courses = $student->get_late_submissions_courses();
+        //return $late_submissions_courses ;
+
         $requests_to_projects = RequestToProject::where( 'project_id' , $project_id )->where('student_id',$student_id)->get();
         //return $requests_to_projects;
         $the_project = Project::find($project_id);
@@ -263,7 +267,7 @@ class StudentController extends Controller
             $ids_array = $the_student->all_cycles_array();
         }
 
-        return view('student.project_details')->with(['project'=>$the_project, 'ids_array'=>$ids_array,'already_requested'=>0,'cycle_id'=>$cycle_id]);
+        return view('student.project_details')->with(['project'=>$the_project, 'ids_array'=>$ids_array,'already_requested'=>0,'cycle_id'=>$cycle_id , 'late_submissions_courses'=>$late_submissions_courses ]);
 
     }
 

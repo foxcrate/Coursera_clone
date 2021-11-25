@@ -25,6 +25,8 @@
 @endif
 </div>
 
+{{-- <h4>{{ $late_submissions[0] }}</h4> --}}
+
 @include('student.templates.profile_second_nav')
 <div class="conntainer last-courses">
 <h2 class="my-c-title"> My Late Submissions</h2>

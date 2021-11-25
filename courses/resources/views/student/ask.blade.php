@@ -29,7 +29,7 @@
                         <li class="ol-num">
                             <label for="" class="radio-title"> {{$question->question}} </label>
                             <div class="form-check ">
-                                <input class="form-check-input" checked type="radio" name="{{$question->id}}" id="inlineRadio1" value="1">
+                                <input class="form-check-input" type="radio" name="{{$question->id}}" id="inlineRadio1" value="1">
                                 <label class="form-check-label" for="inlineRadio1">{{$question->first_answer}}</label>
                             </div>
                             <div class="form-check ">

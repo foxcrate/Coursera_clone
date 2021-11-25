@@ -51,7 +51,8 @@
                         </a>
                         @foreach( $course->lessons as $lesson)
                             <div >
-                                <button onclick = "display_video( '{{$lesson->video}}' )" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i> {{$lesson->name}} <div  > {{$lesson->description}} </div> </button>
+                                <button onclick = "display_video( '{{$lesson->video}}' )" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i> {{$lesson->name}} <div  > {{$lesson->description}}  </div> </button>
+                                <a href="{{ $lesson->youtube_link }}" target="_blank" class="btn btn-danger">Youtube</a>
                                 <button data-bs-toggle="modal" data-bs-target="#quizModal"  class="btn btn-success" onclick = "take_quiz( '{{$lesson->id}}' )" >
                                     Take Quiz
                                 </button>

@@ -80,7 +80,12 @@
                     <i class="fab fa-discourse"></i>Semester {{ $loop->iteration }} - {{$semester->name}}
                     </a>
                     @foreach ($semester->courses as $course)
-                        <a href="#" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i>Course {{ $loop->iteration }} - {{$course->name}}</a>
+                        <a href="#" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i>Course {{ $loop->iteration }} - {{$course->name}} <span class="course-span"> {{count($course->lessons)}} lessons </span> </a>
+                        @if( in_array( $course->id , $late_submissions_courses ) )
+                            <a href="{{ route( 'take_course_exam' , $course->id ) }}" class="btn col-1 mb-2 p-0" style="background-color: #ff4500;">Take Exam</a>
+                        @else
+
+                        @endif
                     @endforeach
                 </div>
             @endforeach
