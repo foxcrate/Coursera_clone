@@ -13,6 +13,10 @@
 					<div class=" col-sm-6 ">
 						<h2>Manage <b>Cycle Payments</b></h2>
 					</div>
+                    <div class=" col-sm-6 ">
+						<a href="#addCyclePaymentModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Cycle</span></a>
+						<!-- <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						 -->
+					</div>
 				</div>
 			</div>
 			<table style="table-layout:fixed; width: 100%;" class="table table_condensed table-striped table-hover">
@@ -31,14 +35,14 @@
 						<th>Status</th>
 						<th>Payment File</th>
 						<th>Amount paid</th>
-						<th>Amount Left</th>
+						{{-- <th>Amount Left</th> --}}
 						<th>Note</th>
-						<th>Actions</th> 
+						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 				@foreach ($all_cycles_payments as $cycle_payment)
-     
+
 					<tr>
 						<!-- <td style="word-wrap: break-word">
 							<span class="custom-checkbox">
@@ -48,12 +52,12 @@
 						</td> -->
 						<td style="word-wrap: break-word"> {{$cycle_payment->student_id}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->created_at}} </td>
-						<td style="word-wrap: break-word"> {{$cycle_payment->student_name}} </td>
+						<td style="word-wrap: break-word"> {{$cycle_payment->student->name}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->cycle_id}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->status}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->file}} </td>
 						<td style="word-wrap: break-word"> {{$cycle_payment->amount_paid}} </td>
-						<td style="word-wrap: break-word"> {{$cycle_payment->amount_left}} </td>
+						{{-- <td style="word-wrap: break-word"> {{$cycle_payment->amount_left}} </td> --}}
 						<td style="word-wrap: break-word"> {{$cycle_payment->note}} </td>
 						<td style="word-wrap: break-word">
 							<a onClick="edit_function({{$cycle_payment->id}})" href="#editCyclePaymentModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
@@ -80,7 +84,66 @@
 				</ul>
 			</div> -->
 		</div>
-	</div>        
+	</div>
+</div>
+
+<!-- Add Modal HTML -->
+<div id="addCyclePaymentModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form method="post" action="{{route('cycle_payments.add')}}" enctype="multipart/form-data">
+				@csrf
+				<div class="modal-header">
+					<h4 class="modal-title">Add Cycle</h4>
+					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-group">
+						<label>Amount Paid</label>
+						<input type="number" name="amount_paid" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label>Note</label>
+						<textarea class="form-control" name="note" id="note" rows="3" ></textarea>
+					</div>
+                    <div class="form-group">
+						<label>File</label>
+                        <input type="file" name="file" class="form-control" >
+                    </div>
+
+                    <div class="form-group">
+						<label>Student</label>
+						<select class="form-control" id='student_id' name="student_id">
+							@foreach ( $all_students as $student  )
+
+								<option value="{{$student->id}}">  {{$student->id}} - {{$student->name}} </option>
+
+							@endforeach
+
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label>Cycle</label>
+						<select class="form-control" id='cycle_id' name="cycle_id">
+							@foreach ( $all_cycles as $cycle  )
+
+								<option value="{{$cycle->id}}"> {{$cycle->id}} - {{$cycle->name}} </option>
+
+							@endforeach
+
+						</select>
+					</div>
+
+
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-success" value="Add">
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 
 <!-- Edit Modal HTML -->
@@ -90,11 +153,11 @@
             <form method="post" action="{{route('cycle_payments.edit')}}" enctype="multipart/form-data">
 				@csrf
                 <input type="hidden" id="edit_hidden_id" name="id" >
-				<div class="modal-header">						
+				<div class="modal-header">
 					<h4 class="modal-title">Edit Cyle Payment</h4>
 					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
-				<div class="modal-body">					
+				<div class="modal-body">
 					<div class="form-group">
 						<label>Comfirmed Payment Amount</label>
 						<input type="number" name="amount_paid" id="edit_amount_paid" class="form-control" required>
@@ -120,7 +183,7 @@
 	</div>
 </div>
 
-<script> 
+<script>
 
     var edit_id = 0;
 
@@ -128,7 +191,7 @@
 		edit_id = id;
 		//alert(edit_id);
         $("#edit_hidden_id").attr("value", edit_id);
-		
+
 		var formData = {
 			id:edit_id,
 		};

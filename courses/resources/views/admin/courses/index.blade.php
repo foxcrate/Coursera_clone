@@ -13,7 +13,7 @@
 						<h2>Manage <b>Courses</b></h2>
 					</div>
 					<div class=" col-sm-6 ">
-						<a href="#addSemesterModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Course</span></a>
+						<a href="#addCourseModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Course</span></a>
 						<!-- <a href="#deleteSemesterModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						 -->
 					</div>
 				</div>
@@ -48,8 +48,9 @@
 						<td style="word-wrap: break-word"> {{ count($course->lessons) }} </td>
 						<td style="word-wrap: break-word">
 							<!-- <a onClick="edit_function({{$course->id}})" href="#editSemesterModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a> -->
-							<a href="{{ route('courses.details',['id'=>$course->id]) }}" title="Lessons" class="details"><i class="bi bi-eye-fill"></i></a>
+                            <a onClick="edit_function({{$course->id}})" href="#editCourseModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
                             <a onClick="delete_function({{$course->id}})" href="#deleteSemesterModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
+							<a href="{{ route('courses.details',['id'=>$course->id]) }}" title="Lessons" class="details"><i class="bi bi-eye-fill"></i></a>
 
 						</td>
 					</tr>
@@ -77,10 +78,10 @@
 	</div>
 </div>
 <!-- Add Modal HTML -->
-<div id="addSemesterModal" class="modal fade">
-	<div class="modal-dialog">
+<div id="addCourseModal" class="modal fade"  enctype="multipart/form-data" >
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form method="post" action="{{route('courses.add')}}">
+			<form method="post" action="{{route('courses.add')}} " enctype="multipart/form-data">
 				@csrf
 				<div class="modal-header">
 					<h4 class="modal-title">Add Course</h4>
@@ -91,7 +92,16 @@
 						<label>Name</label>
 						<input type="text" name="name" class="form-control" required>
 					</div>
+                    <div class="form-group">
+                        <label>Material</label>
+                        <input type="file" id="material" name="material" class="form-control"  >
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" name="description" id="description" rows="3"  ></textarea>
+                    </div>
 				</div>
+
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 					<input type="submit" class="btn btn-success" value="Add">
@@ -101,26 +111,38 @@
 	</div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="editSemesterModal" class="modal fade">
-	<div class="modal-dialog">
+<div id="editCourseModal" class="modal fade" enctype="multipart/form-data" >
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
-			<form id="edit_form" name="alo" method="post" action="{{route('courses.edit')}}">
+			<form method="post" action="{{route('courses.edit')}}" enctype="multipart/form-data" >
 				@csrf
+				<input type="hidden" id="edit_hidden_id" name="id" >
 				<div class="modal-header">
 					<h4 class="modal-title">Edit Course</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<button type="button " class="close btn-danger" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
+
 				<div class="modal-body">
 					<div class="form-group">
 						<label>Name</label>
-						<input id="edit_modal_name" name="name" type="text" class="form-control" required>
+						<input type="text" id="edit_name" name="name" class="form-control" required >
+					</div>
+                    <div class="form-group">
+						<label>Material</label>
+						<button onclick="material_tab()" class="btn btn-primary mb-2">View Material</button>
+						<input type="file" id="edit_material" name="material" class="form-control"  >
+					</div>
+					<div class="form-group">
+						<label for="edit_summery">Description</label>
+						<textarea class="form-control" name="description" id="edit_description" rows="3"  ></textarea>
 					</div>
 
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-info" value="Save">
+					<input type="submit" class="btn btn-success" value="Save">
 				</div>
+
 			</form>
 		</div>
 	</div>
@@ -150,13 +172,15 @@
 
 <script>
 
-	// $(document).ready(function(){
-	// 	// $("#edit_button").click(function(){
-	// 	// 	alert("Alo");
-	// 	// });
-	// });
-	var edit_id = 0;
+    var edit_id = 0;
 	var delete_id = 0;
+    var material_url = '';
+
+    function material_tab(){
+		//alert("Alo");
+		window.open(material_url, '_blank').focus();
+
+    }
 
 	function edit_function(id){
 		edit_id = id;
@@ -223,6 +247,35 @@
 		});
 
 	});
+
+    function edit_function(id){
+		edit_id = id;
+		$("#edit_hidden_id").attr("value", id);
+
+		//alert(edit_id);
+
+		var formData = {
+			id:edit_id,
+		};
+
+		$.ajax({
+			headers: {
+     			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+   			},
+			type: "GET",
+			url: "{{ route('courses.data_to_edit') }}" ,
+			data: formData,
+			dataType: "json",
+			encode: true,
+			}).done(function (data) {
+			console.log(data);
+			$("#edit_name").attr("value", data.name);
+			$("#edit_description").val( data.description );
+			$("#edit_material").attr("src", 'http://localhost:8000/'+ data.material);
+			material_url = 'http://localhost:8000/' + data.material  ;
+		});
+
+	}
 
 </script>
 

@@ -54,6 +54,7 @@
 						<td style="word-wrap: break-word; ">
 							<a onClick="edit_function({{$student->id}})" href="#editStudentModal" class="edit" data-toggle="modal"><i class="bi bi-pencil-fill"></i></a>
 							<a onClick="delete_function({{$student->id}})" href="#deleteStudentModal" class="delete" data-toggle="modal"><i class="bi bi-trash"></i></a>
+                            <a href="{{ route('students.details',['id'=>$student->id]) }}" title="student" class="details"><i class="bi bi-eye-fill"></i></a>
 						</td>
 					</tr>
 
@@ -103,8 +104,17 @@
 						<input type="text" name="password" class="form-control" required>
 					</div>
                     <div class="form-group">
+					    <label>Cycle</label>
+						<select class="form-control" id='cycle_id' name="cycle_id">
+							@foreach ( $all_cycles as $cycle )
+								<option value="{{ $cycle->id }}">{{ $cycle->name }}</option>
+							@endforeach
+
+						</select>
+					</div>
+                    <div class="form-group">
 						<label>Primary Phone</label>
-						<input type="number" name="phone1" class="form-control" required>
+						<input type="number" name="phone1" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>Secondary Phone</label>
@@ -380,7 +390,7 @@
 						<label>General Note</label>
 						<input type="text" name="general_note" class="form-control" >
 					</div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
 						<label>Payment Note</label>
 						<input type="text" name="payment_note" class="form-control" >
 					</div>
@@ -391,7 +401,7 @@
                     <div class="form-group">
 						<label>Money To Pay</label>
 						<input type="number" name="money_to_pay" class="form-control" >
-					</div>
+					</div> --}}
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -424,11 +434,20 @@
 					</div>
                     <div class="form-group">
 						<label>Password</label>
-						<input type="text" id="edit_password" name="password" class="form-control" required>
+						<input type="text" id="edit_password" name="password" class="form-control" >
+					</div>
+                    <div class="form-group">
+					    <label>Cycle</label>
+						<select class="form-control" id='edit_cycle_id' name="cycle_id">
+							@foreach ( $all_cycles as $cycle )
+								<option value="{{ $cycle->id }}">{{ $cycle->name }}</option>
+							@endforeach
+
+						</select>
 					</div>
                     <div class="form-group">
 						<label>Primary Phone</label>
-						<input type="number" id="edit_phone1" name="phone1" class="form-control" required>
+						<input type="number" id="edit_phone1" name="phone1" class="form-control" >
 					</div>
                     <div class="form-group">
 						<label>Secondary Phone</label>
@@ -704,22 +723,6 @@
 						<label>General Note</label>
 						<input type="text" id="edit_general_note" name="general_note" class="form-control" >
 					</div>
-                    <div class="form-group">
-						<label>Payment Note</label>
-						<input type="text" id="edit_payment_note" name="payment_note" class="form-control" >
-					</div>
-                    <div class="form-group">
-						<label>Money Paid</label>
-						<input type="number" id="edit_money_paid" name="money_paid" class="form-control" >
-					</div>
-                    <div class="form-group">
-						<label>Money To Pay</label>
-						<input type="number" id="edit_money_to_pay" name="money_to_pay" class="form-control" >
-					</div>
-					<!-- <div class="form-group">
-						<label>Cycle ID</label>
-						<input type="number" id="edit_cycle_id" name="cycle_id" class="form-control">
-					</div> -->
                     <div class="modal-footer">
 					    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
 					    <input type="submit" class="btn btn-primary" value="Save">

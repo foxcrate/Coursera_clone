@@ -71,6 +71,34 @@
         </div>
     </div>
 </div>
+
+<div id="submitResearchModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<form id="edit_form" name="alo" method="post" action="{{route('late_submissions_submit')}}" enctype="multipart/form-data">
+				<input type="hidden" id="assignment_id" name="id" >
+				@csrf
+				<div class="modal-header">
+					<h4 class="modal-title">Submit Research</h4>
+					<button type="button" class="close btn-danger" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+
+					<div class="form-group">
+						<label>Research File</label>
+						<input  name="file" type="file" class="form-control" required>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-bs-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-info" value="Save">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 <div class="container course-lesson">
     <div class="row">
         <div class="col-12">
@@ -78,6 +106,11 @@
                 <div class="list-group m-3">
                     <a href="#" class="list-group-item list-group-item-action active lesson-head" aria-current="true">
                     <i class="fab fa-discourse"></i>Semester {{ $loop->iteration }} - {{$semester->name}}
+                    @if( in_array( $semester->id , $late_submissions_semesters ) )
+                    <a href="#submitResearchModal" style="background-color: #333333;" onClick="assignment({{ $semester->id }})" data-bs-toggle="modal"  class="btn col-1 mt-1 mb-2 p-0 text-white">Submit Research</a>
+                    @else
+
+                    @endif
                     </a>
                     @foreach ($semester->courses as $course)
                         <a href="#" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i>Course {{ $loop->iteration }} - {{$course->name}} <span class="course-span"> {{count($course->lessons)}} lessons </span> </a>
@@ -121,6 +154,11 @@
 </div> -->
 
 <script>
+
+    function assignment(assignment_id){
+        $("#assignment_id").attr("value", assignment_id);
+    }
+
 
     var edit_id = 0;
 

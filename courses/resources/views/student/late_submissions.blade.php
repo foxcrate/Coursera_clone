@@ -29,7 +29,12 @@
 
 @include('student.templates.profile_second_nav')
 <div class="conntainer last-courses">
-<h2 class="my-c-title"> My Late Submissions</h2>
+    @if ( $late_submissions->first()->semester_or_course == "semester" )
+        <h2 class="my-c-title"> Upload Researches</h2>
+    @else
+    <h2 class="my-c-title"> Take Exams</h2>
+    @endif
+{{-- <h2 class="my-c-title"> My Late Submissions</h2> --}}
 
 <div class="container">
 
@@ -50,16 +55,19 @@
                   @endif
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title text-white">
-                    @if ( $late_submission->semester_or_course == "semester" )
-                    {{$late_submission->semester->name}}
-                    @else
-                    {{$late_submission->course->name}}
-                    @endif
-                  </h5>
+                    <h5 class="card-title text-white">
+                        @if ( $late_submission->semester_or_course == "semester" )
+                        {{$late_submission->semester->name}}
+                        @else
+                        {{$late_submission->course->name}}
+                        @endif
+                    </h5>
 
-                  @if ( $late_submission->semester_or_course == "semester" )
-                  <p class="card-text text-white">{{$late_submission->semester->research->description}}</p>
+                    @if ( $late_submission->semester_or_course == "semester" )
+                        @if( $late_submission->semester->research )
+                        <p class="card-text text-white">{{$late_submission->semester->research->description}}</p>
+                        @endif
+
                     @endif
 
                     @if ( $late_submission->semester_or_course == "semester" )

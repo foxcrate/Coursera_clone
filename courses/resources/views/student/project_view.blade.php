@@ -22,12 +22,22 @@
     <h2 id="titly" class="my-c-title"> </h2>
     <div class="row d-flex d-flex justify-content-center">
         <div class="col-lg-6 video-intro mb-2">
+            {{-- @if() --}}
+                {{-- <iframe width="420" height="345" src="">
+                </iframe> --}}
+            {{-- @else --}}
                 <video id="video" width="100%" height="100%" controls>
                     <source id="lesson_video" src="" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-            </div>
+            {{-- @endif --}}
+
+        </div>
     </div>
+
+    @if($course->material != null)
+    <a  href="{{ asset($course->material) }}" target="_blank" class="btn btn-primary mb-1" >Download Course Material </a>
+    @endif
 
 
     <div class="row">
@@ -43,7 +53,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                    <h5 class="card-title">Current Course</h5>
+                    <h5 class="card-title">Current Course: {{$course->name}}</h5>
 
                     <div class="list-group mb-3">
                         <a  class="list-group-item list-group-item-action active lesson-head" aria-current="true">
@@ -51,8 +61,10 @@
                         </a>
                         @foreach( $course->lessons as $lesson)
                             <div >
-                                <button onclick = "display_video( '{{$lesson->video}}' )" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i> {{$lesson->name}} <div  > {{$lesson->description}}  </div> </button>
-                                <a href="{{ $lesson->youtube_link }}" target="_blank" class="btn btn-danger">Youtube</a>
+                                <button onclick = "display_video( '{{$lesson->video}}','{{$lesson->youtube_link}}' )" class="list-group-item list-group-item-action"><i class="far fa-play-circle"></i> {{$lesson->name}} <div  > {{$lesson->description}}  </div> </button>
+                                @if( $lesson->youtube_link != null)
+                                    <a href="{{ $lesson->youtube_link }}" target="_blank" class="btn btn-danger">Youtube</a>
+                                @endif
                                 <button data-bs-toggle="modal" data-bs-target="#quizModal"  class="btn btn-success" onclick = "take_quiz( '{{$lesson->id}}' )" >
                                     Take Quiz
                                 </button>
@@ -87,7 +99,7 @@
 
                   {{-- <p for='option-11' id="first_answer_p" style=' padding: 5px; font-size: 2.5rem;'>6/24</p>
                     <input onclick="marking(this)" type='checkbox' name='option' value='1' id='1' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' /> --}}
-                    <a href="#" onclick="marking(this)" id="first_answer_p" style='margin-left: 20px; margin-right: 20px; font-size: 1.5rem;' name='1' ></a>
+                    <a href="#" onclick="marking(this)" id="first_answer_p" style='margin-left: 20px; margin-right: 20px; font-size: 1.5rem; color:black;' name='1' ></a>
 
                   {{-- <span id='result-11'></span> --}}
 
@@ -97,7 +109,7 @@
 
                   {{-- <p id="second_answer_p" for='option-12' style=' padding: 5px; font-size: 2.5rem;'>6</p> --}}
                     {{-- <input  onclick="marking(this)" type='checkbox' name='option' value='2' id='2' style='transform: scale(1.6); margin-right: 10px; vertical-align: middle; margin-top: -2px;' /> --}}
-                    <a href="#" id="second_answer_p" style='margin-left: 20px; margin-right: 20px; font-size: 1.5rem;' onclick="marking(this)" name='2'></a>
+                    <a href="#" id="second_answer_p" style='margin-left: 20px; margin-right: 20px; font-size: 1.5rem; color:black;' onclick="marking(this)" name='2'></a>
 
                   {{-- <span id='result-12'></span> --}}
 
@@ -122,8 +134,15 @@
 
     var correct_answer = 0;
 
-    function display_video(video_url){
-        //alert(video_url);
+    function display_video(video_url,youtube_link){
+        // alert(video_url, youtube_link);
+
+        // if(youtube_link == null){
+        //     alert("Null");
+        // }elseif(youtube_link != null){
+        //     alert("Not Null");
+        // }
+
         $("#lesson_video").attr("src", 'http://localhost:8000/' + video_url );
 
         var video = document.getElementById('video');
@@ -133,11 +152,6 @@
         video.load();
         video.play();
 
-        // setTimeout(function() {
-
-        //     video.load();
-        //     video.play();
-        // }, 3000);
 
     }
 
@@ -161,6 +175,9 @@
 
     function take_quiz(lesson_id){
         //alert(lesson_id);
+        document.getElementById('result-12').innerHTML = '';
+        document.getElementById('first_answer_p').style.color = 'black';
+        document.getElementById('second_answer_p').style.color = 'black';
 
         var formData = {
 			lesson_id:lesson_id,

@@ -46,10 +46,11 @@ class StudentController extends Controller
             return redirect()->route('dashboard');
         }
         $all_students = Student::orderBy('id','desc')->paginate(10);
+        $all_cycles = Cycle::all();
         //$all_lessons = "Alo";
 
         //return $all_lessons;
-        return view('admin.students.index')->with('students',$all_students) ;
+        return view('admin.students.index')->with([ 'students'=>$all_students , 'all_cycles'=>$all_cycles ]) ;
     }
 
     public function add(Request $request){
@@ -71,11 +72,17 @@ class StudentController extends Controller
             'passport'=>$request->passport,
             'job'=>$request->job,
             'general_note'=>$request->general_note,
-            'payment_note'=>$request->payment_note,
+            //'payment_note'=>$request->payment_note,
             // 'due_date'=>$request->due_date,
-            'money_paid'=>$request->money_paid,
-            'money_to_pay'=>$request->money_to_pay,
+            // 'money_paid'=>$request->money_paid,
+            // 'money_to_pay'=>$request->money_to_pay,
         ]);
+
+        if($request->cycle_id != null){
+            $c1 = Cycle::find($request->cycle_id);
+            $c1->all_students()->attach($new_student->id);
+            $new_student->make_assignments($request->cycle_id);
+        }
 
         return redirect()->back();
 
@@ -102,12 +109,14 @@ class StudentController extends Controller
         $my_student->job = $request->job;
         $my_student->country = $request->country;
         $my_student->general_note = $request->general_note;
-        $my_student->payment_note = $request->payment_note;
-        $my_student->money_paid = $request->money_paid;
-        $my_student->money_to_pay = $request->money_to_pay;
+        // $my_student->payment_note = $request->payment_note;
+        // $my_student->money_paid = $request->money_paid;
+        // $my_student->money_to_pay = $request->money_to_pay;
+
         if($request->cycle_id != null){
             $c1 = Cycle::find($request->cycle_id);
             $c1->all_students()->attach($my_student->id);
+            $my_student->make_assignments($request->cycle_id);
         }
 
         $my_student->save();
@@ -143,6 +152,17 @@ class StudentController extends Controller
         ];
 
         return $array[0];
+
+    }
+
+    public function details($id){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
+
+        $student = Student::find($id);
+
+        return view('admin.students.details')->with('student',$student);
 
     }
 
@@ -229,12 +249,14 @@ class StudentController extends Controller
 
         //return [$cycle_id,$student_id,$project_id];
         $requests_to_projects = RequestToProject::where( 'project_id' , $project_id )->where('student_id',$student_id)->get();
+        $late_submissions_courses = [];
+        $late_submissions_semesters = [];
         //return $requests_to_projects;
         $the_project = Project::find($project_id);
         $ids_array=[];
         if(count($requests_to_projects) > 0){
             //return "You have Already Requested this project";
-            return view('student.project_details')->with( ['project'=>$the_project,'already_requested'=>1,'ids_array'=>$ids_array,'cycle_id'=>0] );
+            return view('student.project_details')->with( ['project'=>$the_project,'already_requested'=>1,'ids_array'=>$ids_array,'cycle_id'=>0 ,'late_submissions_courses'=>$late_submissions_courses, 'late_submissions_semesters'=> $late_submissions_semesters ] );
         }
         if($student_id != 0){
             $the_student = Student::find($student_id);
@@ -242,7 +264,7 @@ class StudentController extends Controller
         }
         //return $ids_array ;
         //return $ids_array;
-        return view('student.project_details')->with(['project'=>$the_project, 'ids_array'=>$ids_array,'already_requested'=>0,'cycle_id'=>0]);
+        return view('student.project_details')->with(['project'=>$the_project, 'ids_array'=>$ids_array,'already_requested'=>0,'cycle_id'=>0 ,'late_submissions_courses'=>$late_submissions_courses , 'late_submissions_semesters'=> $late_submissions_semesters]);
 
     }
 
@@ -250,6 +272,7 @@ class StudentController extends Controller
         //return [$cycle_id,$student_id,$project_id];
         $student = Student::find($student_id);
         $late_submissions_courses = $student->get_late_submissions_courses();
+        $late_submissions_semesters = $student->get_late_submissions_semesters();
         //return $late_submissions_courses ;
 
         $requests_to_projects = RequestToProject::where( 'project_id' , $project_id )->where('student_id',$student_id)->get();
@@ -267,7 +290,7 @@ class StudentController extends Controller
             $ids_array = $the_student->all_cycles_array();
         }
 
-        return view('student.project_details')->with(['project'=>$the_project, 'ids_array'=>$ids_array,'already_requested'=>0,'cycle_id'=>$cycle_id , 'late_submissions_courses'=>$late_submissions_courses ]);
+        return view('student.project_details')->with(['project'=>$the_project, 'ids_array'=>$ids_array,'already_requested'=>0,'cycle_id'=>$cycle_id , 'late_submissions_courses'=>$late_submissions_courses , 'late_submissions_semesters'=>$late_submissions_semesters ]);
 
     }
 
@@ -373,10 +396,28 @@ class StudentController extends Controller
     public function late_submissions(){
         $now = Carbon::now();
         $late_submissions = Assignment::where('submitted',0)->where('student_id',Auth::user()->id)->where('start_date', '<=', $now)->where('end_date', '>=', $now)->orderBy('created_at','desc')->get();
+        //return $late_submissions ;
 
 
         return view('student.late_submissions')->with([ 'late_submissions'=>$late_submissions , 'now'=>$now ]);
 
+    }
+
+    public function late_exams(){
+        $now = Carbon::now();
+        $late_submissions = Assignment::where('submitted',0)->where('student_id',Auth::user()->id)->where('semester_or_course','course')->where('start_date', '<=', $now)->where('end_date', '>=', $now)->orderBy('created_at','desc')->get();
+        //return $late_submissions ;
+
+
+        return view('student.late_submissions')->with([ 'late_submissions'=>$late_submissions , 'now'=>$now ]);
+    }
+    public function late_researches(){
+        $now = Carbon::now();
+        $late_submissions = Assignment::where('submitted',0)->where('student_id',Auth::user()->id)->where('semester_or_course','semester')->where('start_date', '<=', $now)->where('end_date', '>=', $now)->orderBy('created_at','desc')->get();
+        //return $late_submissions ;
+
+
+        return view('student.late_submissions')->with([ 'late_submissions'=>$late_submissions , 'now'=>$now ]);
     }
 
     public function late_submissions_submit(Request $request){

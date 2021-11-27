@@ -97,6 +97,11 @@ Route::group(['middleware' => 'auth:student'], function () {
     Route::post('/pay_cycle', [CyclePaymentController::class,'pay_cycle'])->name('pay_cycle');
     Route::get('/profile_project_details/{cycle_id}/{student_id}/{project_id}', [StudentController::class,'profile_project_details'])->name('profile_project_details');
     Route::get('/late_submissions', [StudentController::class,'late_submissions'])->name('late_submissions');
+
+
+    Route::get('/late_exams', [StudentController::class,'late_exams'])->name('late_exams');
+    Route::get('/late_researches', [StudentController::class,'late_researches'])->name('late_researches');
+
     Route::post('/late_submissions_submit', [StudentController::class,'late_submissions_submit'])->name('late_submissions_submit');
     Route::get('/take_course_exam/{course_id}', [StudentController::class,'take_course_exam'])->name('take_course_exam');
     Route::post('/submit_course_exam', [StudentController::class,'submit_course_exam'])->name('submit_course_exam');
@@ -153,6 +158,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/delete', [CourseController::class,'delete'])->name('delete');
         Route::post('/mass_edit', [CourseController::class,'mass_edit'])->name('mass_edit');
         Route::get('/details/{id}', [CourseController::class,'details'])->name('details');
+        Route::get('/data_to_edit', [CourseController::class,'data_to_edit'])->name('data_to_edit');
     });
 
     Route::group(['prefix'=>'lessons','as'=>'lessons.'], function(){
@@ -180,6 +186,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('/add', [StudentController::class,'add'])->name('add');
         Route::post('/edit', [StudentController::class,'edit'])->name('edit');
         Route::post('/delete', [StudentController::class,'delete'])->name('delete');
+        Route::get('/details/{id}', [StudentController::class,'details'])->name('details');
         Route::get('/data_to_edit', [StudentController::class,'data_to_edit'])->name('data_to_edit');
 
     });

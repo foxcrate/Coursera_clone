@@ -12,7 +12,7 @@
 
                 <!-- <a href="{{ route('my_payments') }}" class="list-group-item list-group-item-action"><i class="fab fa-cc-visa"></i> My Payments</a> -->
                 <a href="{{ route('my_accepted_requests') }}" class="list-group-item list-group-item-action"><i class="fab fa-cc-visa"></i> Accepted Payments</a>
-                @if ( Auth::user()->count_late_submissions() > 0 )
+                {{-- @if ( Auth::user()->count_late_submissions() > 0 )
 
                 <a href="{{ route('late_submissions') }}" class="list-group-item list-group-item-action"><i class="fas fa-exclamation-circle"></i> Late Submissions
                     <span class="fa-stack">
@@ -21,6 +21,34 @@
                         <!-- a strong element with the custom content, in this case a number -->
                         <strong class="fa-stack-1x">
                             {{ Auth::user()->count_late_submissions() }}
+                        </strong>
+                    </span>
+                </a>
+                @endif --}}
+
+                @if ( Auth::user()->count_late_exams() > 0 )
+
+                <a href="{{ route('late_exams') }}" class="list-group-item list-group-item-action"><i class="fas fa-exclamation-circle"></i> Take Exams
+                    <span class="fa-stack">
+                        <!-- The icon that will wrap the number -->
+                        <span class="fa fa-circle-o fa-stack-2x"></span>
+                        <!-- a strong element with the custom content, in this case a number -->
+                        <strong class="fa-stack-1x">
+                            {{ Auth::user()->count_late_exams() }}
+                        </strong>
+                    </span>
+                </a>
+                @endif
+
+                @if ( Auth::user()->count_late_researches() > 0 )
+
+                <a href="{{ route('late_researches') }}" class="list-group-item list-group-item-action"><i class="fas fa-exclamation-circle"></i> Upload Researches
+                    <span class="fa-stack">
+                        <!-- The icon that will wrap the number -->
+                        <span class="fa fa-circle-o fa-stack-2x"></span>
+                        <!-- a strong element with the custom content, in this case a number -->
+                        <strong class="fa-stack-1x">
+                            {{ Auth::user()->count_late_researches() }}
                         </strong>
                     </span>
                 </a>

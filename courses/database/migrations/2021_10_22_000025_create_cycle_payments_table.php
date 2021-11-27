@@ -17,13 +17,13 @@ class CreateCyclePaymentsTable extends Migration
             $table->id();
 
             $table->date('due_date')->nullable();
-            $table->integer('amount_paid')->nullable();
-            $table->integer('amount_left')->nullable();
+            $table->integer('amount_paid')->default(0);
+            $table->integer('amount_left')->default(0);
             $table->text('note')->nullable();
-            $table->enum('status', array('accepted', 'refused','pending')); 
+            $table->enum('status', array('accepted', 'refused','pending'));
             $table->string('file');
 
-            
+
             $table->unsignedBigInteger('student_id')->nullable();
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
 

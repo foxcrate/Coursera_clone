@@ -30,8 +30,22 @@ class CourseController extends Controller
         }
         //return $request;
 
+        $the_material = null;
+
+        if($request->has('material')){
+
+            $material = $request->material;
+            $code = rand(1111111, 9999999);
+            $material_new_name=time().$code ."pp";
+            $material->move('uploads/courses/', $material_new_name);
+            $the_material ='uploads/courses/' . $material_new_name;
+
+        }
+
         $new_course = Course::create([
             'name'=>$request->name,
+            'material'=> $the_material,
+            'description'=>$request->description,
         ]);
 
         return redirect()->back();
@@ -39,14 +53,29 @@ class CourseController extends Controller
     }
 
     public function edit(Request $request){
+        //return $request;
         if(Auth::user()->level != 0 ){
             return redirect()->route('dashboard');
         }
+
+        $my_course = Course::find($request->id);
+        $the_material = null;
+        if($request->has('material')){
+
+            $material = $request->material;
+            $code = rand(1111111, 9999999);
+            $material_new_name=time().$code ."pp";
+            $material->move('uploads/courses/', $material_new_name);
+            $my_course->material ='uploads/courses/' . $material_new_name;
+
+        }
+
         //return $request;
         //echo $request;
-        $my_course = Course::find($request->id);
+        //$my_course = Course::find($request->id);
         //return $request->name;
         $my_course->name = $request->name;
+        $my_course->description = $request->description;
 
         if($request->has('teachers_array')){
             //return $request->semesters_array;
@@ -126,6 +155,14 @@ class CourseController extends Controller
         //return $c;
 
         return true;
+    }
+
+    public function data_to_edit(Request $req){
+        if(Auth::user()->level != 0 ){
+            return redirect()->route('dashboard');
+        }
+        $course = Course::find($req->id);
+        return $course;
     }
 
 }

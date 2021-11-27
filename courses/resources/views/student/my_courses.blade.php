@@ -33,7 +33,7 @@
                     @endif
                     </a>
                 <div class="card-body">
-                    <h5 class="card-title"><i class="fas fa-wine-bottle icon-s"></i>{{  $x['cycle']['name'] }}</h5>
+                    <a href="{{ route('profile_project_details', [ 'cycle_id' => $x['cycle']['id'] , 'student_id' => session()->get('loggedID') , 'project_id' => $x['cycle']['project']['id'] ] ) }}" style="text-decoration: none; color:black;" class="card-title h4"><i class="fas fa-wine-bottle icon-s"></i>{{  $x['cycle']['name'] }}</a>
                     <p class="card-text">{{  $x['cycle']['project']['summery']  }}</p>
                     <p class="icon-les"><i class="fa fa-calendar"></i><span class="les-spa"> {{ $x['num_of_semesters'] }} </span> semesters</p>
                     <p class="icon-les"><i class="fa fa-book"></i><span class="les-spa"> {{ $x['num_of_courses'] }} </span> courses</p>
